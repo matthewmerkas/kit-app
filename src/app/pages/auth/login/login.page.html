@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="auth"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ signup ? 'Sign Up' : 'Login' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scroll-y="false">
+  <div class="container">
+    <div class="card" [formGroup]="signup ? signupForm : loginForm">
+      <ion-item>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input formControlName="username"></ion-input>
+        <small class="flex" *ngIf="signup">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>This is what you login with</span>
+        </small>
+      </ion-item>
+      <ion-item *ngIf="signup">
+        <ion-label position="floating">Display Name</ion-label>
+        <ion-input formControlName="displayName"></ion-input>
+        <small class="flex">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>This is what other people see</span>
+        </small>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input
+          formControlName="password"
+          [type]="showPassword ? 'text' : 'password'"
+        >
+        </ion-input>
+        <ion-button
+          class="show-hide-button"
+          (click)="showPassword = !showPassword"
+          color="dark"
+          fill="clear"
+          slot="end"
+        >
+          <ion-icon
+            [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
+          ></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-item *ngIf="signup">
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input
+          formControlName="passwordConfirm"
+          [type]="showConfirmPassword ? 'text' : 'password'"
+        >
+        </ion-input>
+        <ion-button
+          class="show-hide-button"
+          (click)="showConfirmPassword = !showConfirmPassword"
+          color="dark"
+          fill="clear"
+          slot="end"
+        >
+          <ion-icon
+            [name]="showConfirmPassword ? 'eye-outline' : 'eye-off-outline'"
+          ></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+    <div class="buttons flex">
+      <ion-button
+        class="submit-button"
+        [disabled]="signup ? signupForm.invalid : loginForm.invalid"
+        size="large"
+      >
+        {{ signup ? 'Sign Up' : 'Login' }}
+      </ion-button>
+      <div class="flex">
+        <span>{{ signup ? 'Already' : "Don't" }} have an account?</span>
+        <ion-button
+          class="login-button"
+          (click)="signup = !signup"
+          fill="clear"
+        >
+          {{ signup ? 'Login' : 'Sign Up' }}
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

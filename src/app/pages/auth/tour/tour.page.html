@@ -1,0 +1,31 @@
+<ion-content>
+  <swiper
+    [history]="true"
+    [pagination]="{ clickable: true }"
+    preventInteractionOnTransition="true"
+  >
+    <ng-template swiperSlide> Slide 1 </ng-template>
+    <ng-template swiperSlide> Slide 2 </ng-template>
+    <ng-template swiperSlide>
+      <div class="buttons flex">
+        <ion-button
+          class="sign-up-button"
+          [queryParams]="{ signup: 'true' }"
+          [routerLink]="'/auth/login'"
+          size="large"
+        >
+          Sign Up
+        </ion-button>
+        <div class="flex">
+          <span>Already have an account?</span>
+          <ion-button
+            class="login-button"
+            fill="clear"
+            [routerLink]="'/auth/login'"
+            >Login</ion-button
+          >
+        </div>
+      </div>
+    </ng-template>
+  </swiper>
+</ion-content>

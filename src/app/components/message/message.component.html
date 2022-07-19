@@ -1,6 +1,6 @@
 <ion-item
   *ngIf="message"
-  [routerLink]="'/message/' + message.id"
+  [routerLink]="'/home/message/' + message.id"
   [detail]="false"
 >
   <div slot="start" [class]="!message.read ? 'dot dot-unread' : 'dot'"></div>

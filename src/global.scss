@@ -24,3 +24,24 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+/* Swiper.js */
+@import '~swiper/scss';
+@import '~swiper/scss/pagination';
+@import '~@ionic/angular/css/ionic-swiper';
+
+:root {
+  --custom-radius: 12px;
+}
+
+.button-solid,
+.button-clear {
+  --border-radius: var(--custom-radius);
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
