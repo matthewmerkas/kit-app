@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { FormBuilder, Validators } from '@angular/forms'
 import { passwordMatchValidator } from '../../../functions/form-helpers'
 
@@ -27,9 +27,18 @@ export class LoginPage implements OnInit {
     { validators: passwordMatchValidator }
   )
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
+  }
+
+  toggleSignup = () => {
+    this.signup = !this.signup
+    this.router.navigate([], { queryParams: { signup: this.signup } })
   }
 }

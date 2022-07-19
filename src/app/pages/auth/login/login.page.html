@@ -75,11 +75,7 @@
       </ion-button>
       <div class="flex">
         <span>{{ signup ? 'Already' : "Don't" }} have an account?</span>
-        <ion-button
-          class="login-button"
-          (click)="signup = !signup"
-          fill="clear"
-        >
+        <ion-button class="login-button" (click)="toggleSignup()" fill="clear">
           {{ signup ? 'Login' : 'Sign Up' }}
         </ion-button>
       </div>

@@ -1,8 +1,21 @@
 <ion-content>
+  <ion-button
+    class="skip-button"
+    [class.hidden]="hideSkip"
+    (click)="skip()"
+    color="dark"
+    fill="clear"
+  >
+    Skip
+    <ion-icon name="chevron-forward"></ion-icon>
+  </ion-button>
   <swiper
+    #swiper
+    [cssMode]="true"
     [history]="true"
     [pagination]="{ clickable: true }"
-    preventInteractionOnTransition="true"
+    [preventInteractionOnTransition]="true"
+    (slideChange)="onSlideChange()"
   >
     <ng-template swiperSlide> Slide 1 </ng-template>
     <ng-template swiperSlide> Slide 2 </ng-template>
@@ -10,7 +23,7 @@
       <div class="buttons flex">
         <ion-button
           class="sign-up-button"
-          [queryParams]="{ signup: 'true' }"
+          [queryParams]="{ signup: true }"
           [routerLink]="'/auth/login'"
           size="large"
         >

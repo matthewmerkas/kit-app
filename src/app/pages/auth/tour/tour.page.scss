@@ -2,6 +2,18 @@
   flex-direction: column;
 }
 
+.hidden {
+  opacity: 0;
+}
+
+.skip-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  transition: opacity 250ms;
+  z-index: 2;
+}
+
 .sign-up-button {
   width: 100%;
 }
