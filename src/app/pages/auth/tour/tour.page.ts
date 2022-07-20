@@ -1,15 +1,17 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core'
 import SwiperCore, { Pagination } from 'swiper'
 import { SwiperComponent } from 'swiper/angular'
+import { animations } from '../../../functions/animations'
 
 @Component({
   selector: 'app-tour',
   templateUrl: './tour.page.html',
   styleUrls: ['./tour.page.scss'],
+  animations: animations(),
 })
 export class TourPage implements OnInit {
   @ViewChild('swiper', { static: false }) swiper: SwiperComponent
-  hideSkip = false
+  showSkip = true
 
   constructor(private changeDetectionRef: ChangeDetectorRef) {}
 
@@ -18,7 +20,8 @@ export class TourPage implements OnInit {
   }
 
   onSlideChange = () => {
-    this.hideSkip = this.swiper.swiperRef.realIndex >= 2
+    this.showSkip =
+      this.swiper.swiperRef.realIndex < this.swiper.swiperRef.slides.length - 1
     this.changeDetectionRef.detectChanges()
   }
 

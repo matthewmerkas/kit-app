@@ -7,15 +7,23 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content scroll-y="false">
+<ion-content>
   <div class="container">
-    <div class="card" [formGroup]="signup ? signupForm : loginForm">
+    <div
+      class="card"
+      [formGroup]="signup ? signupForm : loginForm"
+      (keyup.enter)="submit()"
+    >
       <ion-item>
         <ion-label position="floating">Username</ion-label>
         <ion-input formControlName="username"></ion-input>
         <small class="flex" *ngIf="signup">
           <ion-icon name="information-circle-outline"></ion-icon>
           <span>This is what you login with</span>
+        </small>
+        <small class="flex error-hint">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span>Required</span>
         </small>
       </ion-item>
       <ion-item *ngIf="signup">
@@ -24,6 +32,10 @@
         <small class="flex">
           <ion-icon name="information-circle-outline"></ion-icon>
           <span>This is what other people see</span>
+        </small>
+        <small class="flex error-hint">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span>Required</span>
         </small>
       </ion-item>
       <ion-item>
@@ -44,6 +56,10 @@
             [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
           ></ion-icon>
         </ion-button>
+        <small class="error-hint flex">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span>Minimum 8 characters</span>
+        </small>
       </ion-item>
       <ion-item *ngIf="signup">
         <ion-label position="floating">Confirm Password</ion-label>
@@ -63,18 +79,23 @@
             [name]="showConfirmPassword ? 'eye-outline' : 'eye-off-outline'"
           ></ion-icon>
         </ion-button>
+        <small class="error-hint flex">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span>Passwords must match</span>
+        </small>
       </ion-item>
     </div>
     <div class="buttons flex">
       <ion-button
         class="submit-button"
+        (click)="submit()"
         [disabled]="signup ? signupForm.invalid : loginForm.invalid"
         size="large"
       >
         {{ signup ? 'Sign Up' : 'Login' }}
       </ion-button>
       <div class="flex">
-        <span>{{ signup ? 'Already' : "Don't" }} have an account?</span>
+        <p>{{ signup ? 'Already' : "Don't" }} have an account?</p>
         <ion-button class="login-button" (click)="toggleSignup()" fill="clear">
           {{ signup ? 'Login' : 'Sign Up' }}
         </ion-button>

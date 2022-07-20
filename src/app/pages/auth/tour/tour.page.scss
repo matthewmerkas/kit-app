@@ -10,7 +10,7 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  transition: opacity 250ms;
+  transition: opacity var(--delay);
   z-index: 2;
 }
 

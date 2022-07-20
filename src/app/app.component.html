@@ -1,3 +1,9 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+  <ion-spinner
+    [@fade]=""
+    class="centred spinner"
+    [name]="platform.is('ios') ? 'lines' : 'crescent'"
+    *ngIf="store.ui.loading"
+  ></ion-spinner>
 </ion-app>
