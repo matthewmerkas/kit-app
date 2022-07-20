@@ -1,0 +1,35 @@
+ion-item {
+  --background: transparent;
+  --padding-end: var(--padding-start);
+}
+ion-list {
+  background: transparent;
+}
+
+.new-message-modal {
+  ion-icon {
+    &.ios {
+      height: 44px;
+      width: 44px;
+      margin-left: -4px;
+      margin-right: 16px;
+    }
+    &.md {
+      height: 48px;
+      width: 48px;
+      margin-left: -4px;
+      margin-right: 12px;
+    }
+  }
+  ion-searchbar {
+    &.md {
+      --border-radius: calc(var(--custom-radius) * .5);
+    }
+
+    --background: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.07);
+    --box-shadow: none;
+    padding-top: 16px;
+    height: 64px;
+  }
+  --background: var(--ion-card-background);
+}

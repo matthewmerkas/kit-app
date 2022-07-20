@@ -1,8 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Inbox </ion-title>
+    <ion-title> {{ store.info.object.name }} </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="logout()">Logout</ion-button>
+      <ion-button (click)="logout()">
+        <ng-container *ngIf="platform.is('ios'); else md">
+          <ion-icon name="log-out-outline"></ion-icon>
+        </ng-container>
+        <ng-template #md> Logout </ng-template>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -20,8 +25,41 @@
 
   <ion-list>
     <app-message
-      *ngFor="let message of getMessages()"
+      *ngFor="let message of store.message.array"
       [message]="message"
     ></app-message>
   </ion-list>
+
+  <ion-fab horizontal="end" slot="fixed" vertical="bottom">
+    <ion-fab-button id="new-message">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-modal
+    #modal
+    [breakpoints]="[0, 0.5, 0.9]"
+    [initialBreakpoint]="0.5"
+    trigger="new-message"
+    (willPresent)="onWillPresent()"
+  >
+    <ng-template>
+      <ion-content class="new-message-modal">
+        <ion-searchbar
+          [formControl]="searchForm"
+          (ionFocus)="modal.setCurrentBreakpoint(0.9)"
+          placeholder="Search people"
+        ></ion-searchbar>
+        <ion-list>
+          <ion-item *ngFor="let user of store.user.array">
+            <ion-icon name="person-circle" slot="start"></ion-icon>
+            <ion-label>
+              <h2>{{ user.displayName }}</h2>
+              <p>@{{ user.username }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

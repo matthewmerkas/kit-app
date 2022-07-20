@@ -37,4 +37,14 @@ export class UserStore extends BaseStore {
       })
     )
   }
+
+  @action
+  signup(data: any): Observable<any> {
+    return this.http.post<any>(this.url + apiConfig.user.signup, data).pipe(
+      map((res) => {
+        console.log(res)
+        return res
+      })
+    )
+  }
 }

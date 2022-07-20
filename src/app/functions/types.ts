@@ -13,15 +13,17 @@ export interface JwtErrorResponse extends HttpErrorResponse {
   code: string
 }
 
-export interface Login {
-  username: string
-  password: string
-}
-
-export interface Password {
-  username: string
-  displayName: string
-  password: string
+export interface Message {
+  _id: string
+  userId: string
+  recipientId: string
+  senderId: string
+  audioUrl: string
+  progress: number
+  text: string
+  createdAt: Date
+  updatedAt: Date
+  isDeleted: boolean
 }
 
 export interface SoftDeletes {

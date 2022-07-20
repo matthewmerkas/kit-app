@@ -79,7 +79,7 @@
             [name]="showConfirmPassword ? 'eye-outline' : 'eye-off-outline'"
           ></ion-icon>
         </ion-button>
-        <small class="error-hint flex">
+        <small class="error-hint flex" *ngIf="showMatchError()">
           <ion-icon name="alert-circle-outline"></ion-icon>
           <span>Passwords must match</span>
         </small>

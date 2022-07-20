@@ -6,5 +6,6 @@ export const apiConfig = {
     login: '/login',
     me: '/me',
     refresh: '/refresh',
+    signup: '/signup',
   },
 }

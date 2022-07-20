@@ -18,17 +18,21 @@ export class LoadingInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (this.count === 0) {
-      this.store.ui.setLoading(true)
+    if (req.url.endsWith('/api/info')) {
+      return next.handle(req)
+    } else {
+      if (this.count === 0) {
+        this.store.ui.setLoading(true)
+      }
+      this.count++
+      return next.handle(req).pipe(
+        finalize(() => {
+          this.count--
+          if (this.count === 0) {
+            this.store.ui.setLoading(false)
+          }
+        })
+      )
     }
-    this.count++
-    return next.handle(req).pipe(
-      finalize(() => {
-        this.count--
-        if (this.count === 0) {
-          this.store.ui.setLoading(false)
-        }
-      })
-    )
   }
 }

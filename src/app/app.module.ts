@@ -9,7 +9,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
-import { HttpXsrfInterceptor } from './interceptors/xsrf-interceptor'
 import { ErrorInterceptor } from './interceptors/error-interceptor'
 import { LoadingInterceptor } from './interceptors/loading-interceptor'
 import { getToken } from './functions/local-storage'
@@ -31,7 +30,6 @@ import { getHost } from './functions/api'
     AppRoutingModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpXsrfInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core'
 import SwiperCore, { Pagination } from 'swiper'
 import { SwiperComponent } from 'swiper/angular'
 import { animations } from '../../../functions/animations'
+import { Store } from '../../../stores/store'
 
 @Component({
   selector: 'app-tour',
@@ -13,7 +14,10 @@ export class TourPage implements OnInit {
   @ViewChild('swiper', { static: false }) swiper: SwiperComponent
   showSkip = true
 
-  constructor(private changeDetectionRef: ChangeDetectorRef) {}
+  constructor(
+    private changeDetectionRef: ChangeDetectorRef,
+    public store: Store
+  ) {}
 
   ngOnInit() {
     SwiperCore.use([Pagination])

@@ -39,8 +39,22 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
   }
+
+  showMatchError = () => {
+    const mismatch = this.signupForm.errors?.mismatch === true
+    if (mismatch) {
+      this.signupForm.controls.passwordConfirm.setErrors({ mismatch })
+    }
+    return mismatch
+  }
+
   submit = () => {
     if (this.signup) {
+      this.store.user.signup(this.signupForm.getRawValue()).subscribe((res) => {
+        this.loginForm.patchValue({ username: res.username })
+        this.store.ui.openToast('Account created!')
+        return this.toggleSignup()
+      })
     } else {
       this.store.user.login(this.loginForm.getRawValue()).subscribe(() => {
         return this.router.navigate(['/home'])

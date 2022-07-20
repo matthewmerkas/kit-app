@@ -1,10 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button
-        [text]="getBackButtonText()"
-        defaultHref="/"
-      ></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -16,7 +13,7 @@
       <h2>
         {{ message.fromName }}
         <span class="date">
-          <ion-note>{{ message.date }}</ion-note>
+          <ion-note>{{ message.createdAt }}</ion-note>
         </span>
       </h2>
       <h3>To: <ion-note>Me</ion-note></h3>

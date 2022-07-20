@@ -1,5 +1,10 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+  <div
+    class="centred spinner-background"
+    [@fade]=""
+    *ngIf="store.ui.loading"
+  ></div>
   <ion-spinner
     [@fade]=""
     class="centred spinner"
