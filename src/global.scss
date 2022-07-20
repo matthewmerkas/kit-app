@@ -34,9 +34,13 @@
   --custom-radius: 12px;
 }
 
+.button-large {
+  --border-radius: var(--custom-radius);
+}
+
 .button-solid,
 .button-clear {
-  --border-radius: var(--custom-radius);
+  --border-radius: calc(var(--custom-radius) * .5) !important;
 }
 
 .centred {
