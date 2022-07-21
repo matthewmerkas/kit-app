@@ -16,13 +16,14 @@ export interface JwtErrorResponse extends HttpErrorResponse {
 export interface Message {
   _id: string
   userId: string
+  user: User
   recipientId: string
   senderId: string
   audioUrl: string
   progress: number
   text: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   isDeleted: boolean
 }
 

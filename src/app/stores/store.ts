@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core'
 import { observable } from 'mobx-angular'
 import { HttpClient } from '@angular/common/http'
-import { BaseStore } from './base.store'
-import { apiConfig } from '../../environments/api.config'
 import { UserStore } from './user.store'
 import { InfoStore } from './info.store'
 import UiStore from './ui.store'
 import { ToastController } from '@ionic/angular'
+import { MessageStore } from './message.store'
 
 @Injectable({
   providedIn: 'root',
 })
 export class Store {
   @observable info: InfoStore
-  @observable message: BaseStore
+  @observable message: MessageStore
   @observable ui: UiStore
   @observable user: UserStore
 
@@ -22,8 +21,8 @@ export class Store {
     private toastController: ToastController
   ) {
     this.info = new InfoStore(http)
-    this.message = new BaseStore(apiConfig.message, http)
+    this.message = new MessageStore(http)
     this.ui = new UiStore(toastController)
-    this.user = new UserStore(apiConfig.user.base, http)
+    this.user = new UserStore(http)
   }
 }

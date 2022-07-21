@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import {
+  HttpClient,
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
@@ -9,13 +10,17 @@ import {
 import { catchError } from 'rxjs/operators'
 import { Observable, throwError } from 'rxjs'
 import { Router } from '@angular/router'
-import { getToken, removeTokens } from '../functions/local-storage'
+import { getRefreshToken, removeTokens } from '../functions/local-storage'
 import { Store } from '../stores/store'
 import { JwtErrorResponse } from '../functions/types'
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private router: Router, private store: Store) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private store: Store
+  ) {}
 
   // Source: https://stackoverflow.com/a/53379715
   intercept(
@@ -35,12 +40,13 @@ export class ErrorInterceptor implements HttpInterceptor {
           )
           if (err.status === 0) {
             this.store.ui.openToast('Please check your connection')
-          } else if (err.code === 'invalid_token') {
-            this.store.user.refresh(getToken()).subscribe((res) => {
-              console.log(res)
-              // TODO: Retry request
-              console.log('RETRY REQUEST')
-            })
+          } else if (err.error.code === 'invalid_token') {
+            this.store.user
+              .refresh({ refreshToken: getRefreshToken() })
+              .subscribe(() => {
+                console.log('Retried request:', req)
+                next.handle(req)
+              })
           } else if (err.status === 401) {
             this.openToast(err)
             removeTokens()
@@ -63,6 +69,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
 
   openToast = (err: HttpErrorResponse) => {
+    this.store.ui.setLoading(false)
     if (err.error.message) {
       return this.store.ui.openToast(err.error.message)
     } else {

@@ -21,11 +21,9 @@ const routes: Routes = [
   },
   {
     canActivate: [JwtGuard],
-    path: 'home/message/:id',
+    path: 'home/user/:id',
     loadChildren: () =>
-      import('./pages/main/view-message/view-message.module').then(
-        (m) => m.ViewMessagePageModule
-      ),
+      import('./pages/main/user/user.module').then((m) => m.UserPageModule),
   },
   {
     path: '**',

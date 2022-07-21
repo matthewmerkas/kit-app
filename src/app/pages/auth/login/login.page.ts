@@ -37,6 +37,10 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loginForm.reset()
+    this.signupForm.reset()
+    this.showPassword = false
+    this.showConfirmPassword = false
     this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
   }
 
@@ -53,17 +57,20 @@ export class LoginPage implements OnInit {
       this.store.user.signup(this.signupForm.getRawValue()).subscribe((res) => {
         this.loginForm.patchValue({ username: res.username })
         this.store.ui.openToast('Account created!')
-        return this.toggleSignup()
+        this.toggleSignup()
+        this.signupForm.reset()
       })
     } else {
       this.store.user.login(this.loginForm.getRawValue()).subscribe(() => {
-        return this.router.navigate(['/home'])
+        this.router.navigate(['/home'])
       })
     }
   }
 
   toggleSignup = () => {
     this.signup = !this.signup
+    this.showPassword = false
+    this.showConfirmPassword = false
     this.router.navigate([], { queryParams: { signup: this.signup } })
   }
 }

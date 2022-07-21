@@ -1,25 +1,18 @@
 <ion-item
+  [@fade]=""
   *ngIf="message"
-  [routerLink]="'/home/message/' + message._id"
+  [routerLink]="'/home/user/' + message.user._id"
+  [class.unread]="message.progress === 0"
   [detail]="false"
 >
-  <div
-    slot="start"
-    [class]="message.progress === 0 ? 'dot dot-unread' : 'dot'"
-  ></div>
+  <ion-icon name="person-circle"></ion-icon>
   <ion-label class="ion-text-wrap">
     <h2>
-      Message From
+      {{ message.user.displayName }}
       <span class="date">
-        <ion-note>{{ message.createdAt }}</ion-note>
-        <ion-icon
-          name="chevron-forward"
-          size="small"
-          *ngIf="isIos()"
-        ></ion-icon>
+        <ion-note>{{ formatDatetime(message.createdAt) }}</ion-note>
       </span>
     </h2>
-    <h3>Message Subject</h3>
-    <p>Message Body</p>
   </ion-label>
+  <div class="dot" slot="end"></div>
 </ion-item>

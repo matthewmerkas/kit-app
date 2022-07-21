@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment'
 import { getItem, setItem } from '../functions/local-storage'
 
 export class InfoStore {
-  @observable object: any = getItem('info_object')
+  @observable object: any = getItem('info_object') ?? {}
   url = environment.apiUrl + environment.apiConfig.info
 
   constructor(protected http: HttpClient) {}

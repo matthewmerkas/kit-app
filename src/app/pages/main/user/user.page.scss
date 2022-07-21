@@ -1,0 +1,27 @@
+ion-item {
+  &.ios {
+    --padding-start: 16px;
+    left: 64px;
+  }
+  &.md {
+    --padding-start: 0;
+    left: 52px;
+  }
+  --inner-padding-end: 0;
+  --background: transparent;
+  position: absolute;
+}
+
+ion-label {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+ion-item h2 {
+  font-weight: 600;
+}
+
+ion-item ion-icon {
+  font-size: 42px;
+  margin-right: 8px;
+}

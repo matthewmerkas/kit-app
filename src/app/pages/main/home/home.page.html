@@ -25,7 +25,7 @@
 
   <ion-list>
     <app-message
-      *ngFor="let message of store.message.array"
+      *ngFor="let message of store.message.latestArray"
       [message]="message"
     ></app-message>
   </ion-list>
@@ -51,7 +51,11 @@
           placeholder="Search people"
         ></ion-searchbar>
         <ion-list>
-          <ion-item *ngFor="let user of store.user.array">
+          <ion-item
+            (click)="modal.dismiss()"
+            *ngFor="let user of users"
+            [routerLink]="'/home/user/' + user._id"
+          >
             <ion-icon name="person-circle" slot="start"></ion-icon>
             <ion-label>
               <h2>{{ user.displayName }}</h2>

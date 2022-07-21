@@ -1,20 +1,23 @@
 import { Component, OnInit, Input } from '@angular/core'
+import { formatDatetime } from 'src/app/functions/datetime'
 import { Message } from '../../functions/types'
+import { Store } from '../../stores/store'
+import { animations } from '../../functions/animations'
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss'],
+  animations: animations(),
 })
 export class MessageComponent implements OnInit {
   @Input() message: Message
 
-  constructor() {}
+  constructor(public store: Store) {}
 
   ngOnInit() {}
 
-  isIos() {
-    const win = window as any
-    return win && win.Ionic && win.Ionic.mode === 'ios'
+  formatDatetime(iso: string) {
+    return formatDatetime(iso)
   }
 }

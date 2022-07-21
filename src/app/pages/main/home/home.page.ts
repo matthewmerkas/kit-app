@@ -5,7 +5,8 @@ import { Router } from '@angular/router'
 import { Platform } from '@ionic/angular'
 import { Store } from '../../../stores/store'
 import { FormControl } from '@angular/forms'
-import { debounceTime, distinctUntilChanged } from 'rxjs'
+import { debounceTime, distinctUntilChanged, EMPTY, map } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs'
 })
 export class HomePage implements OnInit {
   searchForm = new FormControl('')
+  users = []
 
   constructor(
     public platform: Platform,
@@ -24,6 +26,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+    this.store.message.getLatest().subscribe()
     this.searchForm.valueChanges
       .pipe(debounceTime(100), distinctUntilChanged())
       .subscribe((value) => {
@@ -34,7 +37,9 @@ export class HomePage implements OnInit {
               { username: { $regex: value, $options: 'i' } },
             ]),
           })
-          .subscribe()
+          .subscribe((res) => {
+            this.users = res
+          })
       })
   }
 
@@ -44,12 +49,23 @@ export class HomePage implements OnInit {
   }
 
   onWillPresent() {
-    this.store.user.getList().subscribe()
+    this.store.user.getList().subscribe((res) => {
+      this.users = res
+    })
   }
 
   refresh(ev) {
-    setTimeout(() => {
-      ev.detail.complete()
-    }, 3000)
+    return this.store.message
+      .getLatest()
+      .pipe(
+        map(() => {
+          ev.detail.complete()
+        }),
+        catchError(() => {
+          ev.detail.complete()
+          return EMPTY
+        })
+      )
+      .subscribe()
   }
 }

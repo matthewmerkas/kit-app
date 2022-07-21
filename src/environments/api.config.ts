@@ -1,6 +1,9 @@
 export const apiConfig = {
   info: '/info',
-  message: '/message',
+  message: {
+    base: '/message',
+    latest: '/latest',
+  },
   user: {
     base: '/user',
     login: '/login',

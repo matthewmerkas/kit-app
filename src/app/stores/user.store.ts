@@ -3,9 +3,15 @@ import { action, observable } from 'mobx-angular'
 import { map, Observable } from 'rxjs'
 import { apiConfig } from '../../environments/api.config'
 import { Jwt, User } from '../functions/types'
+import { HttpClient } from '@angular/common/http'
+import { environment } from '../../environments/environment'
 
 export class UserStore extends BaseStore {
   @observable me: User = {}
+
+  constructor(http: HttpClient) {
+    super(environment.apiConfig.user.base, http)
+  }
 
   @action
   getMe(): Observable<any> {
@@ -42,7 +48,6 @@ export class UserStore extends BaseStore {
   signup(data: any): Observable<any> {
     return this.http.post<any>(this.url + apiConfig.user.signup, data).pipe(
       map((res) => {
-        console.log(res)
         return res
       })
     )
