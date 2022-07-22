@@ -2,8 +2,13 @@ ion-item {
   --background: transparent;
   --padding-end: var(--padding-start);
 }
+
 ion-list {
   background: transparent;
+}
+
+ion-popover ion-content {
+  --background: var(--ion-card-background);
 }
 
 .new-message-modal {

@@ -14,4 +14,29 @@
 
 <ion-content [fullscreen]="true">
   <div class="ion-padding">Audio messages go here</div>
+  <div class="flex record-container">
+    <span>
+      {{ getStatusMessage() }}
+    </span>
+    <ion-buttons class="round" *ngIf="status === 'recording'">
+      <ion-button fill="clear">
+        <ion-icon name="pause"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons class="round" *ngIf="status === 'recorded'">
+      <ion-button fill="clear">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon [name]="isPlaying ? 'pause' : 'play'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-fab-button
+      [class.send]="status === 'recorded'"
+      [disabled]="isDisabled()"
+      (click)="onClick()"
+    >
+      <ion-icon [name]="getIcon()"></ion-icon>
+    </ion-fab-button>
+  </div>
 </ion-content>

@@ -1,3 +1,7 @@
+ion-buttons {
+  padding-right: 4px;
+}
+
 ion-item {
   &.ios {
     --padding-start: 16px;
@@ -24,4 +28,41 @@ ion-item h2 {
 ion-item ion-icon {
   font-size: 42px;
   margin-right: 8px;
+}
+
+.record-container {
+  ion-buttons {
+    ion-button {
+      --color: var(--ion-color-contrast);
+    }
+  }
+
+  ion-fab-button {
+    &.send {
+      --background: rgb(var(--send-color));
+      --background-activated: rgb(var(--send-color));
+      --background-focused: rgb(var(--send-color));
+      --background-hover: rgb(var(--send-color));
+    }
+    --background: rgb(var(--record-color));
+    --background-activated: rgb(var(--record-color));
+    --background-focused: rgb(var(--record-color));
+    --background-hover: rgb(var(--record-color));
+    --border-radius: 28px;
+    --box-shadow: none;
+    --color: white;
+    transition: background-color 150ms;
+  }
+
+  span {
+    margin: auto auto auto 24px;
+  }
+
+  background-color: var(--ion-card-background);
+  border-radius: 28px;
+  bottom: calc(12px + var(--ion-safe-area-bottom));
+  height: 56px;
+  left: 12px;
+  position: fixed;
+  width: calc(100% - 24px);
 }

@@ -7,6 +7,8 @@ export const getRefreshToken = (): string | null =>
 export const removeTokens = (): void => {
   localStorage.removeItem('access_token')
   localStorage.removeItem('refresh_token')
+  localStorage.removeItem('latest_array')
+  localStorage.removeItem('user_array')
 }
 
 export const setItem = (key: string, value: any) => {

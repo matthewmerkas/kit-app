@@ -1,16 +1,24 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> {{ store.info.object.name }} </ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons class="round" slot="end">
+      <ion-button id="user-trigger">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
       <ion-button (click)="logout()">
-        <ng-container *ngIf="platform.is('ios'); else md">
-          <ion-icon name="log-out-outline"></ion-icon>
-        </ng-container>
-        <ng-template #md> Logout </ng-template>
+        <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-popover trigger="user-trigger">
+  <ng-template>
+    <ion-content class="ion-padding">
+      {{ store.user.me.displayName }}
+    </ion-content>
+  </ng-template>
+</ion-popover>
 
 <ion-content [fullscreen]="true">
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">

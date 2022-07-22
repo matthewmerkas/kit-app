@@ -5,11 +5,14 @@ import { environment } from '../../environments/environment'
 import { getItem, setItem } from '../functions/local-storage'
 
 export class BaseStore {
-  @observable array: any[] = getItem(this.path + '_array') ?? []
+  @observable array: any[]
+  key: string
   url = environment.apiUrl
 
   constructor(public path: string, public http: HttpClient) {
     this.url += path
+    this.key = path.replace('/', '') + '_array'
+    this.array = getItem(this.key) ?? []
   }
 
   @action
@@ -34,7 +37,7 @@ export class BaseStore {
     return this.http.get<any>(this.url + '?' + queryParams).pipe(
       map((data: any[]) => {
         if (!filter) {
-          setItem(this.path + '_array', data)
+          setItem(this.key, data)
           this.array = data
         }
         return data

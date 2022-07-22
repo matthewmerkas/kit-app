@@ -5,18 +5,21 @@ import { apiConfig } from '../../environments/api.config'
 import { Jwt, User } from '../functions/types'
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../environments/environment'
+import { getItem, setItem } from '../functions/local-storage'
 
 export class UserStore extends BaseStore {
   @observable me: User = {}
 
   constructor(http: HttpClient) {
     super(environment.apiConfig.user.base, http)
+    this.me = getItem('me') ?? {}
   }
 
   @action
   getMe(): Observable<any> {
     return this.http.get<any>(this.url + apiConfig.user.me).pipe(
       map((data: User) => {
+        setItem('me', data)
         this.me = data
         return data
       })
