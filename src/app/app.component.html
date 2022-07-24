@@ -2,11 +2,11 @@
   <ion-router-outlet></ion-router-outlet>
   <div
     class="centred spinner-background"
-    [@fade]=""
+    [@fade-150ms-1s]=""
     *ngIf="store.ui.loading"
   ></div>
   <ion-spinner
-    [@fade]=""
+    [@fade-150ms-1s]=""
     class="centred spinner"
     [name]="platform.is('ios') ? 'lines' : 'crescent'"
     *ngIf="store.ui.loading"

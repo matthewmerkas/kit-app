@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-item [@fadeIn]="" lines="none" *ngIf="user" slot="end">
+    <ion-item [@fadeIn-150ms-0ms]="" lines="none" *ngIf="user" slot="end">
       <ion-icon name="person-circle" color="primary"></ion-icon>
       <ion-label class="ion-text-wrap">
         <h2>{{ user?.displayName }}</h2>
@@ -18,16 +18,25 @@
     <span>
       {{ getStatusMessage() }}
     </span>
-    <ion-buttons class="round" *ngIf="status === 'recording'">
+    <ion-buttons
+      class="round"
+      [@fadeIn-150ms-1s]=""
+      *ngIf="status === 'recording'"
+    >
       <ion-button
         (click)="isRecording ? pauseRecording() : resumeRecording()"
+        [disabled]="isDisabled()"
         fill="clear"
       >
-        <ion-icon [@fade]="" [name]="isRecording ? 'pause' : 'play'"></ion-icon>
+        <ion-icon [name]="isRecording ? 'pause' : 'play'"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons class="round" *ngIf="status === 'recorded'">
-      <ion-button fill="clear">
+    <ion-buttons
+      class="round"
+      [@fadeOut-150ms-0ms]=""
+      *ngIf="status === 'recorded'"
+    >
+      <ion-button (click)="deleteRecording()" [@fade-150ms-0ms]="" fill="clear">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
       <ion-button fill="clear">

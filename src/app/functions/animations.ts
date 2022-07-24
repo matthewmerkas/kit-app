@@ -8,7 +8,7 @@ import {
 } from '@angular/animations'
 
 export const animations = (duration = '150ms', delay = '0ms'): any[] => [
-  trigger('fade', [
+  trigger(`fade-${duration}-${delay}`, [
     transition(
       ':enter',
       sequence([
@@ -25,7 +25,7 @@ export const animations = (duration = '150ms', delay = '0ms'): any[] => [
       )
     ),
   ]),
-  trigger('fadeIn', [
+  trigger(`fadeIn-${duration}-${delay}`, [
     transition(
       ':enter',
       sequence([
@@ -35,7 +35,7 @@ export const animations = (duration = '150ms', delay = '0ms'): any[] => [
       ])
     ),
   ]),
-  trigger('fadeOut', [
+  trigger(`fadeOut-${duration}-${delay}`, [
     transition(
       ':leave',
       animate(

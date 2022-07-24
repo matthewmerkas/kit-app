@@ -4,26 +4,29 @@ import { User } from '../../../functions/types'
 import { Store } from '../../../stores/store'
 import { animations } from '../../../functions/animations'
 import { Platform } from '@ionic/angular'
-import { VoiceRecorder } from 'capacitor-voice-recorder'
+import { RecordingData, VoiceRecorder } from 'capacitor-voice-recorder'
 import { DateTime } from 'luxon'
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.page.html',
   styleUrls: ['./user.page.scss'],
-  animations: animations(),
+  animations: [animations(), animations('150ms', '1s')],
 })
 export class UserPage implements OnInit {
+  public canPause = false
   public countdown: string
   public isPlaying = false
   public isRecording = false
-  public status = 'waiting'
+  public status = 'ready'
   public user: User
 
   private start
   private end
   private interval
   private timeout
+
+  private recordingData: RecordingData
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -40,7 +43,7 @@ export class UserPage implements OnInit {
 
   getIcon = () => {
     switch (this.status) {
-      case 'waiting':
+      case 'ready':
         return 'add'
       case 'recording':
       case 'stopping':
@@ -53,7 +56,7 @@ export class UserPage implements OnInit {
 
   getStatusMessage = () => {
     switch (this.status) {
-      case 'waiting':
+      case 'ready':
         return 'Record a new message'
       case 'recording':
       case 'stopping':
@@ -66,12 +69,16 @@ export class UserPage implements OnInit {
   }
 
   isDisabled = () => {
-    return this.status === 'stopping' || this.status === 'sending'
+    return (
+      (this.status === 'recording' && !this.canPause) ||
+      this.status === 'stopping' ||
+      this.status === 'sending'
+    )
   }
 
   onFabClick = () => {
     switch (this.status) {
-      case 'waiting':
+      case 'ready':
         return this.startRecording()
       case 'recording':
         return this.stopRecording()
@@ -87,13 +94,14 @@ export class UserPage implements OnInit {
     const fileName = `message_${date}_${rand}`
     console.log(fileName)
     // TODO: Create and upload message object to backend
-    this.status = 'waiting'
+    this.status = 'ready'
   }
 
   startCountdown() {
     const diff = DateTime.now().diff(this.start)
 
     this.timeout = setTimeout(() => {
+      this.canPause = true
       this.countdown = diff.plus(1000).toFormat('mm:ss')
       this.interval = setInterval(() => {
         this.countdown = DateTime.now().diff(this.start).toFormat('mm:ss')
@@ -130,9 +138,15 @@ export class UserPage implements OnInit {
     this.status = 'stopping'
     VoiceRecorder.stopRecording().then((res) => {
       this.status = 'recorded'
-      console.log(res)
+      this.canPause = false
+      this.recordingData = res
     })
     this.countdown = null
     clearInterval(this.interval)
+  }
+
+  deleteRecording() {
+    this.recordingData = null
+    this.status = 'ready'
   }
 }
