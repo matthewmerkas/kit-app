@@ -19,8 +19,11 @@
       {{ getStatusMessage() }}
     </span>
     <ion-buttons class="round" *ngIf="status === 'recording'">
-      <ion-button fill="clear">
-        <ion-icon name="pause"></ion-icon>
+      <ion-button
+        (click)="isRecording ? pauseRecording() : resumeRecording()"
+        fill="clear"
+      >
+        <ion-icon [@fade]="" [name]="isRecording ? 'pause' : 'play'"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons class="round" *ngIf="status === 'recorded'">
@@ -34,7 +37,7 @@
     <ion-fab-button
       [class.send]="status === 'recorded'"
       [disabled]="isDisabled()"
-      (click)="onClick()"
+      (click)="onFabClick()"
     >
       <ion-icon [name]="getIcon()"></ion-icon>
     </ion-fab-button>

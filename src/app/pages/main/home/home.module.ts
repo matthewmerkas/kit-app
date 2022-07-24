@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HomePage } from './home.page'
 import { HomePageRoutingModule } from './home-routing.module'
 import { MessageComponentModule } from '../../../components/message/message.module'
+import { UserComponentModule } from '../../../components/user/user.module'
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { MessageComponentModule } from '../../../components/message/message.modu
     MessageComponentModule,
     HomePageRoutingModule,
     ReactiveFormsModule,
+    UserComponentModule,
   ],
   declarations: [HomePage],
 })

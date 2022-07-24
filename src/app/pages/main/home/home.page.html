@@ -32,10 +32,10 @@
   </ion-header>
 
   <ion-list>
-    <app-message
+    <app-user
       *ngFor="let message of store.message.latestArray"
       [message]="message"
-    ></app-message>
+    ></app-user>
   </ion-list>
 
   <ion-fab horizontal="end" slot="fixed" vertical="bottom">

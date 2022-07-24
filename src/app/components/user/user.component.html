@@ -1,0 +1,18 @@
+<ion-item
+  [@fade]=""
+  *ngIf="message"
+  [routerLink]="'/home/user/' + message.user._id"
+  [class.unread]="message.progress === 0"
+  [detail]="false"
+>
+  <ion-icon name="person-circle"></ion-icon>
+  <ion-label class="ion-text-wrap">
+    <h2>
+      {{ message.user.displayName }}
+      <span class="date">
+        <ion-note>{{ formatDatetime(message.createdAt) }}</ion-note>
+      </span>
+    </h2>
+  </ion-label>
+  <div class="dot" slot="end"></div>
+</ion-item>

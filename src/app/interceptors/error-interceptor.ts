@@ -27,7 +27,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log(req.headers.get('Authorization'))
     return next.handle(req).pipe(
       catchError((err: JwtErrorResponse) => {
         if (err.error instanceof Error) {
@@ -46,6 +45,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               .refresh({ refreshToken: getRefreshToken() })
               .subscribe((res) => {
                 req.headers.set('Authorization', `Bearer ${res.token}`)
+                this.store.ui.setLoading(false)
                 next.handle(req)
               })
           } else if (err.status === 401) {

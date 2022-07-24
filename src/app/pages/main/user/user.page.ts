@@ -15,9 +15,14 @@ import { DateTime } from 'luxon'
 })
 export class UserPage implements OnInit {
   public countdown: string
-  public status = 'waiting'
   public isPlaying = false
+  public isRecording = false
+  public status = 'waiting'
   public user: User
+
+  private start
+  private end
+  private interval
   private timeout
 
   constructor(
@@ -64,12 +69,12 @@ export class UserPage implements OnInit {
     return this.status === 'stopping' || this.status === 'sending'
   }
 
-  onClick = () => {
+  onFabClick = () => {
     switch (this.status) {
       case 'waiting':
-        return this.startRecord()
+        return this.startRecording()
       case 'recording':
-        return this.stopRecord()
+        return this.stopRecording()
       case 'recorded':
         return this.send()
     }
@@ -85,24 +90,49 @@ export class UserPage implements OnInit {
     this.status = 'waiting'
   }
 
-  async startRecord() {
-    this.status = 'recording'
-    await VoiceRecorder.requestAudioRecordingPermission()
-    await VoiceRecorder.startRecording()
-    this.countdown = '00:00'
-    const start = DateTime.now()
-    this.timeout = setInterval(() => {
-      this.countdown = DateTime.now().diff(start).toFormat('mm:ss')
-    }, 1000)
+  startCountdown() {
+    const diff = DateTime.now().diff(this.start)
+
+    this.timeout = setTimeout(() => {
+      this.countdown = diff.plus(1000).toFormat('mm:ss')
+      this.interval = setInterval(() => {
+        this.countdown = DateTime.now().diff(this.start).toFormat('mm:ss')
+      }, 1000)
+    }, 1000 - (diff % 1000))
   }
 
-  stopRecord() {
+  async startRecording() {
+    this.status = 'recording'
+    await VoiceRecorder.requestAudioRecordingPermission()
+    VoiceRecorder.startRecording()
+    this.start = DateTime.now()
+    this.countdown = '00:00'
+    this.startCountdown()
+    this.isRecording = true
+  }
+
+  async pauseRecording() {
+    VoiceRecorder.pauseRecording()
+    this.end = DateTime.now()
+    this.isRecording = false
+    clearInterval(this.interval)
+    clearTimeout(this.timeout)
+  }
+
+  async resumeRecording() {
+    VoiceRecorder.resumeRecording()
+    this.start = DateTime.now().plus(this.start.diff(this.end))
+    this.startCountdown()
+    this.isRecording = true
+  }
+
+  stopRecording() {
     this.status = 'stopping'
-    clearInterval(this.timeout)
-    this.countdown = null
     VoiceRecorder.stopRecording().then((res) => {
       this.status = 'recorded'
       console.log(res)
     })
+    this.countdown = null
+    clearInterval(this.interval)
   }
 }
