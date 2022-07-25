@@ -46,6 +46,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               .subscribe((res) => {
                 req.headers.set('Authorization', `Bearer ${res.token}`)
                 this.store.ui.setLoading(false)
+                // this.http.request(req)
                 next.handle(req)
               })
           } else if (err.status === 401) {

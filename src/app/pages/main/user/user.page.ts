@@ -6,6 +6,8 @@ import { animations } from '../../../functions/animations'
 import { Platform } from '@ionic/angular'
 import { RecordingData, VoiceRecorder } from 'capacitor-voice-recorder'
 import { DateTime } from 'luxon'
+import { map } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 
 @Component({
   selector: 'app-user',
@@ -16,10 +18,11 @@ import { DateTime } from 'luxon'
 export class UserPage implements OnInit {
   public canPause = false
   public countdown: string
-  public isPlaying = false
   public isRecording = false
   public status = 'ready'
   public user: User
+
+  public audioRef: HTMLAudioElement
 
   private start
   private end
@@ -41,7 +44,7 @@ export class UserPage implements OnInit {
     })
   }
 
-  getIcon = () => {
+  getFabIcon = () => {
     switch (this.status) {
       case 'ready':
         return 'add'
@@ -51,6 +54,18 @@ export class UserPage implements OnInit {
       case 'recorded':
       case 'sending':
         return 'paper-plane-outline'
+    }
+  }
+
+  getPlayIcon = () => {
+    if (this.audioRef) {
+      if (this.audioRef.paused) {
+        return 'play'
+      } else {
+        return 'pause'
+      }
+    } else {
+      return 'play'
     }
   }
 
@@ -87,14 +102,31 @@ export class UserPage implements OnInit {
     }
   }
 
-  send() {
+  async send() {
     this.status = 'sending'
-    const date = new Date().toISOString()
-    const rand = Math.random().toString(16).substr(2, 8)
-    const fileName = `message_${date}_${rand}`
-    console.log(fileName)
-    // TODO: Create and upload message object to backend
-    this.status = 'ready'
+    if (!this.store.user.me) {
+      await this.store.user.getMe().subscribe()
+    }
+    const data = {
+      // eslint-disable-next-line no-underscore-dangle
+      userId: this.store.user.me._id,
+      // eslint-disable-next-line no-underscore-dangle
+      peerId: this.user._id,
+      audio: this.recordingData.value,
+    }
+    this.store.message
+      .create(data)
+      .pipe(
+        map((res) => {
+          this.status = 'ready'
+          return res
+        }),
+        catchError((err) => {
+          this.status = 'recorded'
+          return err
+        })
+      )
+      .subscribe()
   }
 
   startCountdown() {
@@ -111,6 +143,8 @@ export class UserPage implements OnInit {
 
   async startRecording() {
     this.status = 'recording'
+    this.audioRef = null
+    this.recordingData = null
     await VoiceRecorder.requestAudioRecordingPermission()
     VoiceRecorder.startRecording()
     this.start = DateTime.now()
@@ -148,5 +182,34 @@ export class UserPage implements OnInit {
   deleteRecording() {
     this.recordingData = null
     this.status = 'ready'
+  }
+
+  onPlayClick = () => {
+    if (!this.audioRef) {
+      this.startPlayback()
+    } else if (this.audioRef.paused) {
+      this.resumePlayback()
+    } else {
+      this.pausePlayback()
+    }
+  }
+
+  startPlayback() {
+    const base64Sound = this.recordingData.value.recordDataBase64
+    const mimeType = this.recordingData.value.mimeType
+    this.audioRef = new Audio(`data:${mimeType};base64,${base64Sound}`)
+    this.audioRef.oncanplaythrough = () => this.audioRef.play()
+    this.audioRef.load()
+    this.audioRef.onended = () => {
+      this.getPlayIcon()
+    }
+  }
+
+  pausePlayback() {
+    this.audioRef.pause()
+  }
+
+  resumePlayback() {
+    this.audioRef.play()
   }
 }

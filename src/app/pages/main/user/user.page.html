@@ -39,8 +39,8 @@
       <ion-button (click)="deleteRecording()" [@fade-150ms-0ms]="" fill="clear">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
-      <ion-button fill="clear">
-        <ion-icon [name]="isPlaying ? 'pause' : 'play'"></ion-icon>
+      <ion-button (click)="onPlayClick()" fill="clear">
+        <ion-icon [name]="getPlayIcon()"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-fab-button
@@ -48,7 +48,7 @@
       [disabled]="isDisabled()"
       (click)="onFabClick()"
     >
-      <ion-icon [name]="getIcon()"></ion-icon>
+      <ion-icon [name]="getFabIcon()"></ion-icon>
     </ion-fab-button>
   </div>
 </ion-content>
