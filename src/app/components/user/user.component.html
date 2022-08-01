@@ -2,7 +2,7 @@
   [@fade-150ms-0ms]=""
   *ngIf="message"
   [routerLink]="'/home/user/' + message.user._id"
-  [class.unread]="message.progress === 0"
+  [class.unread]="message.currentTime === 0"
   [detail]="false"
 >
   <ion-icon name="person-circle"></ion-icon>

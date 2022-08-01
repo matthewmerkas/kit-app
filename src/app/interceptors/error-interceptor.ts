@@ -7,7 +7,7 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http'
-import { catchError } from 'rxjs/operators'
+import { catchError, mergeMap } from 'rxjs/operators'
 import { Observable, throwError } from 'rxjs'
 import { Router } from '@angular/router'
 import { getRefreshToken, removeTokens } from '../functions/local-storage'
@@ -41,14 +41,17 @@ export class ErrorInterceptor implements HttpInterceptor {
           if (err.status === 0) {
             this.store.ui.openToast('Please check your connection')
           } else if (err.error.code === 'invalid_token') {
-            this.store.user
+            return this.store.user
               .refresh({ refreshToken: getRefreshToken() })
-              .subscribe((res) => {
-                req.headers.set('Authorization', `Bearer ${res.token}`)
-                this.store.ui.setLoading(false)
-                // this.http.request(req)
-                next.handle(req)
-              })
+              .pipe(
+                mergeMap((res) => {
+                  const clone = req.clone({
+                    setHeaders: { authorization: `Bearer ${res.token}` },
+                  })
+                  this.store.ui.setLoading(false)
+                  return next.handle(clone)
+                })
+              )
           } else if (err.status === 401) {
             this.openToast(err)
             removeTokens()

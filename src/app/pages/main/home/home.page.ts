@@ -21,6 +21,9 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+    this.store.message.getLatest().subscribe()
+    this.store.user.getMe().subscribe()
+
     this.searchForm.valueChanges
       .pipe(debounceTime(100), distinctUntilChanged())
       .subscribe((value) => {
@@ -35,11 +38,6 @@ export class HomePage implements OnInit {
             this.users = res
           })
       })
-  }
-
-  ionViewWillEnter() {
-    this.store.message.getLatest().subscribe()
-    this.store.user.getMe().subscribe()
   }
 
   logout() {

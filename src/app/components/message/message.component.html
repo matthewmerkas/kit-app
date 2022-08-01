@@ -1,18 +1,28 @@
-<ion-item
+<div
+  [class]="message.direction"
+  class="ion-margin row-container"
   [@fade-150ms-0ms]=""
   *ngIf="message"
-  [routerLink]="'/home/user/' + message.user._id"
-  [class.unread]="message.progress === 0"
-  [detail]="false"
 >
-  <ion-icon name="person-circle"></ion-icon>
-  <ion-label class="ion-text-wrap">
-    <h2>
-      {{ message.user.displayName }}
-      <span class="date">
-        <ion-note>{{ formatDatetime(message.createdAt) }}</ion-note>
-      </span>
-    </h2>
-  </ion-label>
-  <div class="dot" slot="end"></div>
-</ion-item>
+  <div class="message-container">
+    <div class="bubble flex">
+      <ion-button
+        class="round"
+        [color]="getColor()"
+        (click)="onPlayClick()"
+        fill="clear"
+      >
+        <ion-icon [name]="getPlayIcon()"></ion-icon>
+      </ion-button>
+      <ion-range
+        [color]="getColor()"
+        (ionKnobMoveStart)="pausePlayback()"
+        (ionKnobMoveEnd)="onKnobMoveEnd($event)"
+        [max]="getDuration()"
+        [value]="getCurrentTime()"
+      ></ion-range>
+      <span class="duration">{{ getTimeString() }}</span>
+    </div>
+    <ion-note>Sent at {{ formatDatetime(message.createdAt) }}</ion-note>
+  </div>
+</div>

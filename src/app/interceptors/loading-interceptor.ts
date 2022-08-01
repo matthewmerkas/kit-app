@@ -11,8 +11,6 @@ import { Store } from '../stores/store'
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
-  private count = 0
-
   constructor(private store: Store) {}
   intercept(
     req: HttpRequest<any>,
@@ -21,16 +19,10 @@ export class LoadingInterceptor implements HttpInterceptor {
     if (req.url.endsWith('/api/info')) {
       return next.handle(req)
     } else {
-      if (this.count === 0) {
-        this.store.ui.setLoading(true)
-      }
-      this.count++
+      this.store.ui.setLoading(true)
       return next.handle(req).pipe(
         finalize(() => {
-          this.count--
-          if (this.count === 0) {
-            this.store.ui.setLoading(false)
-          }
+          this.store.ui.setLoading(false)
         })
       )
     }

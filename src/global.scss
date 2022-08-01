@@ -30,6 +30,11 @@
 @import '~swiper/scss/pagination';
 @import '~@ionic/angular/css/ionic-swiper';
 
+@font-face {
+  font-family: 'Courier Prime';
+  src: url('assets/fonts/CourierPrime-Regular.ttf');
+}
+
 :root {
   --custom-radius: 12px;
   --record-color: 244, 67, 54;
@@ -49,7 +54,7 @@ ion-modal {
     --border-radius: var(--custom-radius) !important;
   }
 
-  --border-radius: calc(var(--custom-radius) * .5) !important;
+  --border-radius: calc(var(--custom-radius) * 0.5) !important;
 }
 
 .centred {
@@ -67,19 +72,18 @@ ion-modal {
   justify-content: center;
 }
 
-ion-buttons.round {
-  ion-button {
-    &::part(native) {
-      padding: 0;
-    }
-    ion-icon {
-      height: 60%;
-      width: 60%;
-    }
-    --border-radius: 50% !important;
-    height: 40px;
-    width: 40px;
+ion-buttons.round ion-button,
+ion-button.round {
+  &::part(native) {
+    padding: 0;
   }
+  ion-icon {
+    height: 60%;
+    width: 60%;
+  }
+  --border-radius: 50% !important;
+  height: 40px;
+  width: 40px;
 }
 
 .spinner {

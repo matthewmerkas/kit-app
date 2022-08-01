@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { FormBuilder, Validators } from '@angular/forms'
 import { passwordMatchValidator } from '../../../functions/forms'
@@ -29,7 +29,6 @@ export class LoginPage implements OnInit {
   )
 
   constructor(
-    private changeDetectionRef: ChangeDetectorRef,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,

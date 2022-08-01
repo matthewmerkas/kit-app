@@ -1,35 +1,50 @@
-h2 {
-  margin: 0;
+.send {
+  .bubble {
+    background-color: var(--ion-color-primary);
+  }
+  .duration {
+    color: var(--ion-color-light);
+  }
+  ion-range::part(knob),
+  ion-range::part(bar) {
+    background-color: var(--ion-color-light);
+  }
+  justify-content: end;
 }
 
-ion-icon {
-  &.ios {
-    height: 44px;
-    width: 44px;
-    margin-right: 16px;
+.receive {
+  .bubble {
+    background-color: var(--ion-color-light);
   }
-  &.md {
-    height: 48px;
-    width: 48px;
-    margin-right: 16px;
+  .duration {
+    color: var(--ion-color-dark);
   }
+  ion-note {
+    float: left;
+  }
+  justify-content: start;
+}
+
+.bubble {
+  border-radius: var(--custom-radius);
+  padding: 0 8px;
+}
+
+.duration {
+  font-family: 'Courier Prime', monospace, monospace;
+  font-size: 20px;
+}
+
+.message-container {
+  max-width: 384px;
+  width: 80%;
+}
+
+.row-container {
+  display: flex;
 }
 
 ion-item {
-  &.unread {
-    h2, ion-note {
-      color: var(--ion-color-dark);
-      font-weight: bold;
-    }
-    .dot {
-      background: var(--ion-color-secondary);
-    }
-  }
-
-  &.md .dot {
-    margin-right: 4px;
-  }
-
   --background: transparent;
   --padding-end: var(--padding-start);
   --inner-padding-end: 0;
@@ -37,21 +52,8 @@ ion-item {
 }
 
 ion-note {
+  float: right;
   font-size: 15px;
   font-weight: normal;
-}
-
-ion-item ion-note.md {
-  margin-right: 4px;
-}
-
-.date {
-  float: right;
-}
-
-.dot {
-  border-radius: 50%;
-  height: 12px;
-  margin-left: 8px;
-  width: 12px;
+  padding-top: 4px;
 }

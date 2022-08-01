@@ -13,11 +13,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="ion-padding">Audio messages go here</div>
+  <div class="container">
+    <app-message
+      *ngFor="let message of messages"
+      [message]="message"
+    ></app-message>
+  </div>
   <div class="flex record-container">
-    <span>
-      {{ getStatusMessage() }}
-    </span>
+    <span> {{ getStatusMessage() }} </span>
     <ion-buttons
       class="round"
       [@fadeIn-150ms-1s]=""

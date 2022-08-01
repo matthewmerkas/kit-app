@@ -28,7 +28,7 @@ ion-popover ion-content {
   }
   ion-searchbar {
     &.md {
-      --border-radius: calc(var(--custom-radius) * .5);
+      --border-radius: calc(var(--custom-radius) * 0.5);
     }
 
     --background: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.07);

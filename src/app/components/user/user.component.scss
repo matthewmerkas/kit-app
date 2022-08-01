@@ -17,7 +17,8 @@ ion-icon {
 
 ion-item {
   &.unread {
-    h2, ion-note {
+    h2,
+    ion-note {
       color: var(--ion-color-dark);
       font-weight: bold;
     }

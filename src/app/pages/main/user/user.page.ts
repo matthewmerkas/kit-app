@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { User } from '../../../functions/types'
+import { Message, User } from '../../../functions/types'
 import { Store } from '../../../stores/store'
 import { animations } from '../../../functions/animations'
 import { Platform } from '@ionic/angular'
@@ -19,11 +19,12 @@ export class UserPage implements OnInit {
   public canPause = false
   public countdown: string
   public isRecording = false
+  public messages: Message[] = []
   public status = 'ready'
   public user: User
 
-  public audioRef: HTMLAudioElement
-
+  private audioRef: HTMLAudioElement
+  private audioIndex: number
   private start
   private end
   private interval
@@ -42,6 +43,14 @@ export class UserPage implements OnInit {
     this.store.user.get(id).subscribe((res) => {
       this.user = res
     })
+    this.store.message.getList({ peerId: id }).subscribe((res) => {
+      this.messages = res
+    })
+  }
+
+  ionViewWillLeave() {
+    this.store.ui.pauseAudio()
+    this.store.ui.audioRefs = []
   }
 
   getFabIcon = () => {
@@ -58,15 +67,10 @@ export class UserPage implements OnInit {
   }
 
   getPlayIcon = () => {
-    if (this.audioRef) {
-      if (this.audioRef.paused) {
-        return 'play'
-      } else {
-        return 'pause'
-      }
-    } else {
-      return 'play'
+    if (this.audioRef?.paused === false) {
+      return 'pause'
     }
+    return 'play'
   }
 
   getStatusMessage = () => {
@@ -119,6 +123,7 @@ export class UserPage implements OnInit {
       .pipe(
         map((res) => {
           this.status = 'ready'
+          this.messages.push(res)
           return res
         }),
         catchError((err) => {
@@ -143,6 +148,7 @@ export class UserPage implements OnInit {
 
   async startRecording() {
     this.status = 'recording'
+    this.store.ui.pauseAudio()
     this.audioRef = null
     this.recordingData = null
     await VoiceRecorder.requestAudioRecordingPermission()
@@ -198,6 +204,7 @@ export class UserPage implements OnInit {
     const base64Sound = this.recordingData.value.recordDataBase64
     const mimeType = this.recordingData.value.mimeType
     this.audioRef = new Audio(`data:${mimeType};base64,${base64Sound}`)
+    this.audioIndex = this.store.ui.addAudio(this.audioRef)
     this.audioRef.oncanplaythrough = () => this.audioRef.play()
     this.audioRef.load()
     this.audioRef.onended = () => {
@@ -206,10 +213,10 @@ export class UserPage implements OnInit {
   }
 
   pausePlayback() {
-    this.audioRef.pause()
+    this.store.ui.pauseAudio(this.audioIndex)
   }
 
   resumePlayback() {
-    this.audioRef.play()
+    this.store.ui.playAudio(this.audioIndex)
   }
 }

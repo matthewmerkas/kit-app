@@ -17,10 +17,11 @@ export interface Message {
   _id: string
   userId: string
   user: User
-  recipientId: string
-  senderId: string
+  peerId: string
+  direction: 'send' | 'receive'
   audioUrl: string
-  progress: number
+  currentTime: number
+  duration: number
   text: string
   createdAt: string
   updatedAt: string
