@@ -37,6 +37,15 @@ ion-item ion-icon {
   max-width: $max-width;
 }
 
+.shade {
+  background-color: var(--ion-background-color);
+  bottom: 0;
+  height: 40px;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+
 .record-container {
   ion-buttons {
     ion-button {
@@ -75,4 +84,5 @@ ion-item ion-icon {
   position: fixed;
   right: 0;
   width: calc(100% - 24px);
+  z-index: 3;
 }
