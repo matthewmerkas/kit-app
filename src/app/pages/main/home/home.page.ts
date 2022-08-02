@@ -5,11 +5,13 @@ import { Store } from '../../../stores/store'
 import { FormControl } from '@angular/forms'
 import { debounceTime, distinctUntilChanged, EMPTY, map } from 'rxjs'
 import { catchError } from 'rxjs/operators'
+import { animations } from '../../../functions/animations'
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  animations: animations(),
 })
 export class HomePage implements OnInit {
   searchForm = new FormControl('')

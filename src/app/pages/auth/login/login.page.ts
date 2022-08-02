@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms'
 import { passwordMatchValidator } from '../../../functions/forms'
 import { Store } from '../../../stores/store'
 import { forkJoin } from 'rxjs'
-import { getToken } from '../../../functions/local-storage'
+import { getToken, removeTokens } from '../../../functions/local-storage'
 
 @Component({
   selector: 'app-login',
@@ -41,6 +41,7 @@ export class LoginPage implements OnInit {
     if (getToken()) {
       this.login()
     } else {
+      removeTokens()
       this.store.initialise() // Clear stores
       this.loginForm.reset()
       this.signupForm.reset()

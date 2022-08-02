@@ -4,7 +4,7 @@ import { SwiperComponent } from 'swiper/angular'
 import { animations } from '../../../functions/animations'
 import { Store } from '../../../stores/store'
 import { forkJoin } from 'rxjs'
-import { getToken } from '../../../functions/local-storage'
+import { getToken, removeTokens } from '../../../functions/local-storage'
 import { Router } from '@angular/router'
 
 @Component({
@@ -27,6 +27,7 @@ export class TourPage implements OnInit {
     if (getToken()) {
       this.login()
     } else {
+      removeTokens()
       this.store.initialise() // Clear stores
     }
     SwiperCore.use([Pagination])

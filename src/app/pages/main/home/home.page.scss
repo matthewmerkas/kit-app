@@ -38,3 +38,11 @@ ion-popover ion-content {
   }
   --background: var(--ion-card-background);
 }
+
+.no-messages {
+  ion-icon {
+    font-size: 96px;
+  }
+  text-align: center;
+  width: 100%;
+}

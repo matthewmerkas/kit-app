@@ -38,9 +38,19 @@
     ></app-peer>
   </ion-list>
 
+  <div
+    class="centred no-messages"
+    [@fade-150ms-0ms]=""
+    *ngIf="store.message.latest.length < 1 && !store.ui.isLoading()"
+  >
+    <ion-icon name="sad"></ion-icon>
+    <h4>We couldn't find any messages</h4>
+    <p>Try sending one with the people menu</p>
+  </div>
+
   <ion-fab horizontal="end" slot="fixed" vertical="bottom">
     <ion-fab-button id="new-message">
-      <ion-icon name="add-outline"></ion-icon>
+      <ion-icon name="people-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 

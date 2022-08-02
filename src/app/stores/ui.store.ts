@@ -3,10 +3,11 @@ import { ToastController } from '@ionic/angular'
 
 export class UiStore {
   @observable audioRefs: HTMLAudioElement[] = []
-  @observable loading = false
-  audioRef: HTMLAudioElement
-  count = 0
-  toast: HTMLIonToastElement
+
+  private audioRef: HTMLAudioElement
+  private count = 0
+  private loading = false
+  private toast: HTMLIonToastElement
 
   constructor(private toastController: ToastController) {}
 
