@@ -23,7 +23,6 @@ export class BaseStore {
   @action
   get(id: string): Observable<any> {
     for (const item of this.array) {
-      // eslint-disable-next-line no-underscore-dangle
       if (item._id === id) {
         return of(item)
       }
@@ -53,10 +52,5 @@ export class BaseStore {
   @action
   delete(id: string): Observable<any> {
     return this.http.delete<any>(this.url + '/' + id)
-  }
-
-  @action
-  lastUpdated(): Observable<any> {
-    return this.http.get<any>(this.url + '/lastUpdated')
   }
 }

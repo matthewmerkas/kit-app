@@ -5,11 +5,11 @@ import { RouterModule } from '@angular/router'
 
 import { IonicModule } from '@ionic/angular'
 
-import { UserComponent } from './user.component'
+import { PeerComponent } from './peer.component'
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, RouterModule],
-  declarations: [UserComponent],
-  exports: [UserComponent],
+  declarations: [PeerComponent],
+  exports: [PeerComponent],
 })
-export class UserComponentModule {}
+export class PeerComponentModule {}

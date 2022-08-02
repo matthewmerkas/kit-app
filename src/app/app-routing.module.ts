@@ -21,9 +21,9 @@ const routes: Routes = [
   },
   {
     canActivate: [JwtGuard],
-    path: 'home/user/:id',
+    path: 'home/peer/:id',
     loadChildren: () =>
-      import('./pages/main/user/user.module').then((m) => m.UserPageModule),
+      import('./pages/main/peer/peer.module').then((m) => m.PeerPageModule),
   },
   {
     path: '**',

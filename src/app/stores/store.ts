@@ -20,9 +20,13 @@ export class Store {
     private http: HttpClient,
     private toastController: ToastController
   ) {
-    this.info = new InfoStore(http)
-    this.message = new MessageStore(http)
-    this.ui = new UiStore(toastController)
-    this.user = new UserStore(http)
+    this.initialise()
+  }
+
+  initialise() {
+    this.info = new InfoStore(this.http)
+    this.message = new MessageStore(this.http)
+    this.ui = new UiStore(this.toastController)
+    this.user = new UserStore(this.http)
   }
 }

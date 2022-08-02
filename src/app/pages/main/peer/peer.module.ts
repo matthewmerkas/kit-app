@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
-import { UserPage } from './user.page'
+import { PeerPage } from './peer.page'
 
 import { IonicModule } from '@ionic/angular'
 
-import { UserPageRoutingModule } from './user-routing.module'
+import { PeerPageRoutingModule } from './peer-routing.module'
 import { MessageComponentModule } from '../../../components/message/message.module'
 
 @NgModule({
@@ -13,9 +13,9 @@ import { MessageComponentModule } from '../../../components/message/message.modu
     CommonModule,
     FormsModule,
     IonicModule,
-    UserPageRoutingModule,
+    PeerPageRoutingModule,
     MessageComponentModule,
   ],
-  declarations: [UserPage],
+  declarations: [PeerPage],
 })
-export class UserPageModule {}
+export class PeerPageModule {}

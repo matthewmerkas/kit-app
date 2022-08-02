@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { FormBuilder, Validators } from '@angular/forms'
 import { passwordMatchValidator } from '../../../functions/forms'
 import { Store } from '../../../stores/store'
+import { forkJoin } from 'rxjs'
+import { getToken } from '../../../functions/local-storage'
 
 @Component({
   selector: 'app-login',
@@ -36,11 +38,25 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loginForm.reset()
-    this.signupForm.reset()
-    this.showPassword = false
-    this.showConfirmPassword = false
-    this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
+    if (getToken()) {
+      this.login()
+    } else {
+      this.store.initialise() // Clear stores
+      this.loginForm.reset()
+      this.signupForm.reset()
+      this.showPassword = false
+      this.showConfirmPassword = false
+      this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
+    }
+  }
+
+  login = () => {
+    forkJoin([
+      this.store.message.getLatest(),
+      this.store.user.getMe(),
+    ]).subscribe(() => {
+      this.router.navigate(['/home'])
+    })
   }
 
   showMatchError = () => {
@@ -61,7 +77,7 @@ export class LoginPage implements OnInit {
       })
     } else {
       this.store.user.login(this.loginForm.getRawValue()).subscribe(() => {
-        this.router.navigate(['/home'])
+        this.login()
       })
     }
   }

@@ -1,14 +1,14 @@
 <ion-item
   [@fade-150ms-0ms]=""
   *ngIf="message"
-  [routerLink]="'/home/user/' + message.user._id"
+  [routerLink]="'/home/peer/' + message.peer._id"
   [class.unread]="message.currentTime === 0"
   [detail]="false"
 >
   <ion-icon name="person-circle"></ion-icon>
   <ion-label class="ion-text-wrap">
     <h2>
-      {{ message.user.displayName }}
+      {{ message.peer.displayName }}
       <span class="date">
         <ion-note>{{ formatDatetime(message.createdAt) }}</ion-note>
       </span>

@@ -15,11 +15,10 @@ export interface JwtErrorResponse extends HttpErrorResponse {
 
 export interface Message {
   _id: string
-  userId: string
   user: User
-  peerId: string
+  peer: User
   direction: 'send' | 'receive'
-  audioUrl: string
+  audioFileName: string
   currentTime: number
   duration: number
   text: string

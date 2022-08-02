@@ -16,7 +16,8 @@
       </ion-button>
       <ion-range
         [color]="getColor()"
-        (ionKnobMoveStart)="pausePlayback()"
+        [disabled]="isRangeDisabled()"
+        (ionKnobMoveStart)="onKnobMoveStart()"
         (ionKnobMoveEnd)="onKnobMoveEnd($event)"
         [max]="getDuration()"
         [value]="getCurrentTime()"

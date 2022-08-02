@@ -14,6 +14,7 @@ import { environment } from '../../../environments/environment'
 export class MessageComponent implements OnInit {
   @Input() message: Message
 
+  public moving = false
   private audioRef: HTMLAudioElement
   private audioIndex: number
 
@@ -63,41 +64,44 @@ export class MessageComponent implements OnInit {
     }
   }
 
+  isRangeDisabled = () => {
+    return !(this.audioRef?.paused === false || this.moving)
+  }
+
   onPlayClick = () => {
     if (!this.audioRef) {
       this.startPlayback()
     } else if (this.audioRef.paused) {
-      this.resumePlayback()
+      this.store.ui.playAudio(this.audioIndex)
     } else {
-      this.pausePlayback()
+      this.store.ui.pauseAudio(this.audioIndex)
     }
   }
 
+  onKnobMoveStart = () => {
+    this.moving = true
+    this.store.ui.pauseAudio(this.audioIndex)
+  }
+
   onKnobMoveEnd = (e) => {
+    this.moving = false
     const time = e.detail.value / 1000
     if (this.audioRef == null) {
       this.startPlayback(time)
     } else {
-      this.audioRef.currentTime = time
+      this.store.ui.playAudio(this.audioIndex, time)
     }
   }
 
   startPlayback(startAt = 0) {
     this.audioRef = new Audio(
-      environment.apiUrl.replace('/api', '') + this.message.audioUrl
+      environment.apiUrl.replace('/api', '/public/audio/') +
+        this.message.audioFileName
     )
     this.audioIndex = this.store.ui.addAudio(this.audioRef)
     this.audioRef.currentTime = startAt
     this.audioRef.ontimeupdate = () => {}
     this.audioRef.oncanplaythrough = () => this.audioRef.play()
     this.audioRef.load()
-  }
-
-  pausePlayback() {
-    this.store.ui.pauseAudio(this.audioIndex)
-  }
-
-  resumePlayback() {
-    this.store.ui.playAudio(this.audioIndex)
   }
 }

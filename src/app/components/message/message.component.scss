@@ -5,9 +5,13 @@
   .duration {
     color: var(--ion-color-light);
   }
-  ion-range::part(knob),
-  ion-range::part(bar) {
-    background-color: var(--ion-color-light);
+  ion-range.ios {
+    &::part(bar) {
+      background-color: rgba(var(--ion-color-light-rgb), 0.1);
+    }
+    &::part(knob) {
+      background-color: var(--ion-color-light);
+    }
   }
   justify-content: end;
 }
@@ -56,4 +60,8 @@ ion-note {
   font-size: 15px;
   font-weight: normal;
   padding-top: 4px;
+}
+
+ion-range.md::part(knob) {
+  outline: none;
 }

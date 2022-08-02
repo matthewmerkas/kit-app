@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { io } from 'socket.io-client'
 import { removeTokens } from '../../../functions/local-storage'
 import { Router } from '@angular/router'
 import { Store } from '../../../stores/store'
@@ -16,14 +15,9 @@ export class HomePage implements OnInit {
   searchForm = new FormControl('')
   users = []
 
-  constructor(private router: Router, public store: Store) {
-    // const socket = io('http://10.0.0.50:3000/')
-  }
+  constructor(private router: Router, public store: Store) {}
 
   ngOnInit() {
-    this.store.message.getLatest().subscribe()
-    this.store.user.getMe().subscribe()
-
     this.searchForm.valueChanges
       .pipe(debounceTime(100), distinctUntilChanged())
       .subscribe((value) => {

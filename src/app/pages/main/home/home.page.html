@@ -32,10 +32,10 @@
   </ion-header>
 
   <ion-list>
-    <app-user
-      *ngFor="let message of store.message.latestArray"
+    <app-peer
+      *ngFor="let message of store.message.latest"
       [message]="message"
-    ></app-user>
+    ></app-peer>
   </ion-list>
 
   <ion-fab horizontal="end" slot="fixed" vertical="bottom">
@@ -62,7 +62,7 @@
           <ion-item
             (click)="modal.dismiss()"
             *ngFor="let user of users"
-            [routerLink]="'/home/user/' + user._id"
+            [routerLink]="'/home/peer/' + user._id"
           >
             <ion-icon name="person-circle" slot="start"></ion-icon>
             <ion-label>

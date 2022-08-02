@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Message, User } from '../../../functions/types'
+import { User } from '../../../functions/types'
 import { Store } from '../../../stores/store'
 import { animations } from '../../../functions/animations'
-import { Platform } from '@ionic/angular'
 import { RecordingData, VoiceRecorder } from 'capacitor-voice-recorder'
 import { DateTime } from 'luxon'
 import { map } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.page.html',
-  styleUrls: ['./user.page.scss'],
+  selector: 'app-peer',
+  templateUrl: './peer.page.html',
+  styleUrls: ['./peer.page.scss'],
   animations: [animations(), animations('150ms', '1s')],
 })
-export class UserPage implements OnInit {
+export class PeerPage implements OnInit {
   public canPause = false
   public countdown: string
+  public id: string
   public isRecording = false
-  public messages: Message[] = []
   public status = 'ready'
-  public user: User
+  public peer: User
 
   private audioRef: HTMLAudioElement
   private audioIndex: number
@@ -32,20 +31,14 @@ export class UserPage implements OnInit {
 
   private recordingData: RecordingData
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private platform: Platform,
-    private store: Store
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute, public store: Store) {}
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id')
     this.store.user.get(id).subscribe((res) => {
-      this.user = res
+      this.peer = res
     })
-    this.store.message.getList({ peerId: id }).subscribe((res) => {
-      this.messages = res
-    })
+    this.store.message.getList(id).subscribe()
   }
 
   ionViewWillLeave() {
@@ -112,10 +105,8 @@ export class UserPage implements OnInit {
       await this.store.user.getMe().subscribe()
     }
     const data = {
-      // eslint-disable-next-line no-underscore-dangle
-      userId: this.store.user.me._id,
-      // eslint-disable-next-line no-underscore-dangle
-      peerId: this.user._id,
+      user: this.store.user.me._id,
+      peer: this.peer._id,
       audio: this.recordingData.value,
     }
     this.store.message
@@ -123,7 +114,7 @@ export class UserPage implements OnInit {
       .pipe(
         map((res) => {
           this.status = 'ready'
-          this.messages.push(res)
+          this.store.message.push({ ...res, peer: this.peer })
           return res
         }),
         catchError((err) => {

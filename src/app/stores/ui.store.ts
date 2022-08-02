@@ -18,10 +18,13 @@ export class UiStore {
   }
 
   @action
-  playAudio(index: number) {
+  playAudio(index: number, time?: number) {
     this.pauseAudio()
     if (index < this.audioRefs.length) {
       this.audioRef = this.audioRefs[index]
+      if (time != null) {
+        this.audioRef.currentTime = time
+      }
       if (!this.audioRef.ended && this.audioRef.readyState < 4) {
         this.audioRef.oncanplaythrough = () => {
           this.audioRef.play()

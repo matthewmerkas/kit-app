@@ -3,6 +3,9 @@ import SwiperCore, { Pagination } from 'swiper'
 import { SwiperComponent } from 'swiper/angular'
 import { animations } from '../../../functions/animations'
 import { Store } from '../../../stores/store'
+import { forkJoin } from 'rxjs'
+import { getToken } from '../../../functions/local-storage'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-tour',
@@ -16,11 +19,26 @@ export class TourPage implements OnInit {
 
   constructor(
     private changeDetectionRef: ChangeDetectorRef,
+    private router: Router,
     public store: Store
   ) {}
 
   ngOnInit() {
+    if (getToken()) {
+      this.login()
+    } else {
+      this.store.initialise() // Clear stores
+    }
     SwiperCore.use([Pagination])
+  }
+
+  login = () => {
+    forkJoin([
+      this.store.message.getLatest(),
+      this.store.user.getMe(),
+    ]).subscribe(() => {
+      this.router.navigate(['/home'])
+    })
   }
 
   onSlideChange = () => {

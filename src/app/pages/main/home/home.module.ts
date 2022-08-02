@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HomePage } from './home.page'
 import { HomePageRoutingModule } from './home-routing.module'
 import { MessageComponentModule } from '../../../components/message/message.module'
-import { UserComponentModule } from '../../../components/user/user.module'
+import { PeerComponentModule } from '../../../components/peer/peer.module'
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { UserComponentModule } from '../../../components/user/user.module'
     MessageComponentModule,
     HomePageRoutingModule,
     ReactiveFormsModule,
-    UserComponentModule,
+    PeerComponentModule,
   ],
   declarations: [HomePage],
 })

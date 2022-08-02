@@ -1,25 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { IonicModule } from '@ionic/angular'
 import { RouterModule } from '@angular/router'
-import { UserPageRoutingModule } from './user-routing.module'
 
-import { UserPage } from './user.page'
+import { PeerComponent } from './peer.component'
 
-describe('UserPage', () => {
-  let component: UserPage
-  let fixture: ComponentFixture<UserPage>
+describe('PeerComponent', () => {
+  let component: PeerComponent
+  let fixture: ComponentFixture<PeerComponent>
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [UserPage],
-      imports: [
-        IonicModule.forRoot(),
-        UserPageRoutingModule,
-        RouterModule.forRoot([]),
-      ],
+      declarations: [PeerComponent],
+      imports: [IonicModule.forRoot(), RouterModule.forRoot([])],
     }).compileComponents()
 
-    fixture = TestBed.createComponent(UserPage)
+    fixture = TestBed.createComponent(PeerComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   }))
