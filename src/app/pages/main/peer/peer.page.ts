@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { User } from '../../../functions/types'
 import { Store } from '../../../stores/store'
@@ -15,6 +15,8 @@ import { catchError } from 'rxjs/operators'
   animations: [animations(), animations('150ms', '1s')],
 })
 export class PeerPage implements OnInit {
+  @ViewChild('content', { static: false }) content: HTMLIonContentElement
+
   public canPause = false
   public countdown: string
   public id: string
@@ -39,6 +41,10 @@ export class PeerPage implements OnInit {
       this.peer = res
     })
     this.store.message.getList(id).subscribe()
+  }
+
+  ionViewWillEnter() {
+    this.content.scrollToBottom()
   }
 
   ionViewWillLeave() {

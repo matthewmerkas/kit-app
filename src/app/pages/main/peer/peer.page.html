@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content #content [fullscreen]="true">
   <div class="container">
     <app-message
       *ngFor="let message of store.message.array"
