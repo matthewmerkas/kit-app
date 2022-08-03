@@ -121,6 +121,9 @@ export class PeerPage implements OnInit {
         map((res) => {
           this.status = 'ready'
           this.store.message.push({ ...res, peer: this.peer })
+          setTimeout(() => {
+            this.content.scrollToBottom(100)
+          }, 100)
           return res
         }),
         catchError((err) => {
