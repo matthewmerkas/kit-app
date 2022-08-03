@@ -100,7 +100,19 @@ export class MessageComponent implements OnInit {
     )
     this.audioIndex = this.store.ui.addAudio(this.audioRef)
     this.audioRef.currentTime = startAt
-    this.audioRef.ontimeupdate = () => {}
+    this.audioRef.ontimeupdate = (e) => {
+      if (
+        (e.target as HTMLAudioElement).currentTime >= 1 &&
+        this.message.direction === 'receive' &&
+        !(this.message.currentTime >= 1000)
+      ) {
+        this.message.currentTime = 1000
+        this.store.message
+          .patch(this.message._id, { currentTime: 1000 })
+          .subscribe()
+        this.audioRef.ontimeupdate = () => {}
+      }
+    }
     this.audioRef.oncanplaythrough = () => this.audioRef.play()
     this.audioRef.load()
   }

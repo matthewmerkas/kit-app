@@ -34,19 +34,24 @@ export class BaseStore {
   getList(filter?: any, sort?: string): Observable<any> {
     const queryParams = new URLSearchParams({ ...filter, sort })
     return this.http.get<any>(this.url + '?' + queryParams).pipe(
-      map((data: any[]) => {
+      map((res: any[]) => {
         if (!filter) {
-          setItem(this.key, data)
-          this.array = data
+          setItem(this.key, res)
+          this.array = res
         }
-        return data
+        return res
       })
     )
   }
 
   @action
-  update(id: string, data: any): Observable<any> {
+  set(id: string, data: any): Observable<any> {
     return this.http.put<any>(this.url + '/' + id, data)
+  }
+
+  @action
+  patch(id: string, data: any): Observable<any> {
+    return this.http.put<any>(this.url + '/' + id + '/patch', data)
   }
 
   @action

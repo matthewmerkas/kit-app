@@ -40,7 +40,8 @@ ion-popover ion-content {
 }
 
 .no-messages {
-  ion-icon {
+  .shrug {
+    font-family: 'Noto Emoji', emoji;
     font-size: 96px;
   }
   text-align: center;

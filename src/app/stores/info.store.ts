@@ -13,10 +13,10 @@ export class InfoStore {
   @action
   get(): Observable<any> {
     return this.http.get<any>(this.url).pipe(
-      map((data: any[]) => {
-        setItem('info_object', data)
-        this.object = data
-        return data
+      map((res: any[]) => {
+        setItem('info_object', res)
+        this.object = res
+        return res
       })
     )
   }

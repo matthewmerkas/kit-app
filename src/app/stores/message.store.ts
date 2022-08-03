@@ -33,10 +33,10 @@ export class MessageStore {
   @action
   getLatest(): Observable<any> {
     return this.http.get<any>(url + apiConfig.message.latest).pipe(
-      map((data: Message[]) => {
-        setItem(keyLatest, data)
-        this.latest = data
-        return data
+      map((res: Message[]) => {
+        setItem(keyLatest, res)
+        this.latest = res
+        return res
       })
     )
   }
@@ -56,8 +56,8 @@ export class MessageStore {
     const queryParams = new URLSearchParams(filter)
 
     return this.http.get<any>(url + '?' + queryParams).pipe(
-      map((data: Message[]) => {
-        messages.push(...data)
+      map((res: Message[]) => {
+        messages.push(...res)
         this.array = messages
         this.map.set(filter.peer, messages)
         setMap(key, this.map)
@@ -90,12 +90,50 @@ export class MessageStore {
   }
 
   @action
-  update(id: string, data: any): Observable<any> {
-    return this.http.put<any>(url + '/' + id, data)
+  set(id: string, data: any): Observable<any> {
+    return this.http.put<any>(url + '/' + id, data).pipe(
+      map((res: Message) => {
+        this.updateLatest(res)
+        this.updateMap(res)
+      })
+    )
+  }
+
+  @action
+  patch(id: string, data: any): Observable<any> {
+    return this.http.put<any>(url + '/' + id + '/patch', data).pipe(
+      map((res: Message) => {
+        this.updateLatest(res)
+        this.updateMap(res)
+      })
+    )
   }
 
   @action
   delete(id: string): Observable<any> {
     return this.http.delete<any>(url + '/' + id)
+  }
+
+  private updateLatest(message: Message) {
+    for (const [i, m] of this.latest.entries()) {
+      if (m._id === message._id) {
+        this.latest[i] = message
+        break
+      }
+    }
+  }
+
+  private updateMap(message: Message) {
+    if (typeof message.peer === 'string') {
+      const messages = this.map.get(message.peer) ?? []
+      for (const [i, m] of messages.entries()) {
+        if (m._id === message._id) {
+          messages[i] = message
+          break
+        }
+      }
+      this.map.set(message.peer, messages)
+      setMap(key, this.map)
+    }
   }
 }

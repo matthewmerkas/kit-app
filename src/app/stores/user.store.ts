@@ -18,10 +18,10 @@ export class UserStore extends BaseStore {
   @action
   getMe(): Observable<any> {
     return this.http.get<any>(this.url + apiConfig.user.me).pipe(
-      map((data: User) => {
-        setItem('me', data)
-        this.me = data
-        return data
+      map((res: User) => {
+        setItem('me', res)
+        this.me = res
+        return res
       })
     )
   }

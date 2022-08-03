@@ -35,6 +35,11 @@
   src: url('assets/fonts/CourierPrime-Regular.ttf');
 }
 
+@font-face {
+  font-family: 'Noto Emoji';
+  src: url('assets/fonts/NotoEmoji-VariableFont_wght.ttf');
+}
+
 :root {
   --custom-radius: 12px;
   --record-color: 244, 67, 54;
