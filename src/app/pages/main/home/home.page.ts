@@ -36,6 +36,10 @@ export class HomePage implements OnInit {
       })
   }
 
+  ionViewWillEnter() {
+    this.searchForm.reset('')
+  }
+
   logout() {
     removeTokens()
     return this.router.navigate(['/auth'])
