@@ -86,7 +86,7 @@ export class MessageStore {
         break
       }
     }
-    this.latest.push(message)
+    this.latest.splice(0, 0, message)
   }
 
   @action
