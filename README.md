@@ -7,3 +7,15 @@ Run `ionic serve` for a dev server. Navigate to `http://localhost:5000/`. The ap
 ## Build
 
 Run `ionic build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Simulate
+
+`npx cap run android`
+
+## Deploy
+
+`ionic build --prod`
+
+`npx cap sync`
+
+`npx cap open android`
