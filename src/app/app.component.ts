@@ -15,7 +15,9 @@ import { Message } from './functions/types'
 export class AppComponent {
   constructor(public store: Store, public platform: Platform) {
     store.info.get().subscribe()
-    const socket = io(environment.apiUrl.replace('/api', ''))
+    const socket = io(environment.apiUrl, {
+      path: environment.apiPath,
+    })
     socket.on('create message', (s) => {
       // If target user matches logged-in user, download message and push to memory
       if (s.user === store.user.me._id) {

@@ -34,4 +34,5 @@ export const getHost = (): string =>
   environment.apiUrl
     .replace('http://', '')
     .replace('https://', '')
+    .replace('/kit', '')
     .replace('/api', '')
