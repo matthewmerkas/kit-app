@@ -5,6 +5,9 @@
   .duration {
     color: #222428;
   }
+  .message-container {
+    margin-left: auto;
+  }
   ion-range.ios {
     &::part(bar) {
       background-color: #2224281A;
