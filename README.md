@@ -16,6 +16,8 @@ Run `ionic build` to build the project. The build artifacts will be stored in th
 
 `ionic build --prod`
 
+`cordova-res android --skip-config --copy`
+
 `npx cap sync`
 
 `npx cap open android`

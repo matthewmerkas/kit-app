@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "KIT",
-  "webDir": "www",
-  "bundledWebRuntime": false
+	"appId": "com.merkasoft.kit",
+	"appName": "KIT",
+	"webDir": "www",
+	"bundledWebRuntime": false
 }
