@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms'
 import { passwordMatchValidator } from '../../../functions/forms'
 import { Store } from '../../../stores/store'
 import { forkJoin } from 'rxjs'
-import { getToken, removeTokens } from '../../../functions/local-storage'
+import { removeTokens } from '../../../functions/local-storage'
 
 @Component({
   selector: 'app-login',
@@ -38,17 +38,13 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (getToken()) {
-      this.login()
-    } else {
-      removeTokens()
-      this.store.initialise() // Clear stores
-      this.loginForm.reset()
-      this.signupForm.reset()
-      this.showPassword = false
-      this.showConfirmPassword = false
-      this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
-    }
+    removeTokens()
+    this.store.initialise() // Clear stores
+    this.loginForm.reset()
+    this.signupForm.reset()
+    this.showPassword = false
+    this.showConfirmPassword = false
+    this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
   }
 
   login = () => {

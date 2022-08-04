@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'auth/tour',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
 ]
