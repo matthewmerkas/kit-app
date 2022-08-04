@@ -26,6 +26,11 @@ const routes: Routes = [
       import('./pages/main/peer/peer.module').then((m) => m.PeerPageModule),
   },
   {
+    path: 'auth',
+    redirectTo: 'auth/tour',
+    pathMatch: 'full',
+  },
+  {
     path: '**',
     redirectTo: 'home',
     pathMatch: 'full',
