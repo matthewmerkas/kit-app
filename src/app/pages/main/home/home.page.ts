@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
   constructor(private router: Router, public store: Store) {}
 
   ngOnInit() {
+    this.store.message.getLatest()
     this.searchForm.valueChanges
       .pipe(debounceTime(100), distinctUntilChanged())
       .subscribe((value) => {
