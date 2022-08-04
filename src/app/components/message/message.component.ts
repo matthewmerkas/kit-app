@@ -27,7 +27,10 @@ export class MessageComponent implements OnInit {
   }
 
   getColor() {
-    if (document.body.classList.contains('dark')) {
+    if (
+      window.matchMedia('(prefers-color-scheme: dark') ||
+      document.body.classList.contains('dark')
+    ) {
       return this.message.direction === 'send' ? 'light' : 'dark'
     }
     return 'dark'
