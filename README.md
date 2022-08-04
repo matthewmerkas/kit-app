@@ -12,6 +12,8 @@ Run `ionic build` to build the project. The build artifacts will be stored in th
 
 `npx cap run android`
 
+`ionic capacitor run android --l --external`
+
 ## Deploy
 
 `ionic build --prod`
