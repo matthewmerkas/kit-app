@@ -58,7 +58,9 @@ export class MessageStore {
     return this.http.get<any>(url + '?' + queryParams).pipe(
       map((res: Message[]) => {
         messages.push(...res)
-        this.array = messages
+        // Clone messages so we can update array and map independently
+        this.array = []
+        this.array.push(...messages)
         this.map.set(filter.peer, messages)
         setMap(key, this.map)
         return messages
@@ -73,12 +75,10 @@ export class MessageStore {
       this.array.push(message)
     }
     // Push to map
-    if (typeof message.peer === 'string') {
-      const messages = this.map.get(message.peer) ?? []
-      messages.push(message)
-      this.map.set(message.peer, messages)
-      setMap(key, this.map)
-    }
+    const messages = this.map.get(message.peer._id) ?? []
+    messages.push(message)
+    this.map.set(message.peer._id, messages)
+    setMap(key, this.map)
     // Push to latest
     for (const [i, m] of this.latest.entries()) {
       if (m.peer._id === message.peer._id) {
@@ -124,16 +124,14 @@ export class MessageStore {
   }
 
   private updateMap(message: Message) {
-    if (typeof message.peer === 'string') {
-      const messages = this.map.get(message.peer) ?? []
-      for (const [i, m] of messages.entries()) {
-        if (m._id === message._id) {
-          messages[i] = message
-          break
-        }
+    const messages = this.map.get(message.peer._id) ?? []
+    for (const [i, m] of messages.entries()) {
+      if (m._id === message._id) {
+        messages[i] = message
+        break
       }
-      this.map.set(message.peer, messages)
-      setMap(key, this.map)
     }
+    this.map.set(message.peer._id, messages)
+    setMap(key, this.map)
   }
 }
