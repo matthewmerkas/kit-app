@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import { Platform } from '@ionic/angular'
 import { io } from 'socket.io-client'
 import { animations } from './functions/animations'
@@ -13,8 +13,14 @@ import { Message } from './functions/types'
   animations: animations('150ms', '1s'),
 })
 export class AppComponent {
-  constructor(public store: Store, public platform: Platform) {
-    store.info.get().subscribe()
+  constructor(
+    private changeDetectionRef: ChangeDetectorRef,
+    public store: Store,
+    public platform: Platform
+  ) {
+    store.info.get().subscribe(() => {
+      this.changeDetectionRef.detectChanges()
+    })
     const socket = io(environment.apiUrl, {
       path: environment.apiPath,
     })
