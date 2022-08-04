@@ -27,7 +27,10 @@ export class MessageComponent implements OnInit {
   }
 
   getColor() {
-    return this.message.direction === 'send' ? 'light' : 'dark'
+    if (document.body.classList.contains('dark')) {
+      return this.message.direction === 'send' ? 'light' : 'dark'
+    }
+    return 'dark'
   }
 
   getPlayIcon = () => {

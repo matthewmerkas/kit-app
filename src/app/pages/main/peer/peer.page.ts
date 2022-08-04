@@ -7,6 +7,7 @@ import { RecordingData, VoiceRecorder } from 'capacitor-voice-recorder'
 import { DateTime } from 'luxon'
 import { map } from 'rxjs'
 import { catchError } from 'rxjs/operators'
+import { Platform } from '@ionic/angular'
 
 @Component({
   selector: 'app-peer',
@@ -33,7 +34,11 @@ export class PeerPage implements OnInit {
 
   private recordingData: RecordingData
 
-  constructor(private activatedRoute: ActivatedRoute, public store: Store) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public platform: Platform,
+    public store: Store
+  ) {}
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id')

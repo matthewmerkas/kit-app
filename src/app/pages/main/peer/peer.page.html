@@ -1,10 +1,10 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar [color]="!platform.is('ios') ? 'light' : ''">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-item [@fadeIn-150ms-0ms]="" lines="none" *ngIf="peer" slot="end">
-      <ion-icon name="person-circle" color="primary"></ion-icon>
+      <ion-icon color="medium" name="person-circle"></ion-icon>
       <ion-label class="ion-text-wrap">
         <h2>{{ peer?.displayName }}</h2>
       </ion-label>

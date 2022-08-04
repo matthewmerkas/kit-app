@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-title> {{ store.info.object.name }} </ion-title>
     <ion-buttons class="round" slot="end">
       <ion-button id="user-trigger">
@@ -74,7 +74,11 @@
             *ngFor="let user of users"
             [routerLink]="'/home/peer/' + user._id"
           >
-            <ion-icon name="person-circle" slot="start"></ion-icon>
+            <ion-icon
+              color="medium"
+              name="person-circle"
+              slot="start"
+            ></ion-icon>
             <ion-label>
               <h2>{{ user.displayName }}</h2>
               <p>@{{ user.username }}</p>
