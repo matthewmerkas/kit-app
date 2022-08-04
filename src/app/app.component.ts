@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component } from '@angular/core'
-import { Platform } from '@ionic/angular'
+import { Location } from '@angular/common'
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core'
+import { IonRouterOutlet, NavController, Platform } from '@ionic/angular'
 import { io } from 'socket.io-client'
 import { animations } from './functions/animations'
 import { Store } from './stores/store'
@@ -13,11 +14,25 @@ import { Message } from './functions/types'
   animations: animations('150ms', '1s'),
 })
 export class AppComponent {
+  @ViewChild(IonRouterOutlet, { static: true }) routerOutlet: IonRouterOutlet
+
   constructor(
     private changeDetectionRef: ChangeDetectorRef,
+    private location: Location,
+    private navCtrl: NavController,
     public store: Store,
     public platform: Platform
   ) {
+    platform.backButton.subscribeWithPriority(10, () => {
+      if (
+        this.location.isCurrentPathEqualTo('/home') ||
+        !this.routerOutlet.canGoBack()
+      ) {
+        this.store.ui.setExit(true)
+      } else {
+        this.navCtrl.pop()
+      }
+    })
     store.info.get().subscribe(() => {
       this.changeDetectionRef.detectChanges()
     })

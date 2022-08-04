@@ -1,11 +1,14 @@
 import { action, observable } from 'mobx-angular'
 import { ToastController } from '@ionic/angular'
+import { App } from '@capacitor/app'
 
 export class UiStore {
   @observable audioRefs: HTMLAudioElement[] = []
 
   private audioRef: HTMLAudioElement
   private count = 0
+  private exit = false
+  private exitTimeout
   private loading = false
   private toast: HTMLIonToastElement
 
@@ -71,20 +74,40 @@ export class UiStore {
     this.loading = this.count > 0
   }
 
+  @action
+  setExit(value: boolean) {
+    if (this.exit && value) {
+      App.exitApp()
+    }
+
+    this.exit = value
+    if (value) {
+      this.openToast('Press again to exit', '')
+      this.exitTimeout = setTimeout(() => {
+        this.exit = false
+      }, 3000)
+    } else {
+      clearTimeout(this.exitTimeout)
+    }
+  }
+
   async openToast(message?: string, text = 'Close', duration = 3000) {
     if (message) {
       await this.toast?.dismiss()
-      this.toast = await this.toastController.create({
+      const config: any = {
         message,
         duration,
-        buttons: [
-          {
-            text,
-            role: 'cancel',
-          },
-        ],
+        buttons: text
+          ? [
+              {
+                text,
+                role: 'cancel',
+              },
+            ]
+          : [],
         cssClass: 'toast',
-      })
+      }
+      this.toast = await this.toastController.create(config)
       await this.toast.present()
     }
   }
