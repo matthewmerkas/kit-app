@@ -36,9 +36,10 @@ export class AppComponent {
     store.info.get().subscribe(() => {
       this.changeDetectionRef.detectChanges()
     })
-    // TODO: Get wss:// to ws:// (SSL WebSockets) Apache reverse proxy working
-    const socket = io(environment.socketUri, {
+    // TODO: Get wss:// to ws:// (SSL WebSockets) working with Apache reverse proxy (& remove upgrade: false)
+    const socket = io(environment.apiUrl, {
       path: environment.socketPath,
+      upgrade: false,
     })
     socket.on('create message', (s) => {
       // If target user matches logged-in user, download message and push to memory
