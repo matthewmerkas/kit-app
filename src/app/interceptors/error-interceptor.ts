@@ -56,7 +56,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.openToast(err)
             removeTokens()
             this.store.initialise() // Clear stores
-            this.router.navigate(['/auth'])
+            this.router.navigate(['/auth/login'])
           } else {
             this.openToast(err)
           }

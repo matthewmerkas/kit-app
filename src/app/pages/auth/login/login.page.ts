@@ -47,15 +47,6 @@ export class LoginPage implements OnInit {
     this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
   }
 
-  login = () => {
-    forkJoin([
-      this.store.message.getLatest(),
-      this.store.user.getMe(),
-    ]).subscribe(() => {
-      this.router.navigate(['/home'])
-    })
-  }
-
   showMatchError = () => {
     const mismatch = this.signupForm.errors?.mismatch === true
     if (mismatch) {
@@ -74,7 +65,12 @@ export class LoginPage implements OnInit {
       })
     } else {
       this.store.user.login(this.loginForm.getRawValue()).subscribe(() => {
-        this.login()
+        forkJoin([
+          this.store.message.getLatest(),
+          this.store.user.getMe(),
+        ]).subscribe(() => {
+          this.router.navigate(['/home'])
+        })
       })
     }
   }
