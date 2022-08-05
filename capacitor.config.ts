@@ -5,6 +5,11 @@ const config: CapacitorConfig = {
   appName: 'KIT',
   webDir: 'www',
   bundledWebRuntime: false,
+  plugins: {
+    SplashScreen: {
+      launchAutoHide: false,
+    },
+  },
 }
 
 export default config

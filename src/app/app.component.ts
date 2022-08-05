@@ -1,11 +1,12 @@
 import { Location } from '@angular/common'
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { IonRouterOutlet, NavController, Platform } from '@ionic/angular'
 import { io } from 'socket.io-client'
 import { animations } from './functions/animations'
 import { Store } from './stores/store'
 import { environment } from '../environments/environment'
 import { Message } from './functions/types'
+import { SplashScreen } from '@capacitor/splash-screen'
 
 @Component({
   selector: 'app-root',
@@ -13,11 +14,10 @@ import { Message } from './functions/types'
   styleUrls: ['app.component.scss'],
   animations: animations('150ms', '1s'),
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild(IonRouterOutlet, { static: true }) routerOutlet: IonRouterOutlet
 
   constructor(
-    private changeDetectionRef: ChangeDetectorRef,
     private location: Location,
     private navCtrl: NavController,
     public store: Store,
@@ -32,9 +32,6 @@ export class AppComponent {
       } else {
         this.navCtrl.pop()
       }
-    })
-    store.info.get().subscribe(() => {
-      this.changeDetectionRef.detectChanges()
     })
     // TODO: Get wss:// to ws:// (SSL WebSockets) working with Apache reverse proxy (& remove upgrade: false)
     const socket = io(environment.socketUri, {
@@ -52,5 +49,10 @@ export class AppComponent {
       console.log(err)
       socket.connect()
     })
+  }
+
+  ngOnInit() {
+    this.store.info.get().subscribe()
+    SplashScreen.hide()
   }
 }
