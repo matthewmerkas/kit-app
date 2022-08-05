@@ -53,8 +53,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.store.info.get().subscribe()
-    setTimeout(() => {
-      SplashScreen.hide()
-    }, 100)
+    SplashScreen.hide()
   }
 }
