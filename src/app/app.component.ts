@@ -36,7 +36,7 @@ export class AppComponent {
     store.info.get().subscribe(() => {
       this.changeDetectionRef.detectChanges()
     })
-    // TODO: Get wss:// to ws:// (SSL WebSockets) Apache reverse proxy working
+    // TODO: Get wss:// to ws:// (SSL WebSockets) working with Apache reverse proxy (& remove upgrade: false)
     const socket = io(environment.socketUri, {
       path: environment.socketPath,
     })

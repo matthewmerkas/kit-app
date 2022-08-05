@@ -39,7 +39,7 @@ ion-item ion-icon {
 }
 
 .shade {
-  background-color: var(--ion-background-color);
+  background-color: var(--ion-background-color, #fff);
   bottom: 0;
   height: 40px;
   position: fixed;
