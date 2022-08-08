@@ -12,10 +12,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-popover trigger="user-trigger">
+<ion-popover [dismissOnSelect]="true" trigger="user-trigger">
   <ng-template>
-    <ion-content class="ion-padding">
-      {{ store.user.me.displayName }}
+    <ion-content>
+      <ion-list>
+        <ion-item
+          [button]="true"
+          [detail]="false"
+          lines="none"
+          [routerLink]="'/home/peer/' + store.user.me._id"
+        >
+          {{ store.user.me.displayName }}
+        </ion-item>
+      </ion-list>
     </ion-content>
   </ng-template>
 </ion-popover>
