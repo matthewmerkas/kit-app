@@ -41,15 +41,16 @@ export class PeerPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id')
-    this.store.user.get(id).subscribe((res) => {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id')
+    this.store.user.get(this.id).subscribe((res) => {
       this.peer = res
     })
-    this.store.message.getList(id).subscribe()
   }
 
   ionViewWillEnter() {
-    this.content.scrollToBottom()
+    this.store.message.getList(this.id).subscribe(() => {
+      this.content.scrollToBottom()
+    })
   }
 
   ionViewWillLeave() {
