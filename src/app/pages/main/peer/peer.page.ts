@@ -45,12 +45,13 @@ export class PeerPage implements OnInit {
     this.store.user.get(this.id).subscribe((res) => {
       this.peer = res
     })
-  }
-
-  ionViewWillEnter() {
     this.store.message.getList(this.id).subscribe(() => {
       this.content.scrollToBottom()
     })
+  }
+
+  ionViewWillEnter() {
+    this.content.scrollToBottom()
   }
 
   ionViewWillLeave() {
