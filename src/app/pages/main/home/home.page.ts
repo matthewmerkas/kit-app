@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
   constructor(private router: Router, public store: Store) {}
 
   ngOnInit() {
+    this.store.message.getLatest().subscribe()
     this.searchForm.valueChanges
       .pipe(debounceTime(100), distinctUntilChanged())
       .subscribe((value) => {
@@ -37,7 +38,6 @@ export class HomePage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.store.message.getLatest()
     this.searchForm.reset('')
   }
 
