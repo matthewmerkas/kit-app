@@ -3,6 +3,7 @@ import { map, Observable, of } from 'rxjs'
 import { action, observable } from 'mobx-angular'
 import { environment } from '../../environments/environment'
 import { getItem, setItem } from '../functions/local-storage'
+import * as equal from 'fast-deep-equal/es6'
 
 export class BaseStore {
   @observable array: any[]
@@ -35,7 +36,7 @@ export class BaseStore {
     const queryParams = new URLSearchParams({ ...filter, sort })
     return this.http.get<any>(this.url + '?' + queryParams).pipe(
       map((res: any[]) => {
-        if (!filter) {
+        if (!filter && !equal(this.array, res)) {
           setItem(this.key, res)
           this.array = res
         }

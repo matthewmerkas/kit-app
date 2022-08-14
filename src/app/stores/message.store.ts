@@ -5,6 +5,7 @@ import { Message } from '../functions/types'
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../environments/environment'
 import { getItem, getMap, setItem, setMap } from '../functions/local-storage'
+import * as equal from 'fast-deep-equal/es6'
 
 const key = 'message_map'
 const keyLatest = 'message_latest'
@@ -34,14 +35,16 @@ export class MessageStore {
   getLatest(): Observable<any> {
     return this.http.get<any>(url + apiConfig.message.latest).pipe(
       map((res: Message[]) => {
-        setItem(keyLatest, res)
-        this.latest = res
+        if (!equal(this.latest, res)) {
+          setItem(keyLatest, res)
+          this.latest = res
+        }
         return res
       })
     )
   }
 
-  // Updates existing array with new messages
+  // Appends new messages to existing array
   @action
   getList(peer: string): Observable<any> {
     const messages = this.map.get(peer) ?? []
@@ -57,12 +60,14 @@ export class MessageStore {
 
     return this.http.get<any>(url + '?' + queryParams).pipe(
       map((res: Message[]) => {
-        messages.push(...res)
-        // Clone messages so we can update array and map independently
-        this.array = []
-        this.array.push(...messages)
-        this.map.set(filter.peer, messages)
-        setMap(key, this.map)
+        if (res.length > 1) {
+          messages.push(...res)
+          // Clone messages so we can update array and map independently
+          this.array = []
+          this.array.push(...messages)
+          this.map.set(filter.peer, messages)
+          setMap(key, this.map)
+        }
         return messages
       })
     )
