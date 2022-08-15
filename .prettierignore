@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/angular,webstorm+all
-# Edit at https://www.toptal.com/developers/gitignore?templates=angular,webstorm+all
+# Created by https://www.toptal.com/developers/gitignore/api/angular,ionic3,cordova,webstorm+all
+# Edit at https://www.toptal.com/developers/gitignore?templates=angular,ionic3,cordova,webstorm+all
 
 ### Angular ###
 ## Angular ##
@@ -32,6 +32,49 @@ e2e/*.map
 
 # System Files
 .DS_Store/
+
+### Cordova ###
+# gitignore template for the Cordova framework
+# website: https://cordova.apache.org/
+#
+# Recommended template: Node.gitignore
+
+# App platform binaries and built files
+/platforms
+
+# Optional to ignore plugin Git clones
+#/plugins
+
+### Ionic3 ###
+# Log an tmp data
+*~
+*.sw[mnpcod]
+*.log
+*.tmp
+*.tmp.*
+log.txt
+
+# NPM (Node Package Manager) files
+npm-debug.log*
+temp/
+
+# Preprocessors cache files
+.sourcemaps/
+.tmp/
+hooks/
+
+# Ionic 3 plugins files
+platforms/
+plugins/
+plugins/android.json
+plugins/ios.json
+www/
+
+# Trash data
+$RECYCLE.BIN/
+.DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
 
 ### WebStorm+all ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -121,4 +164,38 @@ fabric.properties
 !.idea/codeStyles
 !.idea/runConfigurations
 
-# End of https://www.toptal.com/developers/gitignore/api/angular,webstorm+all
+# End of https://www.toptal.com/developers/gitignore/api/angular,ionic3,cordova,webstorm+all
+
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+
+.tmp
+
+*.sublime-project
+*.sublime-workspace
+
+/.angular
+/.idea
+/.ionic
+/.sass-cache
+/.sourcemaps
+/.versions
+/.vscode
+/coverage
+/dist
+/node_modules
+/plugins
+/www
+
+# cordova-res
+resources/android/icon
+resources/android/splash
+resources/ios/icon
+resources/ios/splash
+resources/windows/icon
+resources/windows/splash
+
+# capacitor
+capacitor.config.json
+capacitor.plugins.json
