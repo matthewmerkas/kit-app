@@ -3,7 +3,7 @@
   [formGroup]="_full ? fullForm : loginForm"
   (keyup.enter)="submit()"
 >
-  <ion-item>
+  <ion-item [disabled]="store.ui.isLoading()">
     <ion-label position="floating">Username</ion-label>
     <ion-input formControlName="username"></ion-input>
     <small class="flex" *ngIf="_full">
@@ -15,7 +15,7 @@
       <span>Required</span>
     </small>
   </ion-item>
-  <ion-item *ngIf="_full">
+  <ion-item [disabled]="store.ui.isLoading()" *ngIf="_full">
     <ion-label position="floating">Display Name</ion-label>
     <ion-input formControlName="displayName"></ion-input>
     <small class="flex">
@@ -27,7 +27,7 @@
       <span>Required</span>
     </small>
   </ion-item>
-  <ion-item>
+  <ion-item [disabled]="store.ui.isLoading()">
     <ion-label position="floating">Password</ion-label>
     <ion-input
       formControlName="password"
@@ -50,7 +50,7 @@
       <span>Minimum 8 characters</span>
     </small>
   </ion-item>
-  <ion-item *ngIf="_full">
+  <ion-item [disabled]="store.ui.isLoading()" *ngIf="_full">
     <ion-label position="floating">Confirm Password</ion-label>
     <ion-input
       formControlName="passwordConfirm"

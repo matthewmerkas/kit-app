@@ -12,7 +12,13 @@
     <div class="section">
       <h2>Account</h2>
       <app-user-form [fullForm]="userForm" [submit]="submit"></app-user-form>
-      <ion-button color="secondary" [disabled]="" expand="block" size="large">
+      <ion-button
+        (click)="submit()"
+        color="secondary"
+        [disabled]="userForm.invalid || !hasChanged || store.ui.isLoading()"
+        expand="block"
+        size="large"
+      >
         <ion-icon name="save-outline"></ion-icon>
         Save
       </ion-button>

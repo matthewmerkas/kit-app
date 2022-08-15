@@ -27,6 +27,17 @@ export class UserStore extends BaseStore {
   }
 
   @action
+  updateMe(data: User): Observable<any> {
+    return this.http.put<any>(this.url + apiConfig.user.me, data).pipe(
+      map((res: User) => {
+        setItem('me', res)
+        this.me = res
+        return res
+      })
+    )
+  }
+
+  @action
   login(data: any): Observable<any> {
     return this.http.post<any>(this.url + apiConfig.user.login, data).pipe(
       map((res: Jwt) => {

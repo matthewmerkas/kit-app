@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { FormGroup } from '@angular/forms'
+import { Store } from '../../stores/store'
 
 @Component({
   selector: 'app-user-form',
@@ -15,7 +16,7 @@ export class UserFormComponent implements OnInit {
   showPassword = false
   showConfirmPassword = false
 
-  constructor() {}
+  constructor(public store: Store) {}
 
   @Input() set full(value: boolean) {
     // eslint-disable-next-line no-underscore-dangle
