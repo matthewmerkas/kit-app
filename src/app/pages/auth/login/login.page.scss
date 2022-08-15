@@ -21,22 +21,9 @@ small {
   width: min(384px, calc(100% - 64px));
 }
 
-.error-hint {
-  color: var(--ion-color-danger);
-  display: none;
-}
-
 .login-button {
   font-size: 16px;
   text-transform: none;
-}
-
-.show-hide-button {
-  --border-radius: 40px;
-  font-size: 14px;
-  height: 40px;
-  margin: auto 0;
-  width: 40px;
 }
 
 .submit-button {

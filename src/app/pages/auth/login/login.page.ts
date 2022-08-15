@@ -12,8 +12,6 @@ import { removeTokens } from '../../../functions/local-storage'
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  showPassword = false
-  showConfirmPassword = false
   signup = false
 
   loginForm = this.fb.group({
@@ -42,17 +40,7 @@ export class LoginPage implements OnInit {
     this.store.initialise() // Clear stores
     this.loginForm.reset()
     this.signupForm.reset()
-    this.showPassword = false
-    this.showConfirmPassword = false
     this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
-  }
-
-  showMatchError = () => {
-    const mismatch = this.signupForm.errors?.mismatch === true
-    if (mismatch) {
-      this.signupForm.controls.passwordConfirm.setErrors({ mismatch })
-    }
-    return mismatch
   }
 
   submit = () => {
@@ -77,8 +65,6 @@ export class LoginPage implements OnInit {
 
   toggleSignup = () => {
     this.signup = !this.signup
-    this.showPassword = false
-    this.showConfirmPassword = false
     this.router.navigate([], { queryParams: { signup: this.signup } })
   }
 }
