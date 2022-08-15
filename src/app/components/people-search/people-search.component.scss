@@ -1,4 +1,7 @@
 ion-list {
+  ion-item::part(native) {
+    background: transparent;
+  }
   padding-top: 72px;
 }
 

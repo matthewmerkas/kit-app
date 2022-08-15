@@ -12,7 +12,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-popover [dismissOnSelect]="true" trigger="user-trigger">
+<ion-popover
+  [dismissOnSelect]="true"
+  [showBackdrop]="false"
+  trigger="user-trigger"
+>
   <ng-template>
     <ion-content class="user-popover">
       <ion-list>
