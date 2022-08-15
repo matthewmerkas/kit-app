@@ -9,9 +9,20 @@
 
 <ion-content>
   <div class="narrow-container">
-    <ion-button color="secondary" [disabled]="" expand="block" size="large">
-      <ion-icon name="save-outline"></ion-icon>
-      Save
-    </ion-button>
+    <div class="section">
+      <h2>Account</h2>
+      <app-user-form [fullForm]="userForm" [submit]="submit"></app-user-form>
+      <ion-button color="secondary" [disabled]="" expand="block" size="large">
+        <ion-icon name="save-outline"></ion-icon>
+        Save
+      </ion-button>
+    </div>
+
+    <div class="section">
+      <h2>App</h2>
+      <div class="card">
+        <ion-item lines="none"> Dark Mode </ion-item>
+      </div>
+    </div>
   </div>
 </ion-content>

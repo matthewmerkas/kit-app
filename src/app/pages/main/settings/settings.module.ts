@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular'
 import { SettingsPageRoutingModule } from './settings-routing.module'
 
 import { SettingsPage } from './settings.page'
+import { LoginPageModule } from '../../auth/login/login.module'
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { SettingsPage } from './settings.page'
     IonicModule,
     SettingsPageRoutingModule,
     ReactiveFormsModule,
+    LoginPageModule,
   ],
   declarations: [SettingsPage],
 })

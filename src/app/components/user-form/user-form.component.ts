@@ -11,7 +11,7 @@ export class UserFormComponent implements OnInit {
   @Input() loginForm: FormGroup
   @Input() submit: () => void
 
-  _full = false
+  _full = true
   showPassword = false
   showConfirmPassword = false
 

@@ -18,5 +18,6 @@ import { UserFormComponent } from '../../../components/user-form/user-form.compo
     ReactiveFormsModule,
   ],
   declarations: [LoginPage, UserFormComponent],
+  exports: [UserFormComponent],
 })
 export class LoginPageModule {}
