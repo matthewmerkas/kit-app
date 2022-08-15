@@ -77,7 +77,7 @@ export class NfcPage implements OnInit {
   updateTag(user) {
     this.tag.user = user
     if (this.tag?._id) {
-      this.store.rfid.set(this.tag.tagId, this.tag).subscribe()
+      this.store.rfid.patch(this.tag.tagId, this.tag).subscribe()
     } else {
       this.store.rfid.create(this.tag).subscribe()
     }
