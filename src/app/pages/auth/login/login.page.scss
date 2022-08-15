@@ -1,14 +1,7 @@
-ion-content.ios {
-  --ion-item-background: #121212;
-}
-
 ion-item {
   &.ion-invalid.ion-touched .error-hint {
     display: flex;
   }
-
-  --padding-end: var(--padding-start);
-  --inner-padding-end: 0;
 }
 
 small {
@@ -23,16 +16,9 @@ small {
   flex-direction: column;
 }
 
-.card {
-  background-color: var(--ion-item-background);
-  border-radius: var(--custom-radius);
-  margin: 32px 0;
-  padding: var(--custom-radius) 0;
-}
-
 .container {
   margin: auto;
-  width: min(400px, calc(100% - 64px));
+  width: min(384px, calc(100% - 64px));
 }
 
 .error-hint {
@@ -55,5 +41,6 @@ small {
 
 .submit-button {
   margin: 0;
+  text-transform: none;
   width: 100%;
 }

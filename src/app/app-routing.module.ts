@@ -32,6 +32,14 @@ const routes: Routes = [
       import('./pages/main/peer/peer.module').then((m) => m.PeerPageModule),
   },
   {
+    canActivate: [JwtGuard],
+    path: 'home/settings',
+    loadChildren: () =>
+      import('./pages/main/settings/settings.module').then(
+        (m) => m.SettingsPageModule
+      ),
+  },
+  {
     path: 'auth',
     redirectTo: 'auth/tour',
     pathMatch: 'full',
