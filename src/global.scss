@@ -46,6 +46,24 @@
   --send-color: 76, 175, 80;
 }
 
+ion-buttons.round ion-button,
+ion-button.round {
+  &::part(native) {
+    padding: 0;
+  }
+  ion-icon {
+    height: 60%;
+    width: 60%;
+  }
+  --border-radius: 50% !important;
+  height: 40px;
+  width: 40px;
+}
+
+ion-content.md {
+  --background: var(--ion-color-dark-contrast);
+}
+
 ion-item {
   --background: transparent;
   --padding-end: var(--padding-start);
@@ -69,6 +87,10 @@ ion-popover.ios {
 
 ion-popover ion-content {
   --background: var(--ion-card-background) !important;
+}
+
+ion-toolbar.md {
+  --background: var(--ion-color-dark-contrast);
 }
 
 .button-solid,
@@ -115,28 +137,6 @@ ion-popover ion-content {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-}
-
-ion-buttons.round ion-button,
-ion-button.round {
-  &::part(native) {
-    padding: 0;
-  }
-  ion-icon {
-    height: 60%;
-    width: 60%;
-  }
-  --border-radius: 50% !important;
-  height: 40px;
-  width: 40px;
-}
-
-ion-content.md {
-  --background: var(--ion-color-dark-contrast);
-}
-
-ion-toolbar.md {
-  --background: var(--ion-color-dark-contrast);
 }
 
 .spinner {
