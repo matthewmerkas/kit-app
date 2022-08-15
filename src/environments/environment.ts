@@ -6,9 +6,9 @@ import { apiConfig } from './api.config'
 
 export const environment = {
   production: false,
-  apiUrl: 'https://mattopia.servegame.com/kit/api',
-  socketUri: 'http://mattopia1.servegame.com',
-  socketPath: '/kit/socket.io/',
+  apiUrl: 'http://127.0.0.1:3000/api',
+  socketUri: 'http://127.0.0.1:3000',
+  socketPath: '/socket.io/',
   apiConfig,
 }
 

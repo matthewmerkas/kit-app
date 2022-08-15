@@ -1,9 +1,12 @@
 import { action, observable } from 'mobx-angular'
 import { ToastController } from '@ionic/angular'
 import { App } from '@capacitor/app'
+import { io } from 'socket.io-client'
+import { environment } from '../../environments/environment'
 
 export class UiStore {
   @observable audioRefs: HTMLAudioElement[] = []
+  @observable socket
 
   private audioRef: HTMLAudioElement
   private count = 0
@@ -12,7 +15,16 @@ export class UiStore {
   private loading = false
   private toast: HTMLIonToastElement
 
-  constructor(private toastController: ToastController) {}
+  constructor(private toastController: ToastController) {
+    // TODO: Get wss:// to ws:// (SSL WebSockets) working with Apache reverse proxy (& remove upgrade: false)
+    this.socket = io(environment.socketUri, {
+      path: environment.socketPath,
+    })
+    this.socket.on('error', (err) => {
+      console.log(err)
+      this.socket.connect()
+    })
+  }
 
   @action
   addAudio(audioRef: HTMLAudioElement) {
@@ -109,6 +121,7 @@ export class UiStore {
       }
       this.toast = await this.toastController.create(config)
       await this.toast.present()
+      return this.toast
     }
   }
 }

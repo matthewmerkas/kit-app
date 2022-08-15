@@ -1,10 +1,8 @@
 import { Location } from '@angular/common'
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { IonRouterOutlet, NavController, Platform } from '@ionic/angular'
-import { io } from 'socket.io-client'
 import { animations } from './functions/animations'
 import { Store } from './stores/store'
-import { environment } from '../environments/environment'
 import { Message } from './functions/types'
 import { SplashScreen } from '@capacitor/splash-screen'
 
@@ -33,11 +31,7 @@ export class AppComponent implements OnInit {
         this.navCtrl.pop()
       }
     })
-    // TODO: Get wss:// to ws:// (SSL WebSockets) working with Apache reverse proxy (& remove upgrade: false)
-    const socket = io(environment.socketUri, {
-      path: environment.socketPath,
-    })
-    socket.on('create message', (s) => {
+    this.store.ui.socket.on('create message', (s) => {
       // If target user matches logged-in user, download message and push to memory
       if (s.user === store.user.me._id) {
         store.message.get(s._id).subscribe((m: Message) => {
@@ -45,14 +39,12 @@ export class AppComponent implements OnInit {
         })
       }
     })
-    socket.on('error', (err) => {
-      console.log(err)
-      socket.connect()
-    })
   }
 
   ngOnInit() {
     this.store.info.get().subscribe()
-    SplashScreen.hide()
+    this.platform.ready().then(() => {
+      SplashScreen.hide()
+    })
   }
 }

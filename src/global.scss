@@ -91,6 +91,14 @@ ion-button.round {
   width: 40px;
 }
 
+ion-content.md {
+  --background: var(--ion-color-dark-contrast);
+}
+
+ion-toolbar.md {
+  --background: var(--ion-color-dark-contrast);
+}
+
 .spinner {
   &.md {
     --color: var(--ion-color-primary);

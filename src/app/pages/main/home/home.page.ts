@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { removeTokens } from '../../../functions/local-storage'
 import { Router } from '@angular/router'
 import { Store } from '../../../stores/store'
-import { FormControl } from '@angular/forms'
-import { debounceTime, distinctUntilChanged, EMPTY, map } from 'rxjs'
+import { EMPTY, map } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { animations } from '../../../functions/animations'
 
@@ -14,42 +13,15 @@ import { animations } from '../../../functions/animations'
   animations: animations(),
 })
 export class HomePage implements OnInit {
-  searchForm = new FormControl('')
-  users = []
-
   constructor(private router: Router, public store: Store) {}
 
   ngOnInit() {
     this.store.message.getLatest().subscribe()
-    this.searchForm.valueChanges
-      .pipe(debounceTime(100), distinctUntilChanged())
-      .subscribe((value) => {
-        this.store.user
-          .getList({
-            $or: JSON.stringify([
-              { displayName: { $regex: value, $options: 'i' } },
-              { username: { $regex: value, $options: 'i' } },
-            ]),
-          })
-          .subscribe((res) => {
-            this.users = res
-          })
-      })
-  }
-
-  ionViewWillEnter() {
-    this.searchForm.reset('')
   }
 
   logout() {
     removeTokens()
     return this.router.navigate(['/auth'])
-  }
-
-  onWillPresent() {
-    this.store.user.getList().subscribe((res) => {
-      this.users = res
-    })
   }
 
   refresh(ev) {

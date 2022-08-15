@@ -21,6 +21,12 @@ const routes: Routes = [
   },
   {
     canActivate: [JwtGuard],
+    path: 'home/nfc',
+    loadChildren: () =>
+      import('./pages/main/nfc/nfc.module').then((m) => m.NfcPageModule),
+  },
+  {
+    canActivate: [JwtGuard],
     path: 'home/peer/:id',
     loadChildren: () =>
       import('./pages/main/peer/peer.module').then((m) => m.PeerPageModule),

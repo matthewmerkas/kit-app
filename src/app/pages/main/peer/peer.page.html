@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar [color]="!platform.is('ios') ? 'light' : ''">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
@@ -20,7 +20,7 @@
     ></app-message>
   </div>
   <div class="flex record-container">
-    <span class="status-message"> {{ getStatusMessage() }} </span>
+    <span> {{ getStatusMessage() }} </span>
     <ion-buttons
       class="round"
       [@fadeIn-150ms-1s]=""

@@ -36,3 +36,9 @@ export interface User extends SoftDeletes {
   username?: string
   displayName?: string
 }
+
+export interface Tag {
+  _id?: string
+  tagId: string
+  user?: User
+}

@@ -4,6 +4,7 @@ export const apiConfig = {
     base: '/message',
     latest: '/latest',
   },
+  rfid: '/rfid',
   user: {
     base: '/user',
     login: '/login',

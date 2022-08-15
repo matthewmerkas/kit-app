@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tag Editor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="tag-info">
+      <p class="flex" *ngIf="!tag">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        Please scan a tag first
+      </p>
+      <ng-container *ngIf="tag">
+        <p class="flex">
+          <ion-icon name="id-card-outline"></ion-icon>
+          {{ 'Tag ID: ' + tag.tagId }}
+        </p>
+        <p class="flex">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          {{ tag.user?.displayName || 'No user assigned' }}
+        </p>
+        <p class="flex" *ngIf="tag.user?.username">
+          <ion-icon name="at-circle-outline"></ion-icon>
+          {{ tag.user.username }}
+        </p>
+      </ng-container>
+    </div>
+    <ion-button
+      color="secondary"
+      [disabled]="!tag"
+      expand="block"
+      id="people-search-nfc"
+      size="large"
+    >
+      <ion-icon name="person-add-outline"></ion-icon>
+      {{ tag?.user ? 'Change assigned user' : 'Assign a user' }}
+    </ion-button>
+
+    <app-people-search
+      [onClick]="onClick"
+      [trigger]="'people-search-nfc'"
+      (userSelect)="updateTag($event)"
+    ></app-people-search>
+  </div>
+</ion-content>

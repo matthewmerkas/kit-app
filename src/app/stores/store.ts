@@ -6,6 +6,8 @@ import { InfoStore } from './info.store'
 import UiStore from './ui.store'
 import { ToastController } from '@ionic/angular'
 import { MessageStore } from './message.store'
+import { BaseStore } from './base.store'
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +15,7 @@ import { MessageStore } from './message.store'
 export class Store {
   @observable info: InfoStore
   @observable message: MessageStore
+  @observable rfid: BaseStore
   @observable ui: UiStore
   @observable user: UserStore
 
@@ -26,6 +29,7 @@ export class Store {
   initialise() {
     this.info = new InfoStore(this.http)
     this.message = new MessageStore(this.http)
+    this.rfid = new BaseStore(environment.apiConfig.rfid, this.http)
     this.ui = new UiStore(this.toastController)
     this.user = new UserStore(this.http)
   }

@@ -1,12 +1,12 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="light">
+  <ion-toolbar>
     <ion-title> {{ store.info.object.name }} </ion-title>
     <ion-buttons class="round" slot="end">
+      <ion-button routerLink="/home/nfc">
+        <ion-icon name="images-outline"></ion-icon>
+      </ion-button>
       <ion-button id="user-trigger">
         <ion-icon name="person-circle-outline"></ion-icon>
-      </ion-button>
-      <ion-button (click)="logout()">
-        <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -14,7 +14,7 @@
 
 <ion-popover [dismissOnSelect]="true" trigger="user-trigger">
   <ng-template>
-    <ion-content>
+    <ion-content class="user-popover">
       <ion-list>
         <ion-item
           [button]="true"
@@ -23,6 +23,15 @@
           [routerLink]="'/home/peer/' + store.user.me._id"
         >
           {{ store.user.me.displayName }}
+        </ion-item>
+        <ion-item
+          [button]="true"
+          (click)="logout()"
+          [detail]="false"
+          lines="none"
+        >
+          Logout
+          <ion-icon name="log-out-outline"></ion-icon>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -36,7 +45,7 @@
 
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large"> Inbox </ion-title>
+      <ion-title size="large"> {{ store.info.object.name }} </ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -58,43 +67,10 @@
   </div>
 
   <ion-fab horizontal="end" slot="fixed" vertical="bottom">
-    <ion-fab-button id="new-message">
+    <ion-fab-button id="people-search">
       <ion-icon name="people-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <ion-modal
-    #modal
-    [breakpoints]="[0, 0.5, 0.9]"
-    [initialBreakpoint]="0.5"
-    trigger="new-message"
-    (willPresent)="onWillPresent()"
-  >
-    <ng-template>
-      <ion-content class="new-message-modal">
-        <ion-searchbar
-          [formControl]="searchForm"
-          (ionFocus)="modal.setCurrentBreakpoint(0.9)"
-          placeholder="Search people"
-        ></ion-searchbar>
-        <ion-list>
-          <ion-item
-            (click)="modal.dismiss()"
-            *ngFor="let user of users"
-            [routerLink]="'/home/peer/' + user._id"
-          >
-            <ion-icon
-              color="medium"
-              name="person-circle"
-              slot="start"
-            ></ion-icon>
-            <ion-label>
-              <h2>{{ user.displayName }}</h2>
-              <p>@{{ user.username }}</p>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
+  <app-people-search></app-people-search>
 </ion-content>

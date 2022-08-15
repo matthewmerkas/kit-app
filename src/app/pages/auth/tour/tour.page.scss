@@ -10,7 +10,7 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  transition: opacity var(--delay);
+  transition: opacity var(--delay) ease-in-out;
   z-index: 2;
 }
 

@@ -16,6 +16,10 @@ Run `ionic build` to build the project. The build artifacts will be stored in th
 
 ## Deploy
 
+`./build.sh`
+
+or run each command manually:
+
 `ionic build --prod`
 
 `cordova-res android --skip-config --copy`
