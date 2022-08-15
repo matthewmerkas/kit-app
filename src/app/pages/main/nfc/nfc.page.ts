@@ -42,8 +42,13 @@ export class NfcPage implements OnInit {
         })
       }
     )
+    // If event ID matches tagId, update tag in memory
     this.store.ui.socket.on('create rfid', (s) => {
-      // If target user matches tagId, update tag in memory
+      if (s.tagId === this.tag?.tagId) {
+        this.getTag()
+      }
+    })
+    this.store.ui.socket.on('patch rfid', (s) => {
       if (s.tagId === this.tag?.tagId) {
         this.getTag()
       }
