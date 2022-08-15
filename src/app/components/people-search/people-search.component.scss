@@ -6,12 +6,6 @@ ion-list {
   padding-top: 72px;
 }
 
-ion-searchbar {
-  background: var(--ion-card-background);
-  position: fixed;
-  z-index: 1;
-}
-
 ion-modal::part(handle) {
   margin-top: 4px;
   margin-bottom: 4px;
@@ -40,7 +34,18 @@ ion-modal::part(handle) {
     --background: var(--ion-color-light-tint);
     --box-shadow: none;
     padding-top: 32px;
+    position: fixed;
     height: 64px;
+    z-index: 2;
   }
   --background: var(--ion-card-background);
+}
+
+.shade {
+  background-color: var(--ion-card-background, #FFFFFF);
+  top: 0;
+  height: 32px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
