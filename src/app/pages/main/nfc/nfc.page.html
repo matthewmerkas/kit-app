@@ -11,24 +11,26 @@
   <div class="narrow-container">
     <div class="card">
       <ion-item lines="none">
-        <p class="flex" *ngIf="!tag">
-          <ion-icon name="alert-circle-outline"></ion-icon>
-          Please scan a tag first
-        </p>
-        <ng-container *ngIf="tag">
-          <p class="flex">
-            <ion-icon name="id-card-outline"></ion-icon>
-            {{ 'Tag ID: ' + tag.tagId }}
+        <div>
+          <p class="flex" *ngIf="!tag">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+            Please scan a tag first
           </p>
-          <p class="flex">
-            <ion-icon name="person-circle-outline"></ion-icon>
-            {{ tag.user?.displayName || 'No user assigned' }}
-          </p>
-          <p class="flex" *ngIf="tag.user?.username">
-            <ion-icon name="at-circle-outline"></ion-icon>
-            {{ tag.user.username }}
-          </p>
-        </ng-container>
+          <ng-container *ngIf="tag">
+            <p class="flex">
+              <ion-icon name="id-card-outline"></ion-icon>
+              {{ 'Tag ID: ' + tag.tagId }}
+            </p>
+            <p class="flex">
+              <ion-icon name="person-circle-outline"></ion-icon>
+              {{ tag.user?.displayName || 'No user assigned' }}
+            </p>
+            <p class="flex" *ngIf="tag.user?.username">
+              <ion-icon name="at-circle-outline"></ion-icon>
+              {{ tag.user.username }}
+            </p>
+          </ng-container>
+        </div>
       </ion-item>
     </div>
     <ion-button
