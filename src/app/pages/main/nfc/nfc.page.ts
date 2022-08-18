@@ -61,6 +61,11 @@ export class NfcPage implements OnInit {
     this.getTag()
   }
 
+  ionViewWillLeave() {
+    this.nfc.cancelScan()
+    return this.toast?.dismiss()
+  }
+
   getTag(tagId = this.tag?.tagId) {
     if (tagId) {
       this.store.rfid.get(tagId).subscribe((res) => {
@@ -81,9 +86,5 @@ export class NfcPage implements OnInit {
     } else {
       this.store.rfid.create(this.tag).subscribe()
     }
-  }
-
-  ionViewWillLeave() {
-    return this.toast?.dismiss()
   }
 }
