@@ -1,5 +1,27 @@
+*, ion-content::part(background), ion-item::part(native) {
+  transition: background 150ms;
+}
+
+ion-header {
+  background: var(--ion-background-color, #ffffff);
+}
+
+ion-toolbar {
+  --background: none;
+}
+
 h2 {
   margin-left: 4px;
+}
+
+ion-segment {
+  --background: var(--ion-color-light);
+  margin: 32px 0;
+  min-height: 48px;
+}
+
+ion-segment, ion-segment-button::part(indicator-background) {
+  border-radius: var(--custom-radius) !important;
 }
 
 .section {

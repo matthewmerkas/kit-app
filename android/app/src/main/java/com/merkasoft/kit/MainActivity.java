@@ -1,13 +1,6 @@
 package com.merkasoft.kit;
 
 import android.content.res.Configuration;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.webkit.WebSettingsCompat;
 import androidx.webkit.WebViewFeature;
 
@@ -28,13 +21,9 @@ public class MainActivity extends BridgeActivity {
     switch (currentNightMode) {
       case Configuration.UI_MODE_NIGHT_NO:
         forceDarkMode(WebSettingsCompat.FORCE_DARK_AUTO);
-        setBackgroundColor();
-        setStyle("LIGHT");
         break;
       case Configuration.UI_MODE_NIGHT_YES:
         forceDarkMode(WebSettingsCompat.FORCE_DARK_ON);
-        setBackgroundColor();
-        setStyle("DARK");
         break;
     }
   }
@@ -49,23 +38,6 @@ public class MainActivity extends BridgeActivity {
     if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
       WebSettingsCompat.setForceDark(bridge.getWebView().getSettings(), mode);
     }
-  }
-
-  public void setStyle(String style) {
-    Window window = getWindow();
-    View decorView = window.getDecorView();
-
-    WindowInsetsControllerCompat windowInsetsControllerCompat = WindowCompat.getInsetsController(window, decorView);
-    windowInsetsControllerCompat.setAppearanceLightNavigationBars(!style.equals("DARK"));
-    windowInsetsControllerCompat.setAppearanceLightStatusBars(!style.equals("DARK"));
-  }
-
-  public void setBackgroundColor() {
-    Window window = getWindow();
-    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-    window.setNavigationBarColor(ContextCompat.getColor(this, R.color.navigationBarColor));
-    window.setStatusBarColor(ContextCompat.getColor(this, R.color.navigationBarColor));
   }
 
   public void onResume() {

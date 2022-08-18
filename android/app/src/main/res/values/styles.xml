@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="colorPrimary">#FFC409</color>
-  <color name="navigationBarColor">@android:color/white</color>
-  <color name="navigationIconColor">@android:color/black</color>
 
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">

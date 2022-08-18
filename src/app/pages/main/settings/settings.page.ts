@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, Validators } from '@angular/forms'
+import { FormBuilder, FormControl, Validators } from '@angular/forms'
 import { passwordMatchValidator } from '../../../functions/forms'
 import { Store } from '../../../stores/store'
 import * as equal from 'fast-deep-equal/es6'
@@ -11,6 +11,7 @@ import * as equal from 'fast-deep-equal/es6'
 })
 export class SettingsPage implements OnInit {
   hasChanged = false
+  themeForm = new FormControl()
   userCopy
   userForm = this.fb.group(
     {
@@ -25,6 +26,10 @@ export class SettingsPage implements OnInit {
   constructor(private fb: FormBuilder, public store: Store) {}
 
   ngOnInit() {
+    this.themeForm.setValue(this.store.ui.theme)
+    this.themeForm.valueChanges.subscribe((value) => {
+      this.store.ui.setTheme(value)
+    })
     const me = this.store.user.me
     this.userForm.patchValue({
       username: me.username,

@@ -1,3 +1,7 @@
+*, ion-item::part(native) {
+  transition: background-color 150ms, border-bottom-color 150ms;
+}
+
 ion-item {
   &.ion-invalid.ion-touched .error-hint {
     display: flex;

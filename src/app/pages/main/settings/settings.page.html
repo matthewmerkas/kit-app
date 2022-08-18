@@ -25,10 +25,12 @@
     </div>
 
     <div class="section">
-      <h2>App</h2>
-      <div class="card">
-        <ion-item lines="none"> Dark Mode </ion-item>
-      </div>
+      <h2>App Theme</h2>
+      <ion-segment color="secondary" [formControl]="themeForm">
+        <ion-segment-button value="auto">Auto</ion-segment-button>
+        <ion-segment-button value="light">Light</ion-segment-button>
+        <ion-segment-button value="dark">Dark</ion-segment-button>
+      </ion-segment>
     </div>
   </div>
 </ion-content>
