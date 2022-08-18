@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http'
 import { environment } from '../../environments/environment'
 import { getItem, getMap, setItem, setMap } from '../functions/local-storage'
 import * as equal from 'fast-deep-equal/es6'
+import { EventEmitter } from '@angular/core'
 
 const key = 'message_map'
 const keyLatest = 'message_latest'
@@ -13,6 +14,7 @@ const url = environment.apiUrl + environment.apiConfig.message.base
 
 export class MessageStore {
   @observable array: Message[] = []
+  @observable arrayEvent: EventEmitter<number> = new EventEmitter()
   @observable id: string
   @observable latest: Message[] = getItem(keyLatest) ?? []
   @observable map: Map<string, Message[]>
@@ -84,6 +86,7 @@ export class MessageStore {
     if (this.id === message.peer._id) {
       this.array = []
       this.array.push(...messages)
+      this.arrayEvent.emit(this.array.length)
     }
     // Push to latest
     for (const [i, m] of this.latest.entries()) {

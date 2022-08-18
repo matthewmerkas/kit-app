@@ -7,6 +7,7 @@ import { RecordingData, VoiceRecorder } from 'capacitor-voice-recorder'
 import { DateTime } from 'luxon'
 import { map } from 'rxjs'
 import { catchError } from 'rxjs/operators'
+import { IonContent } from '@ionic/angular'
 
 @Component({
   selector: 'app-peer',
@@ -15,7 +16,7 @@ import { catchError } from 'rxjs/operators'
   animations: [animations(), animations('150ms', '1s')],
 })
 export class PeerPage implements OnInit {
-  @ViewChild('content', { static: false }) content: HTMLIonContentElement
+  @ViewChild('content', { static: false }) content: IonContent
 
   public canPause = false
   public countdown: string
@@ -40,13 +41,14 @@ export class PeerPage implements OnInit {
     this.store.user.get(this.id).subscribe((res) => {
       this.peer = res
     })
-    this.store.message.getList(this.id).subscribe(() => {
-      this.content.scrollToBottom()
+    this.store.message.arrayEvent.subscribe(() => {
+      this.scrollToBottom(150)
     })
+    this.store.message.getList(this.id).subscribe()
   }
 
   ionViewWillEnter() {
-    this.content.scrollToBottom()
+    this.scrollToBottom(0, true)
   }
 
   ionViewWillLeave() {
@@ -107,6 +109,16 @@ export class PeerPage implements OnInit {
     }
   }
 
+  scrollToBottom(duration = 0, force = false) {
+    this.content.getScrollElement().then((el: any) => {
+      if (force || el.scrollTopMax - el.scrollTop < 200) {
+        setTimeout(() => {
+          return this.content?.scrollToBottom(duration)
+        }, 0)
+      }
+    })
+  }
+
   async send() {
     this.status = 'sending'
     if (!this.store.user.me) {
@@ -123,9 +135,7 @@ export class PeerPage implements OnInit {
         map((res) => {
           this.status = 'ready'
           this.store.message.push({ ...res, peer: this.peer })
-          setTimeout(() => {
-            this.content.scrollToBottom(100)
-          }, 100)
+          this.scrollToBottom(150, true)
           return res
         }),
         catchError((err) => {
