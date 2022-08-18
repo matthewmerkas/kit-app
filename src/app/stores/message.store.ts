@@ -60,7 +60,7 @@ export class MessageStore {
 
     return this.http.get<any>(url + '?' + queryParams).pipe(
       map((res: Message[]) => {
-        if (res.length > 1) {
+        if (res.length > 0) {
           messages.push(...res)
           // Clone messages so we can update array and map independently
           this.array = []
@@ -75,15 +75,16 @@ export class MessageStore {
 
   @action
   push(message: Message) {
-    // Push to array
-    if (this.id === message.peer._id) {
-      this.array.push(message)
-    }
     // Push to map
     const messages = this.map.get(message.peer._id) ?? []
     messages.push(message)
     this.map.set(message.peer._id, messages)
     setMap(key, this.map)
+    // Push to array
+    if (this.id === message.peer._id) {
+      this.array = []
+      this.array.push(...messages)
+    }
     // Push to latest
     for (const [i, m] of this.latest.entries()) {
       if (m.peer._id === message.peer._id) {
