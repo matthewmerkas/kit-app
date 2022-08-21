@@ -10,14 +10,6 @@ ion-modal::part(handle) {
   margin-bottom: 4px;
 }
 
-.modal-handle {
-  height: 100px;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-}
-
 .new-message-modal {
   ion-icon {
     &.ios {

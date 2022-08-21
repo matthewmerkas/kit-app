@@ -40,19 +40,23 @@ export class PeopleSearchComponent implements OnInit {
 
   ngOnInit() {
     this.searchForm.reset('')
-    this.store.user.getList().subscribe((res) => {
+    this.store.user.getList({}, '', 10).subscribe((res) => {
       this.users = res
     })
     this.searchForm.valueChanges
       .pipe(debounceTime(100), distinctUntilChanged())
       .subscribe((value) => {
         this.store.user
-          .getList({
-            $or: JSON.stringify([
-              { displayName: { $regex: value, $options: 'i' } },
-              { username: { $regex: value, $options: 'i' } },
-            ]),
-          })
+          .getList(
+            {
+              $or: JSON.stringify([
+                { displayName: { $regex: value, $options: 'i' } },
+                { username: { $regex: value, $options: 'i' } },
+              ]),
+            },
+            '',
+            10
+          )
           .subscribe((res) => {
             this.users = res
           })
@@ -66,7 +70,7 @@ export class PeopleSearchComponent implements OnInit {
   }
 
   onWillPresent() {
-    this.store.user.getList().subscribe((res) => {
+    this.store.user.getList({}, '', 10).subscribe((res) => {
       this.users = res
     })
   }

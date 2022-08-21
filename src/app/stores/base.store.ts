@@ -32,8 +32,8 @@ export class BaseStore {
   }
 
   @action
-  getList(filter?: any, sort?: string): Observable<any> {
-    const queryParams = new URLSearchParams({ ...filter, sort })
+  getList(filter?: any, sort?: string, limit?: number): Observable<any> {
+    const queryParams = new URLSearchParams({ ...filter, sort, limit })
     return this.http.get<any>(this.url + '?' + queryParams).pipe(
       map((res: any[]) => {
         if (!filter && !equal(this.array, res)) {
