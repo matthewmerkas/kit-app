@@ -25,11 +25,14 @@ export class SettingsPage implements OnInit {
 
   constructor(private fb: FormBuilder, public store: Store) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.themeForm.setValue(this.store.ui.theme)
     this.themeForm.valueChanges.subscribe((value) => {
       this.store.ui.setTheme(value)
     })
+    if (!this.store.user.me) {
+      await this.store.user.getMe().subscribe()
+    }
     const me = this.store.user.me
     this.userForm.patchValue({
       username: me.username,

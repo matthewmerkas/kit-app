@@ -21,9 +21,9 @@
           [button]="true"
           [detail]="false"
           lines="none"
-          [routerLink]="'/home/peer/' + store.user.me._id"
+          [routerLink]="'/home/peer/' + store.user.me?._id"
         >
-          {{ store.user.me.displayName }}
+          {{ store.user.me?.displayName }}
           <ion-icon name="person-outline"></ion-icon>
         </ion-item>
         <ion-item

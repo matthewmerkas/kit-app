@@ -17,6 +17,9 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.store.message.getLatest().subscribe()
+    if (!this.store.user.me) {
+      this.store.user.getMe().subscribe()
+    }
   }
 
   logout() {

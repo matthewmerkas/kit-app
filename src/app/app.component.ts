@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     })
     this.store.ui.socket.on('create message', (s) => {
       // If target user matches logged-in user, download message and push to memory
-      if (s.user === store.user.me._id) {
+      if (s.user === store.user.me?._id) {
         store.message.get(s._id).subscribe((m: Message) => {
           store.message.push(m)
         })
