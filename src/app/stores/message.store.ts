@@ -17,11 +17,9 @@ export class MessageStore {
   @observable arrayEvent: EventEmitter<number> = new EventEmitter()
   @observable id: string
   @observable latest: Message[] = getItem(keyLatest) ?? []
-  @observable map: Map<string, Message[]>
+  @observable map: Map<string, Message[]> = getMap(key) ?? new Map()
 
-  constructor(public http: HttpClient) {
-    this.map = getMap(key) ?? new Map()
-  }
+  constructor(public http: HttpClient) {}
 
   @action
   create(data: any): Observable<any> {
@@ -67,7 +65,6 @@ export class MessageStore {
           // Clone messages so we can update array and map independently
           this.array = []
           this.array.push(...messages)
-          this.arrayEvent.emit(this.array.length)
           this.map.set(filter.peer, messages)
           setMap(key, this.map)
         }

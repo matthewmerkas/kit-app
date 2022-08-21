@@ -13,7 +13,11 @@ import { CdkScrollable } from '@angular/cdk/overlay'
   selector: 'app-peer',
   templateUrl: './peer.page.html',
   styleUrls: ['./peer.page.scss'],
-  animations: [animations(), animations('150ms', '1s')],
+  animations: [
+    animations(),
+    animations('150ms', '1s'),
+    animations('150ms', '150ms'),
+  ],
 })
 export class PeerPage implements OnInit {
   @ViewChild('cdkScrollable', { static: false }) cdkScrollable: CdkScrollable
@@ -44,7 +48,9 @@ export class PeerPage implements OnInit {
     this.store.message.arrayEvent.subscribe(() => {
       this.scrollToBottom()
     })
-    this.store.message.getList(this.id).subscribe()
+    this.store.message.getList(this.id).subscribe(() => {
+      this.scrollToBottom(true)
+    })
   }
 
   ionViewWillEnter() {
@@ -111,7 +117,9 @@ export class PeerPage implements OnInit {
 
   scrollToBottom(force = false) {
     if (force || this.cdkScrollable.measureScrollOffset('bottom') < 200) {
-      return this.cdkScrollable.scrollTo({ bottom: 0 })
+      setTimeout(() => {
+        this.cdkScrollable.scrollTo({ bottom: 0 })
+      }, 0)
     }
   }
 

@@ -16,12 +16,13 @@
   <div class="container">
     <cdk-virtual-scroll-viewport
       #cdkScrollable
-      itemSize="104"
+      itemSize="96"
       minBufferPx="1000"
       maxBufferPx="1200"
     >
       <app-message
         *cdkVirtualFor="let message of store.message.array"
+        [@fade-150ms-150ms]=""
         [message]="message"
       ></app-message>
     </cdk-virtual-scroll-viewport>
