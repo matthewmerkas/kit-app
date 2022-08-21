@@ -67,6 +67,7 @@ export class MessageStore {
           // Clone messages so we can update array and map independently
           this.array = []
           this.array.push(...messages)
+          this.arrayEvent.emit(this.array.length)
           this.map.set(filter.peer, messages)
           setMap(key, this.map)
         }
