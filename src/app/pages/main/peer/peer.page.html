@@ -12,12 +12,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #content [fullscreen]="true">
+<ion-content [fullscreen]="true">
   <div class="container">
-    <app-message
-      *ngFor="let message of store.message.array"
-      [message]="message"
-    ></app-message>
+    <cdk-virtual-scroll-viewport
+      #cdkScrollable
+      itemSize="104"
+      minBufferPx="1000"
+      maxBufferPx="1200"
+    >
+      <app-message
+        *cdkVirtualFor="let message of store.message.array"
+        [message]="message"
+      ></app-message>
+    </cdk-virtual-scroll-viewport>
   </div>
   <div class="flex record-container">
     <span> {{ getStatusMessage() }} </span>

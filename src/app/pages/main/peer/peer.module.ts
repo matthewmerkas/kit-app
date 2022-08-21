@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular'
 
 import { PeerPageRoutingModule } from './peer-routing.module'
 import { MessageComponentModule } from '../../../components/message/message.module'
+import { ScrollingModule } from '@angular/cdk/scrolling'
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { MessageComponentModule } from '../../../components/message/message.modu
     IonicModule,
     PeerPageRoutingModule,
     MessageComponentModule,
+    ScrollingModule,
   ],
   declarations: [PeerPage],
 })

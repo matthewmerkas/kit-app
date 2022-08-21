@@ -7,7 +7,7 @@ import { RecordingData, VoiceRecorder } from 'capacitor-voice-recorder'
 import { DateTime } from 'luxon'
 import { map } from 'rxjs'
 import { catchError } from 'rxjs/operators'
-import { IonContent } from '@ionic/angular'
+import { CdkScrollable } from '@angular/cdk/overlay'
 
 @Component({
   selector: 'app-peer',
@@ -16,7 +16,7 @@ import { IonContent } from '@ionic/angular'
   animations: [animations(), animations('150ms', '1s')],
 })
 export class PeerPage implements OnInit {
-  @ViewChild('content', { static: false }) content: IonContent
+  @ViewChild('cdkScrollable', { static: false }) cdkScrollable: CdkScrollable
 
   public canPause = false
   public countdown: string
@@ -42,13 +42,13 @@ export class PeerPage implements OnInit {
       this.peer = res
     })
     this.store.message.arrayEvent.subscribe(() => {
-      this.scrollToBottom(150)
+      this.scrollToBottom()
     })
     this.store.message.getList(this.id).subscribe()
   }
 
   ionViewWillEnter() {
-    this.scrollToBottom(0, true)
+    this.scrollToBottom(true)
   }
 
   ionViewWillLeave() {
@@ -109,14 +109,10 @@ export class PeerPage implements OnInit {
     }
   }
 
-  scrollToBottom(duration = 0, force = false) {
-    this.content.getScrollElement().then((el: any) => {
-      if (force || el.scrollTopMax - el.scrollTop < 200) {
-        setTimeout(() => {
-          return this.content?.scrollToBottom(duration)
-        }, 0)
-      }
-    })
+  scrollToBottom(force = false) {
+    if (force || this.cdkScrollable.measureScrollOffset('bottom') < 200) {
+      return this.cdkScrollable.scrollTo({ bottom: 0 })
+    }
   }
 
   async send() {
@@ -135,7 +131,7 @@ export class PeerPage implements OnInit {
         map((res) => {
           this.status = 'ready'
           this.store.message.push({ ...res, peer: this.peer })
-          this.scrollToBottom(150, true)
+          this.scrollToBottom(true)
           return res
         }),
         catchError((err) => {

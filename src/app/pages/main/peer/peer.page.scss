@@ -2,6 +2,10 @@ $fab-padding: 64px;
 $max-width: 768px;
 $safe-width: 24px;
 
+cdk-virtual-scroll-viewport {
+  height: 100%;
+}
+
 ion-buttons {
   padding-right: 4px;
 }
@@ -33,9 +37,9 @@ ion-item ion-icon {
 }
 
 .container {
+  height: 100%;
   margin: auto;
   max-width: $max-width;
-  padding-bottom: 80px;
 }
 
 .shade {
