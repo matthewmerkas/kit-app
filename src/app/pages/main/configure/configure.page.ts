@@ -92,22 +92,29 @@ export class ConfigurePage implements OnInit {
         JSON.stringify(payload)
       )
       this.sharing = true
-      this.nfc
-        .share([record])
-        .then(() => {
-          this.store.ui.openToast('Configuration sent')
-          this.nfc.unshare()
-        })
-        .catch((err) => {
-          if (err === 'NDEF_PUSH_DISABLED') {
-            this.store.ui.openToast('Please enable Android Beam')
-          }
-          // TODO: Open settings menu to Android Beam (or enable ourselves)
+      this.nfc.addNdefListener(
+        () => {
+          this.nfc
+            .share([record])
+            .then(() => {
+              this.store.ui.openToast('Configuration sent')
+              this.nfc.unshare()
+            })
+            .catch((err) => {
+              if (err === 'NDEF_PUSH_DISABLED') {
+                // TODO: Open settings menu to Android Beam (or enable ourselves)
+                this.store.ui.openToast('Please enable Android Beam')
+              }
+              console.log(err)
+            })
+            .finally(() => {
+              this.sharing = false
+            })
+        },
+        (err) => {
           console.log(err)
-        })
-        .finally(() => {
-          this.sharing = false
-        })
+        }
+      )
     })
   }
 }
