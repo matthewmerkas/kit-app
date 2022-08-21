@@ -1,4 +1,6 @@
-*, ion-content::part(background), ion-item::part(native) {
+*,
+ion-content::part(background),
+ion-item::part(native) {
   transition: background 150ms;
 }
 
@@ -20,7 +22,8 @@ ion-segment {
   min-height: 48px;
 }
 
-ion-segment, ion-segment-button::part(indicator-background) {
+ion-segment,
+ion-segment-button::part(indicator-background) {
   border-radius: var(--custom-radius) !important;
 }
 

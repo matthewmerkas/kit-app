@@ -1,0 +1,46 @@
+ion-item {
+  &.ion-invalid.ion-touched .error-hint {
+    display: flex;
+  }
+}
+
+ion-spinner {
+  margin-left: 8px;
+}
+
+small {
+  ion-icon {
+    padding-right: 2px;
+  }
+  color: var(--ion-color-medium);
+  padding-bottom: 8px;
+}
+
+.account-buttons {
+  ion-button {
+    margin: 4px 0 0;
+  }
+  ion-button:not(:only-child) {
+    width: calc(50% - 8px);
+  }
+  justify-content: space-between;
+}
+
+.card {
+  ion-icon {
+    font-size: 20px;
+  }
+  &.account {
+    align-items: center;
+    display: flex;
+  }
+}
+
+.error-hint {
+  color: var(--ion-color-danger);
+  display: none;
+}
+
+.write-button {
+  margin-top: 36px;
+}

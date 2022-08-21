@@ -12,7 +12,7 @@ export class UserStore extends BaseStore {
 
   constructor(http: HttpClient) {
     super(environment.apiConfig.user.base, http)
-    this.me = getItem('me') ?? {}
+    this.me = getItem('me')
   }
 
   @action
@@ -38,11 +38,13 @@ export class UserStore extends BaseStore {
   }
 
   @action
-  login(data: any): Observable<any> {
+  login(data: any, storeTokens = true): Observable<any> {
     return this.http.post<any>(this.url + apiConfig.user.login, data).pipe(
       map((res: Jwt) => {
-        localStorage.setItem('access_token', res.token)
-        localStorage.setItem('refresh_token', res.refreshToken)
+        if (storeTokens) {
+          localStorage.setItem('access_token', res.token)
+          localStorage.setItem('refresh_token', res.refreshToken)
+        }
         return res
       })
     )

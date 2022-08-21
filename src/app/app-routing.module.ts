@@ -20,6 +20,13 @@ const routes: Routes = [
       import('./pages/main/home/home.module').then((m) => m.HomePageModule),
   },
   {
+    path: 'home/configure',
+    loadChildren: () =>
+      import('./pages/main/configure/configure.module').then(
+        (m) => m.ConfigurePageModule
+      ),
+  },
+  {
     canActivate: [JwtGuard],
     path: 'home/nfc',
     loadChildren: () =>

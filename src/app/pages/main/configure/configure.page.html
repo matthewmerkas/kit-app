@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Device Configurator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="narrow-container">
+    <h2>WiFi</h2>
+    <div class="card" [formGroup]="wifiForm">
+      <ion-item>
+        <ion-label position="floating">SSID</ion-label>
+        <ion-input formControlName="ssid"></ion-input>
+        <small class="flex">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>The network's name</span>
+        </small>
+        <small class="flex error-hint">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span>Required</span>
+        </small>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input
+          formControlName="password"
+          [type]="showPassword ? 'text' : 'password'"
+        >
+        </ion-input>
+        <ion-button
+          class="show-hide-button"
+          (click)="showPassword = !showPassword"
+          color="dark"
+          fill="clear"
+          slot="end"
+        >
+          <ion-icon
+            [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
+          ></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+    <h2>Account</h2>
+    <div class="account card" *ngIf="user">
+      <ion-item lines="none">
+        <div>
+          <p class="flex">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            {{ user?.displayName }}
+          </p>
+          <p class="flex" *ngIf="user?.username">
+            <ion-icon name="at-circle-outline"></ion-icon>
+            {{ user.username }}
+          </p>
+        </div>
+      </ion-item>
+    </div>
+    <app-user-form
+      [full]="false"
+      [loginForm]="userForm"
+      *ngIf="!user"
+      [submit]="login"
+    ></app-user-form>
+    <div class="account-buttons flex">
+      <ion-button
+        color="secondary"
+        (click)="login()"
+        [disabled]="userForm.invalid"
+        expand="block"
+        *ngIf="!user"
+        size="large"
+      >
+        Login
+      </ion-button>
+      <ion-button
+        color="secondary"
+        (click)="resetUser()"
+        expand="block"
+        *ngIf="!user && getToken()"
+        size="large"
+      >
+        Use me
+      </ion-button>
+    </div>
+    <ion-button
+      color="secondary"
+      (click)="resetUser(true)"
+      expand="block"
+      *ngIf="user"
+      size="large"
+    >
+      <ion-icon name="person-add-outline"></ion-icon>
+      Change assigned user
+    </ion-button>
+    <ion-button
+      color="secondary"
+      class="write-button"
+      (click)="transmit()"
+      [disabled]="!canWrite() || sharing"
+      expand="block"
+      size="large"
+    >
+      <ion-icon name="radio-outline"></ion-icon>
+      <span *ngIf="!sharing">Send configuration</span>
+      <ng-container *ngIf="sharing">
+        <span>Sending...</span>
+        <ion-spinner
+          [name]="platform.is('ios') ? 'lines' : 'crescent'"
+        ></ion-spinner>
+      </ng-container>
+    </ion-button>
+  </div>
+</ion-content>
