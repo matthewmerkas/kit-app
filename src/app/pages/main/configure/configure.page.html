@@ -4,19 +4,108 @@
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
     <ion-title>Device Configurator</ion-title>
+    <ion-buttons class="round" slot="end">
+      <ion-button (click)="isOpen = true">
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-modal [isOpen]="isOpen" (willDismiss)="onWillDismiss()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="isOpen = false" *ngIf="platform.is('ios')">
+            Close
+          </ion-button>
+          <ion-button
+            class="round"
+            (click)="isOpen = false"
+            *ngIf="!platform.is('ios')"
+          >
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Instructions</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <div class="ion-padding">
+        <span>
+          To set up your {{ store.info.object.name }} device, we need to connect
+          to the internet and assign a user to the device.
+        </span>
+        <h4>WiFi</h4>
+        <p>
+          Enter the network name (SSID) and password (if there is one) so we can
+          connect to your WiFi network.
+        </p>
+        <h4>Account</h4>
+        <p>
+          This account will be assigned to the
+          {{ store.info.object.name }} device.
+          {{
+            store.user.me
+              ? "Since you're already logged-in, we've pre-filled your " +
+                'account details.'
+              : 'Log in with a valid username and password.'
+          }}
+        </p>
+        <h4>Sending configuration</h4>
+        <p>
+          Once you've entered all the necessary data, you'll be able to send the
+          configuration to the {{ store.info.object.name }} device via NFC.
+        </p>
+        <p>
+          Tap '{{ sendTitle }}' and place your device on the photo bed. To read
+          any log messages from the {{ store.info.object.name }} device, keep
+          your device in place.
+        </p>
+        <h4>LED reference</h4>
+        <swiper
+          [cssMode]="true"
+          [pagination]="{ clickable: true }"
+          [preventInteractionOnTransition]="true"
+        >
+          <ng-template swiperSlide>
+            <img alt="Off/Booting up" [src]="getImageUrl() + '00.png'" />
+          </ng-template>
+          <ng-template swiperSlide>
+            <img
+              alt="Waiting for configuration"
+              [src]="getImageUrl() + '01.gif'"
+            />
+          </ng-template>
+          <ng-template swiperSlide>
+            <img alt="Connecting to WiFi" [src]="getImageUrl() + '02.gif'" />
+          </ng-template>
+          <ng-template swiperSlide>
+            <img alt="Logging in" [src]="getImageUrl() + '03.gif'" />
+          </ng-template>
+          <ng-template swiperSlide>
+            <img alt="Success" [src]="getImageUrl() + '04.png'" />
+          </ng-template>
+          <ng-template swiperSlide>
+            <img alt="Error" [src]="getImageUrl() + '05.png'" />
+          </ng-template>
+        </swiper>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
 
 <ion-content>
   <div class="narrow-container">
     <h2>WiFi</h2>
     <div class="card" [formGroup]="wifiForm">
       <ion-item>
-        <ion-label position="floating">SSID</ion-label>
+        <ion-label position="floating">Network name</ion-label>
         <ion-input formControlName="ssid"></ion-input>
         <small class="flex">
           <ion-icon name="information-circle-outline"></ion-icon>
-          <span>The network's name</span>
+          <span>SSID</span>
         </small>
         <small class="flex error-hint">
           <ion-icon name="alert-circle-outline"></ion-icon>
@@ -104,7 +193,7 @@
       size="large"
     >
       <ion-icon name="radio-outline"></ion-icon>
-      <span *ngIf="!sharing">Send configuration</span>
+      <span *ngIf="!sharing">{{ sendTitle }}</span>
       <ng-container *ngIf="sharing">
         <span>Sending...</span>
         <ion-spinner

@@ -7,6 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt'
 import { map } from 'rxjs'
 import { Ndef, NFC } from '@awesome-cordova-plugins/nfc/ngx'
 import { Platform } from '@ionic/angular'
+import SwiperCore, { Pagination } from 'swiper'
 
 const helper = new JwtHelperService()
 
@@ -16,8 +17,10 @@ const helper = new JwtHelperService()
   styleUrls: ['./configure.page.scss'],
 })
 export class ConfigurePage implements OnInit {
+  isOpen = false
   showPassword = false
   refreshToken: string
+  sendTitle = 'Send configuration'
   sharing = false
   user: User
   userForm = this.fb.group({
@@ -38,6 +41,7 @@ export class ConfigurePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    SwiperCore.use([Pagination])
     this.nfc.unshare()
     this.resetUser()
   }
@@ -54,6 +58,10 @@ export class ConfigurePage implements OnInit {
     )
   }
 
+  getImageUrl() {
+    return '/assets/configure/' + (this.store.ui.isDark ? 'dark/' : 'light/')
+  }
+
   getToken() {
     return getToken()
   }
@@ -66,6 +74,10 @@ export class ConfigurePage implements OnInit {
         this.user = helper.decodeToken(res.token)
         this.userForm.reset()
       })
+  }
+
+  onWillDismiss() {
+    this.isOpen = false
   }
 
   resetUser(clear = false) {

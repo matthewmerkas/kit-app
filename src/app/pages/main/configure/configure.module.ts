@@ -9,6 +9,7 @@ import { ConfigurePageRoutingModule } from './configure-routing.module'
 import { ConfigurePage } from './configure.page'
 import { LoginPageModule } from '../../auth/login/login.module'
 import { Ndef, NFC } from '@awesome-cordova-plugins/nfc/ngx'
+import { SwiperModule } from 'swiper/angular'
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { Ndef, NFC } from '@awesome-cordova-plugins/nfc/ngx'
     ConfigurePageRoutingModule,
     ReactiveFormsModule,
     LoginPageModule,
+    SwiperModule,
   ],
   declarations: [ConfigurePage],
   providers: [NFC, Ndef],

@@ -11,6 +11,7 @@ const prefersDark = window.matchMedia('(prefers-color-scheme: dark)')
 
 export class UiStore {
   @observable audioRefs: HTMLAudioElement[] = []
+  @observable isDark
   @observable socket
   @observable theme
 
@@ -136,6 +137,7 @@ export class UiStore {
 
   async setTheme(mode?: string) {
     const apply = async (isDark: boolean) => {
+      this.isDark = isDark
       document.body.classList.toggle('dark', isDark)
       if (Capacitor.isNativePlatform()) {
         const color = isDark ? '#000000' : '#FFFFFF'
