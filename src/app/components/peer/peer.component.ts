@@ -16,6 +16,6 @@ export class PeerComponent {
   constructor(public store: Store) {}
 
   formatDatetime(iso: string) {
-    return formatDatetime(iso)
+    return formatDatetime(iso, true)
   }
 }
