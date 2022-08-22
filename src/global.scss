@@ -52,16 +52,25 @@
 
 ion-buttons.round ion-button,
 ion-button.round {
-  &::part(native) {
-    padding: 0;
-  }
   ion-icon {
     height: 60%;
     width: 60%;
   }
   --border-radius: 50% !important;
-  height: 40px;
-  width: 40px;
+  &.ios {
+    &::part(native) {
+      padding: 0;
+    }
+    height: 40px;
+    width: 40px;
+  }
+  &.md {
+    &::part(native) {
+      padding: 2px;
+    }
+    height: 48px;
+    width: 48px;
+  }
 }
 
 ion-content.md {
