@@ -40,10 +40,14 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     removeTokens()
     this.store.initialise() // Clear stores
+    this.reset()
+    this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
+  }
+
+  reset = () => {
     this.avatar = null
     this.loginForm.reset()
     this.signupForm.reset()
-    this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
   }
 
   submit = () => {
@@ -62,6 +66,7 @@ export class LoginPage implements OnInit {
           this.store.message.getLatest(),
           this.store.user.getMe(),
         ]).subscribe(() => {
+          this.reset()
           this.router.navigate(['/home'])
         })
       })
