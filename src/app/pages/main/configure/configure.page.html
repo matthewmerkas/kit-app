@@ -65,30 +65,15 @@
         </p>
         <h4>LED reference</h4>
         <swiper
-          [cssMode]="true"
           [pagination]="{ clickable: true }"
           [preventInteractionOnTransition]="true"
         >
-          <ng-template swiperSlide>
-            <img alt="Off/Booting up" [src]="getImageUrl() + '00.png'" />
-          </ng-template>
-          <ng-template swiperSlide>
-            <img
-              alt="Waiting for configuration"
-              [src]="getImageUrl() + '01.gif'"
-            />
-          </ng-template>
-          <ng-template swiperSlide>
-            <img alt="Connecting to WiFi" [src]="getImageUrl() + '02.gif'" />
-          </ng-template>
-          <ng-template swiperSlide>
-            <img alt="Logging in" [src]="getImageUrl() + '03.gif'" />
-          </ng-template>
-          <ng-template swiperSlide>
-            <img alt="Success" [src]="getImageUrl() + '04.png'" />
-          </ng-template>
-          <ng-template swiperSlide>
-            <img alt="Error" [src]="getImageUrl() + '05.png'" />
+          <ng-template *ngFor="let slide of slides" swiperSlide>
+            <div class="slide">
+              <img [alt]="slide.alt" [src]="'assets/configure/' + slide.src" />
+              <p>{{ slide.title }}</p>
+              <ion-note>{{ slide.note }}</ion-note>
+            </div>
           </ng-template>
         </swiper>
       </div>

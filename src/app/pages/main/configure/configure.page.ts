@@ -32,6 +32,36 @@ export class ConfigurePage implements OnInit {
     password: [''],
   })
 
+  slides = [
+    { alt: 'off', src: '00.png', title: 'Off', note: '(or starting up)' },
+    {
+      alt: 'startup',
+      src: '01.png',
+      title: 'Startup complete',
+      note: 'Accompanied by startup chime. Automatically dismisses',
+    },
+    {
+      alt: 'waiting',
+      src: '02.gif',
+      title: 'Waiting for configuration',
+      note: '',
+    },
+    { alt: 'wifi', src: '03.gif', title: 'Connecting to WiFi', note: '' },
+    { alt: 'account', src: '04.gif', title: 'Logging in', note: '' },
+    {
+      alt: 'success',
+      src: '05.png',
+      title: 'Success',
+      note: 'Press green button to dismiss',
+    },
+    {
+      alt: 'error',
+      src: '06.png',
+      title: 'Error',
+      note: 'In combination with any other LED(s). Press to dismiss',
+    },
+  ]
+
   constructor(
     private fb: FormBuilder,
     private nfc: NFC,
@@ -56,10 +86,6 @@ export class ConfigurePage implements OnInit {
         return res.token
       })
     )
-  }
-
-  getImageUrl() {
-    return '/assets/configure/' + (this.store.ui.isDark ? 'dark/' : 'light/')
   }
 
   getToken() {
