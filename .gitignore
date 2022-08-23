@@ -188,10 +188,10 @@ fabric.properties
 /plugins
 /www
 
+# android
+app/src/main/res
+
 # cordova-res
-resources/android/icon
-resources/android/splash
-resources/ios/icon
-resources/ios/splash
-resources/windows/icon
-resources/windows/splash
+resources/android/
+resources/ios/
+resources/windows/
