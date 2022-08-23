@@ -1,3 +1,50 @@
+<ng-container *ngIf="_full">
+  <ion-avatar>
+    <ion-icon name="person-circle-outline" *ngIf="!avatarUrl"></ion-icon>
+    <img alt="avatar" *ngIf="avatarUrl" [src]="avatarUrl" />
+  </ion-avatar>
+  <ion-button
+    id="avatar-trigger"
+    class="edit round"
+    color="secondary"
+    fill="solid"
+  >
+    <ion-icon name="pencil"></ion-icon>
+  </ion-button>
+  <ion-modal
+    #modal
+    [showBackdrop]="false"
+    [breakpoints]="[0, 0.12]"
+    [initialBreakpoint]="0.12"
+    trigger="avatar-trigger"
+  >
+    <ng-template>
+      <ion-content class="ion-padding">
+        <div class="avatar-modal">
+          <ion-button
+            (click)="getPicture('camera'); modal.dismiss()"
+            color="light"
+          >
+            <div class="flex">
+              <ion-icon name="camera"></ion-icon>
+              <ion-label>Camera</ion-label>
+            </div>
+          </ion-button>
+          <ion-button
+            (click)="getPicture('photos'); modal.dismiss()"
+            color="light"
+          >
+            <div class="flex">
+              <ion-icon name="images"></ion-icon>
+              <ion-label>Gallery</ion-label>
+            </div>
+          </ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ng-container>
+
 <div
   class="card"
   [formGroup]="_full ? fullForm : loginForm"

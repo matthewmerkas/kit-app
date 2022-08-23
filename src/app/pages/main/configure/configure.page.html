@@ -64,10 +64,7 @@
           in place.
         </p>
         <h4>LED reference</h4>
-        <swiper
-          [pagination]="{ clickable: true }"
-          [preventInteractionOnTransition]="true"
-        >
+        <swiper [pagination]="{ clickable: true }">
           <ng-template *ngFor="let slide of slides" swiperSlide>
             <div class="slide">
               <img [alt]="slide.alt" [src]="'assets/configure/' + slide.src" />

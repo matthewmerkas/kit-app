@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { FormGroup } from '@angular/forms'
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'
 import { Store } from '../../stores/store'
+import { Avatar } from '../../functions/types'
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-user-form',
@@ -11,7 +14,9 @@ export class UserFormComponent implements OnInit {
   @Input() fullForm: FormGroup
   @Input() loginForm: FormGroup
   @Input() submit: () => void
+  @Output() avatarChange = new EventEmitter<Avatar>()
 
+  avatarUrl: string
   _full = true
   showPassword = false
   showConfirmPassword = false
@@ -28,6 +33,11 @@ export class UserFormComponent implements OnInit {
   ngOnInit() {
     this.showPassword = false
     this.showConfirmPassword = false
+    const fileName = this.fullForm.get('avatarFileName')?.value
+    if (fileName) {
+      this.avatarUrl =
+        environment.apiUrl.replace('/api', '/public/avatars/') + fileName
+    }
   }
 
   showMatchError = () => {
@@ -36,5 +46,21 @@ export class UserFormComponent implements OnInit {
       this.fullForm.controls.passwordConfirm.setErrors({ mismatch })
     }
     return mismatch
+  }
+
+  getPicture = async (source: 'camera' | 'photos') => {
+    const image = await Camera.getPhoto({
+      quality: 80,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+      saveToGallery: true,
+      source: source === 'camera' ? CameraSource.Camera : CameraSource.Photos,
+    })
+    this.avatarUrl = image.dataUrl
+    this.avatarChange.emit({
+      base64: image.dataUrl.split(',')[1],
+      // https://stackoverflow.com/a/32808869/15379768
+      extension: image.dataUrl.match(/(?<=\/)(.*?)(?=;)/)[0],
+    })
   }
 }

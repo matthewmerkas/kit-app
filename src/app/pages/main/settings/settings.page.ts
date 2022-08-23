@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms'
 import { passwordMatchValidator } from '../../../functions/forms'
 import { Store } from '../../../stores/store'
 import * as equal from 'fast-deep-equal/es6'
+import { Avatar } from '../../../functions/types'
 
 @Component({
   selector: 'app-settings',
@@ -10,12 +11,14 @@ import * as equal from 'fast-deep-equal/es6'
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
+  avatar: Avatar
   hasChanged = false
   themeForm = new FormControl()
   userCopy
   userForm = this.fb.group(
     {
       username: ['', Validators.required],
+      avatarFileName: [''],
       displayName: ['', Validators.required],
       password: ['', [Validators.minLength(8)]],
       passwordConfirm: [''],
@@ -33,25 +36,34 @@ export class SettingsPage implements OnInit {
     if (!this.store.user.me) {
       await this.store.user.getMe().subscribe()
     }
-    const me = this.store.user.me
-    this.userForm.patchValue({
-      username: me.username,
-      displayName: me.displayName,
-    })
+    this.userForm.patchValue(this.store.user.me)
+    this.userForm.get('password').reset('')
     this.userForm.valueChanges.subscribe(() => {
       this.hasChanged = !equal(this.userCopy, this.userForm.getRawValue())
     })
     this.userCopy = this.userForm.getRawValue()
   }
 
-  submit() {
-    const user = this.userForm.getRawValue()
-    if (!user.password) {
-      delete user.password
-    }
-    delete user.passwordConfirm
+  isDisabled() {
+    return (
+      this.userForm.invalid ||
+      (!this.hasChanged && !this.avatar) ||
+      this.store.ui.isLoading()
+    )
+  }
 
-    this.store.user.updateMe(user).subscribe(() => {
+  submit() {
+    const data = this.userForm.getRawValue()
+    if (!data.password) {
+      delete data.password
+    }
+    delete data.passwordConfirm
+    data.avatar = this.avatar
+
+    this.store.user.updateMe(data).subscribe((res) => {
+      this.userForm.patchValue(res)
+
+      this.avatar = undefined
       this.hasChanged = false
       this.userCopy = this.userForm.getRawValue()
     })

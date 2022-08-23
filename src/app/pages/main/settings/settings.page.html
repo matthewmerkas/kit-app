@@ -11,11 +11,15 @@
   <div class="narrow-container">
     <div class="section">
       <h2>Account</h2>
-      <app-user-form [fullForm]="userForm" [submit]="submit"></app-user-form>
+      <app-user-form
+        (avatarChange)="avatar = $event"
+        [fullForm]="userForm"
+        [submit]="submit"
+      ></app-user-form>
       <ion-button
         (click)="submit()"
         color="secondary"
-        [disabled]="userForm.invalid || !hasChanged || store.ui.isLoading()"
+        [disabled]="isDisabled()"
         expand="block"
         size="large"
       >

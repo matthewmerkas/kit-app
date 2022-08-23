@@ -3,6 +3,18 @@ ion-item::part(native) {
   transition: background-color 150ms, border-bottom-color 150ms;
 }
 
+ion-avatar {
+  & > ion-icon {
+    height: 236px;
+    width: 236px;
+    margin-top: -22px;
+    margin-left: -22px;
+  }
+  height: 192px;
+  width: 192px;
+  margin: 32px auto -52px;
+}
+
 ion-item {
   &.ion-invalid.ion-touched .error-hint {
     display: flex;
@@ -15,6 +27,29 @@ small {
   }
   color: var(--ion-color-medium);
   padding-bottom: 8px;
+}
+
+.avatar-modal {
+  ion-button {
+    ion-icon {
+      height: 24px;
+      margin-right: 8px;
+      width: 24px;
+    }
+    height: calc(12vh - 36px);
+    width: calc(50% - 12px);
+  }
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit {
+  ion-icon {
+    padding: 0;
+  }
+  position: relative;
+  bottom: 0;
+  left: 220px;
 }
 
 .error-hint {

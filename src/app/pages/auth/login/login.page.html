@@ -10,6 +10,7 @@
 <ion-content>
   <div class="container">
     <app-user-form
+      (avatarChange)="avatar = $event"
       [full]="signup"
       [fullForm]="signupForm"
       [loginForm]="loginForm"

@@ -1,5 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http'
 
+export interface Avatar {
+  base64: string
+  extension: string
+}
+
 export interface Info {
   name: string
 }
@@ -34,6 +39,7 @@ export interface SoftDeletes {
 export interface User extends SoftDeletes {
   _id?: string
   username?: string
+  avatarFileName?: string
   displayName?: string
 }
 

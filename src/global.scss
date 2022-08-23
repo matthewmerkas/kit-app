@@ -87,7 +87,7 @@ ion-list {
   background: transparent !important;
 }
 
-ion-modal.md::part(content) {
+ion-modal.modal-sheet.md::part(content) {
   border-top-left-radius: var(--custom-radius);
   border-top-right-radius: var(--custom-radius);
   box-shadow: var(--large-shadow);

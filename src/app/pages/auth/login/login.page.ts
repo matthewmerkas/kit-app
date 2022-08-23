@@ -5,6 +5,7 @@ import { passwordMatchValidator } from '../../../functions/forms'
 import { Store } from '../../../stores/store'
 import { forkJoin } from 'rxjs'
 import { removeTokens } from '../../../functions/local-storage'
+import { Avatar } from '../../../functions/types'
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { removeTokens } from '../../../functions/local-storage'
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  avatar: Avatar
   signup = false
 
   loginForm = this.fb.group({
@@ -38,6 +40,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     removeTokens()
     this.store.initialise() // Clear stores
+    this.avatar = null
     this.loginForm.reset()
     this.signupForm.reset()
     this.signup = this.route.snapshot.queryParamMap.get('signup') === 'true'
@@ -45,7 +48,9 @@ export class LoginPage implements OnInit {
 
   submit = () => {
     if (this.signup) {
-      this.store.user.signup(this.signupForm.getRawValue()).subscribe((res) => {
+      const data = this.signupForm.getRawValue()
+      data.avatar = this.avatar
+      this.store.user.signup(data).subscribe((res) => {
         this.loginForm.patchValue({ username: res.username })
         this.store.ui.openToast('Account created!')
         this.toggleSignup()
