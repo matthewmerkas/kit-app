@@ -189,7 +189,7 @@ fabric.properties
 /www
 
 # android
-app/src/main/res
+/android/app/src/main/res
 
 # cordova-res
 resources/android/
