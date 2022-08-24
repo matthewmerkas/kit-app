@@ -31,6 +31,7 @@ export class UserStore extends BaseStore {
     return this.http.put<any>(this.url + apiConfig.user.me, data).pipe(
       map((res: User) => {
         setItem('me', res)
+        this.updateArray(res)
         this.me = res
         return res
       })

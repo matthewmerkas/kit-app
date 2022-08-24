@@ -47,9 +47,7 @@ export class UserFormComponent implements OnInit {
   getPicture = async (source: 'camera' | 'photos') => {
     const image = await Camera.getPhoto({
       quality: 80,
-      allowEditing: true,
       resultType: CameraResultType.DataUrl,
-      saveToGallery: true,
       source: source === 'camera' ? CameraSource.Camera : CameraSource.Photos,
     })
     this.dataUrl = image.dataUrl

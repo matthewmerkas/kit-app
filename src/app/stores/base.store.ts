@@ -22,13 +22,20 @@ export class BaseStore {
   }
 
   @action
-  get(id: string): Observable<any> {
-    for (const item of this.array) {
-      if (item._id === id) {
-        return of(item)
+  get(id: string, force = false): Observable<any> {
+    if (!force) {
+      for (const item of this.array) {
+        if (item._id === id) {
+          return of(item)
+        }
       }
     }
-    return this.http.get<any>(this.url + '/' + id)
+    return this.http.get<any>(this.url + '/' + id).pipe(
+      map((res: any) => {
+        this.updateArray(res)
+        return res
+      })
+    )
   }
 
   @action
@@ -47,16 +54,33 @@ export class BaseStore {
 
   @action
   set(id: string, data: any): Observable<any> {
-    return this.http.put<any>(this.url + '/' + id, data)
+    return this.http.put<any>(this.url + '/' + id, data).pipe(
+      map((res: any) => {
+        this.updateArray(res)
+      })
+    )
   }
 
   @action
   patch(id: string, data: any): Observable<any> {
-    return this.http.put<any>(this.url + '/' + id + '/patch', data)
+    return this.http.put<any>(this.url + '/' + id + '/patch', data).pipe(
+      map((res: any) => {
+        this.updateArray(res)
+      })
+    )
   }
 
   @action
   delete(id: string): Observable<any> {
     return this.http.delete<any>(this.url + '/' + id)
+  }
+
+  updateArray(data: any) {
+    for (const [i, item] of this.array.entries()) {
+      if (item._id === data._id) {
+        this.array[i] = data
+      }
+    }
+    setItem(this.key, this.array)
   }
 }

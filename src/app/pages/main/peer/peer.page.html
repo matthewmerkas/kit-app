@@ -3,7 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-item [@fadeIn-150ms-0ms]="" lines="none" *ngIf="peer" slot="end">
+    <ion-item
+      [button]="true"
+      [detail]="false"
+      [@fadeIn-150ms-0ms]=""
+      lines="none"
+      *ngIf="peer"
+      slot="end"
+    >
       <app-avatar [fileName]="peer.avatarFileName" [size]="34"></app-avatar>
       <ion-label class="ion-text-wrap">
         <h2>{{ peer?.displayName }}</h2>

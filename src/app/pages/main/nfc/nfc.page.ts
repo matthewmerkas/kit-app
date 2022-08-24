@@ -48,7 +48,7 @@ export class NfcPage implements OnInit {
         this.getTag()
       }
     })
-    this.store.ui.socket.on('patch rfid', (s) => {
+    this.store.ui.socket.on('update rfid', (s) => {
       if (s.tagId === this.tag?.tagId) {
         this.getTag()
       }
