@@ -1,8 +1,10 @@
 <ng-container *ngIf="_full">
-  <ion-avatar>
-    <ion-icon name="person-circle-outline" *ngIf="!avatarUrl"></ion-icon>
-    <img alt="avatar" *ngIf="avatarUrl" [src]="avatarUrl" />
-  </ion-avatar>
+  <app-avatar
+    [dataUrl]="dataUrl"
+    [fileName]="fileName"
+    [margin]="'32px auto -52px'"
+    [size]="192"
+  ></app-avatar>
   <ion-button
     id="avatar-trigger"
     class="edit round"

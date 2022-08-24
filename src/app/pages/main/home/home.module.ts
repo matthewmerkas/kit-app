@@ -8,6 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module'
 import { MessageComponentModule } from '../../../components/message/message.module'
 import { PeerComponentModule } from '../../../components/peer/peer.module'
 import { PeopleSearchComponent } from '../../../components/people-search/people-search.component'
+import { LoginPageModule } from '../../auth/login/login.module'
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { PeopleSearchComponent } from '../../../components/people-search/people-
     HomePageRoutingModule,
     ReactiveFormsModule,
     PeerComponentModule,
+    LoginPageModule,
   ],
   declarations: [HomePage, PeopleSearchComponent],
   exports: [PeopleSearchComponent],

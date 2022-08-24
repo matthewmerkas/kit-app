@@ -3,7 +3,10 @@
     <ion-title> {{ store.info.object.name }} </ion-title>
     <ion-buttons class="round" slot="end">
       <ion-button id="user-trigger">
-        <ion-icon name="person-circle-outline"></ion-icon>
+        <app-avatar
+          [fileName]="store.user.me?.avatarFileName"
+          [size]="34"
+        ></app-avatar>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

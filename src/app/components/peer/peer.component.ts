@@ -3,6 +3,7 @@ import { formatDatetime } from 'src/app/functions/datetime'
 import { Message } from '../../functions/types'
 import { Store } from '../../stores/store'
 import { animations } from '../../functions/animations'
+import { Platform } from '@ionic/angular'
 
 @Component({
   selector: 'app-peer',
@@ -13,7 +14,7 @@ import { animations } from '../../functions/animations'
 export class PeerComponent {
   @Input() message: Message
 
-  constructor(public store: Store) {}
+  constructor(public platform: Platform, public store: Store) {}
 
   formatDatetime(iso: string) {
     return formatDatetime(iso, true)

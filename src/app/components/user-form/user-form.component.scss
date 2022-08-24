@@ -3,18 +3,6 @@ ion-item::part(native) {
   transition: background-color 150ms, border-bottom-color 150ms;
 }
 
-ion-avatar {
-  & > ion-icon {
-    height: 236px;
-    width: 236px;
-    margin-top: -22px;
-    margin-left: -22px;
-  }
-  height: 192px;
-  width: 192px;
-  margin: 32px auto -52px;
-}
-
 ion-item {
   &.ion-invalid.ion-touched .error-hint {
     display: flex;
@@ -50,6 +38,7 @@ small {
   position: relative;
   bottom: 0;
   left: 220px;
+  z-index: 2;
 }
 
 .error-hint {

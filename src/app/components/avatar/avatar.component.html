@@ -1,0 +1,20 @@
+<ion-avatar
+  [style.height]="size + 'px'"
+  [style.width]="size + 'px'"
+  [style.margin]="margin || ''"
+>
+  <img
+    *ngIf="dataUrl || fileName"
+    [src]="getUrl()"
+    [style.height]="size + 'px'"
+    [style.width]="size + 'px'"
+  />
+  <ion-icon
+    color="medium"
+    name="person-circle"
+    [style.height]="iconSize + 'px'"
+    [style.width]="iconSize + 'px'"
+    [style.marginLeft]="iconMargin + 'px'"
+    [style.marginTop]="iconMargin + 'px'"
+  ></ion-icon>
+</ion-avatar>

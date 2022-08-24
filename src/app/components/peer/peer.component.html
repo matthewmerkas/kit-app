@@ -5,7 +5,10 @@
   [class.unread]="message.currentTime === 0"
   [detail]="false"
 >
-  <ion-icon color="medium" name="person-circle"></ion-icon>
+  <app-avatar
+    [fileName]="message.peer.avatarFileName"
+    [size]="platform.is('ios') ? 36 : 40"
+  ></app-avatar>
   <ion-label class="ion-text-wrap">
     <h2>
       {{ message.peer.displayName }}

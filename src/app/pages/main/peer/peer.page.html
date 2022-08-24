@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-item [@fadeIn-150ms-0ms]="" lines="none" *ngIf="peer" slot="end">
-      <ion-icon color="medium" name="person-circle"></ion-icon>
+      <app-avatar [fileName]="peer.avatarFileName" [size]="34"></app-avatar>
       <ion-label class="ion-text-wrap">
         <h2>{{ peer?.displayName }}</h2>
       </ion-label>

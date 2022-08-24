@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular'
 import { PeerPageRoutingModule } from './peer-routing.module'
 import { MessageComponentModule } from '../../../components/message/message.module'
 import { ScrollingModule } from '@angular/cdk/scrolling'
+import { LoginPageModule } from '../../auth/login/login.module'
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
     PeerPageRoutingModule,
     MessageComponentModule,
     ScrollingModule,
+    LoginPageModule,
   ],
   declarations: [PeerPage],
 })

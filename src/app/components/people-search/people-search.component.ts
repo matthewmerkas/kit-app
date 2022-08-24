@@ -10,8 +10,10 @@ import { debounceTime, distinctUntilChanged } from 'rxjs'
 import { Store } from '../../stores/store'
 import { FormControl } from '@angular/forms'
 import { Router } from '@angular/router'
-import { IonModal } from '@ionic/angular'
+import { IonModal, Platform } from '@ionic/angular'
 import { User } from '../../functions/types'
+
+const LIMIT = 15
 
 @Component({
   selector: 'app-people-search',
@@ -24,9 +26,13 @@ export class PeopleSearchComponent implements OnInit {
   @Output() userSelect = new EventEmitter<User>()
 
   searchForm = new FormControl('')
-  users = []
+  users: User[] = []
 
-  constructor(private router: Router, private store: Store) {}
+  constructor(
+    public platform: Platform,
+    private router: Router,
+    private store: Store
+  ) {}
 
   @Input()
   onClick(user: User) {
@@ -40,26 +46,23 @@ export class PeopleSearchComponent implements OnInit {
 
   ngOnInit() {
     this.searchForm.reset('')
-    this.store.user.getList({}, '', 10).subscribe((res) => {
+    this.store.user.getList(undefined, '', LIMIT).subscribe((res) => {
       this.users = res
     })
     this.searchForm.valueChanges
       .pipe(debounceTime(100), distinctUntilChanged())
       .subscribe((value) => {
-        this.store.user
-          .getList(
-            {
+        const filter = value
+          ? {
               $or: JSON.stringify([
                 { displayName: { $regex: value, $options: 'i' } },
                 { username: { $regex: value, $options: 'i' } },
               ]),
-            },
-            '',
-            10
-          )
-          .subscribe((res) => {
-            this.users = res
-          })
+            }
+          : undefined
+        this.store.user.getList(filter, '', LIMIT).subscribe((res) => {
+          this.users = res
+        })
       })
   }
 
@@ -70,7 +73,7 @@ export class PeopleSearchComponent implements OnInit {
   }
 
   onWillPresent() {
-    this.store.user.getList({}, '', 10).subscribe((res) => {
+    this.store.user.getList(undefined, '', LIMIT).subscribe((res) => {
       this.users = res
     })
   }

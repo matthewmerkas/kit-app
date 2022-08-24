@@ -2,6 +2,10 @@ $fab-padding: 64px;
 $max-width: 768px;
 $safe-width: 24px;
 
+app-avatar {
+  margin-right: 12px;
+}
+
 cdk-virtual-scroll-viewport {
   height: 100%;
   padding-bottom: 80px;

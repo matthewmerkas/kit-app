@@ -8,6 +8,7 @@ import { LoginPageRoutingModule } from './login-routing.module'
 
 import { LoginPage } from './login.page'
 import { UserFormComponent } from '../../../components/user-form/user-form.component'
+import { AvatarComponent } from '../../../components/avatar/avatar.component'
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { UserFormComponent } from '../../../components/user-form/user-form.compo
     LoginPageRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [LoginPage, UserFormComponent],
-  exports: [UserFormComponent],
+  declarations: [LoginPage, UserFormComponent, AvatarComponent],
+  exports: [UserFormComponent, AvatarComponent],
 })
 export class LoginPageModule {}

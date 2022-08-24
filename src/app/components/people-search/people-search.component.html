@@ -7,7 +7,7 @@
   [trigger]="trigger"
 >
   <ng-template>
-    <ion-content class="new-message-modal">
+    <ion-content class="new-message-modal" [scrollY]="false">
       <div class="shade"></div>
       <ion-searchbar
         [formControl]="searchForm"
@@ -19,7 +19,11 @@
           (click)="onClick(user); _onClick(user)"
           *ngFor="let user of users"
         >
-          <ion-icon color="medium" name="person-circle" slot="start"></ion-icon>
+          <app-avatar
+            [fileName]="user.avatarFileName"
+            [size]="platform.is('ios') ? 36 : 40"
+            slot="start"
+          ></app-avatar>
           <ion-label>
             <h2>{{ user.displayName }}</h2>
             <p>@{{ user.username }}</p>

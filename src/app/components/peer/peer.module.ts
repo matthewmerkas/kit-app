@@ -6,9 +6,16 @@ import { RouterModule } from '@angular/router'
 import { IonicModule } from '@ionic/angular'
 
 import { PeerComponent } from './peer.component'
+import { LoginPageModule } from '../../pages/auth/login/login.module'
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule,
+    LoginPageModule,
+  ],
   declarations: [PeerComponent],
   exports: [PeerComponent],
 })
