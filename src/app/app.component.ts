@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.store.info.get().subscribe()
+    this.store.user.getMe().subscribe()
     this.platform.ready().then(() => {
       this.store.ui.setTheme().then(() => {
         SplashScreen.hide()
