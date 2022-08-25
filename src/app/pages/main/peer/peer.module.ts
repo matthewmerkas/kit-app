@@ -9,6 +9,7 @@ import { PeerPageRoutingModule } from './peer-routing.module'
 import { MessageComponentModule } from '../../../components/message/message.module'
 import { ScrollingModule } from '@angular/cdk/scrolling'
 import { LoginPageModule } from '../../auth/login/login.module'
+import { ProfileComponent } from '../../../components/profile/profile.component'
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { LoginPageModule } from '../../auth/login/login.module'
     ScrollingModule,
     LoginPageModule,
   ],
-  declarations: [PeerPage],
+  declarations: [PeerPage, ProfileComponent],
 })
 export class PeerPageModule {}

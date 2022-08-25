@@ -6,6 +6,7 @@
     <ion-item
       [button]="true"
       [detail]="false"
+      id="view-profile"
       [@fadeIn-150ms-0ms]=""
       lines="none"
       *ngIf="peer"
@@ -18,6 +19,7 @@
     </ion-item>
   </ion-toolbar>
 </ion-header>
+<app-profile [user]="peer"></app-profile>
 
 <ion-content [fullscreen]="true">
   <div class="container">

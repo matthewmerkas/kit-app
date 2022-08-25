@@ -1,0 +1,16 @@
+<ion-modal
+  [breakpoints]="[0, breakpoint]"
+  [initialBreakpoint]="breakpoint"
+  [showBackdrop]="false"
+  [trigger]="trigger"
+>
+  <ng-template>
+    <ion-content class="ion-padding" [scrollY]="false">
+      <div class="flex">
+        <h1>{{ user.displayName }}</h1>
+        <h5>{{ '@' + user.username }}</h5>
+        <app-avatar [fileName]="user.avatarFileName" [size]="256"></app-avatar>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
