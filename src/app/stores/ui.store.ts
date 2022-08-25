@@ -150,6 +150,7 @@ export class UiStore {
     } else {
       mode = (await Preferences.get({ key: 'appTheme' })).value || 'auto'
     }
+    this.theme = mode
 
     if (mode === 'auto') {
       prefersDark.addEventListener('change', this.listener)
