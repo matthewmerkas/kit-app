@@ -52,6 +52,8 @@ if (android.os.Build.VERSION.SDK_INT >= 23) {
 pendingIntent = PendingIntent.getActivity(activity, 0, intent, flags);
 ```
 
+If you're not updating native plugins, run `npx cap copy` instead of `npx cap sync` when building to prevent overwriting these changes
+
 #### Capacitor Navigation Bar
 
 Install node modules with `npm install --force` and replace `node_modules/@hugotomazi` folder with `modified_modules/@hugotomazi`

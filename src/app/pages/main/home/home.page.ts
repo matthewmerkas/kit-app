@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core'
-import { removeTokens } from '../../../functions/local-storage'
 import { Router } from '@angular/router'
-import { Store } from '../../../stores/store'
 import { EMPTY, map } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { animations } from '../../../functions/animations'
+import { removeTokens } from '../../../functions/local-storage'
+import { Store } from '../../../stores/store'
+import {
+  addListeners,
+  createChannels,
+  registerNotifications,
+} from '../../../functions/push-notifications'
 
 @Component({
   selector: 'app-home',
@@ -15,11 +20,14 @@ import { animations } from '../../../functions/animations'
 export class HomePage implements OnInit {
   constructor(private router: Router, public store: Store) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.store.message.getLatest().subscribe()
-    if (!this.store.user.me) {
-      this.store.user.getMe().subscribe()
-    }
+    this.store.user.getMe().subscribe()
+
+    // Notifications
+    await addListeners()
+    await createChannels()
+    await registerNotifications()
   }
 
   logout() {

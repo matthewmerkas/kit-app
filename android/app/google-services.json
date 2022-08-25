@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "994451813689",
+    "project_id": "kit-app-5536c",
+    "storage_bucket": "kit-app-5536c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994451813689:android:933a0d43397fc4bea9e4e8",
+        "android_client_info": {
+          "package_name": "com.merkasoft.kit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "994451813689-kld79munofpeclji3vej39d0sor4hb2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9tdSv5RyXJt6GWlrtbE6ivCCL9QRu03E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "994451813689-kld79munofpeclji3vej39d0sor4hb2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
