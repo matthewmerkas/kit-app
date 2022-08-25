@@ -26,8 +26,8 @@
     <cdk-virtual-scroll-viewport
       #cdkScrollable
       itemSize="96"
-      minBufferPx="1000"
-      maxBufferPx="1200"
+      [minBufferPx]="platform.height()"
+      [maxBufferPx]="platform.height() + 200"
     >
       <app-message
         *cdkVirtualFor="let message of store.message.array"
