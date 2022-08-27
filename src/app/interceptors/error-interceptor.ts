@@ -48,6 +48,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                   const clone = req.clone({
                     setHeaders: { authorization: `Bearer ${res.token}` },
                   })
+                  localStorage.setItem('access_token', res.token)
                   this.store.ui.setLoading(false)
                   return next.handle(clone)
                 })
