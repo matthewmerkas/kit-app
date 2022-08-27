@@ -29,6 +29,10 @@ ion-modal::part(handle) {
       margin-top: -4px;
     }
   }
+  ion-list {
+    height: calc(100vh - 12px);
+    overflow: hidden;
+  }
   ion-searchbar {
     &.md {
       --border-radius: calc(var(--custom-radius) * 0.5);

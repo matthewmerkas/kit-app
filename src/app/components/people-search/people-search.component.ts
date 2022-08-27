@@ -25,6 +25,7 @@ export class PeopleSearchComponent implements OnInit {
   @Input() trigger = 'people-search'
   @Output() userSelect = new EventEmitter<User>()
 
+  listHeight: number
   searchForm = new FormControl('')
   users: User[] = []
 
@@ -73,6 +74,7 @@ export class PeopleSearchComponent implements OnInit {
   }
 
   onWillPresent() {
+    this.searchForm.reset('')
     this.store.user.getList(undefined, '', LIMIT).subscribe((res) => {
       this.users = res
     })
