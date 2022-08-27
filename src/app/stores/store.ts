@@ -8,6 +8,7 @@ import { AlertController, ToastController } from '@ionic/angular'
 import { MessageStore } from './message.store'
 import { BaseStore } from './base.store'
 import { environment } from '../../environments/environment'
+import { Router } from '@angular/router'
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,7 @@ export class Store {
   constructor(
     private alertController: AlertController,
     private http: HttpClient,
+    private router: Router,
     private toastController: ToastController
   ) {
     this.initialise()
@@ -32,6 +34,6 @@ export class Store {
     this.message = new MessageStore(this.http)
     this.rfid = new BaseStore(environment.apiConfig.rfid, this.http)
     this.ui = new UiStore(this.alertController, this.toastController)
-    this.user = new UserStore(this.http)
+    this.user = new UserStore(this.http, this.router, this)
   }
 }

@@ -5,14 +5,21 @@ import { apiConfig } from '../../environments/api.config'
 import { Jwt, User } from '../functions/types'
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../environments/environment'
-import { getItem, setItem } from '../functions/local-storage'
+import { getItem, removeTokens, setItem } from '../functions/local-storage'
+import { catchError } from 'rxjs/operators'
+import { Store } from './store'
+import { Router } from '@angular/router'
 
 export class UserStore extends BaseStore {
   @observable me: User = {}
+  router: Router
+  store: Store
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, router: Router, store: Store) {
     super(environment.apiConfig.user.base, http)
     this.me = getItem('me')
+    this.router = router
+    this.store = store
   }
 
   @action
@@ -22,6 +29,26 @@ export class UserStore extends BaseStore {
         setItem('me', res)
         this.me = res
         return res
+      }),
+      catchError((err) => {
+        if (err.error.message === 'Could not find User') {
+          this.store.ui.openAlert(
+            err.error.message,
+            '',
+            'This account may have been deleted. Try logging-in again',
+            [
+              {
+                text: 'Log In',
+                role: 'cancel',
+                handler: () => {
+                  removeTokens()
+                  return this.router.navigate(['/auth/login'])
+                },
+              },
+            ]
+          )
+        }
+        return err
       })
     )
   }

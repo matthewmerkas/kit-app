@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx-angular'
-import { AlertController, ToastController } from '@ionic/angular'
+import { AlertButton, AlertController, ToastController } from '@ionic/angular'
 import { App } from '@capacitor/app'
 import { io, Socket } from 'socket.io-client'
 import { environment } from '../../environments/environment'
@@ -120,7 +120,7 @@ export class UiStore {
     header?: string,
     subHeader?: string,
     message?: string,
-    buttons?: string[]
+    buttons?: (string | AlertButton)[]
   ) {
     if (header) {
       const alert = await this.alertController.create({

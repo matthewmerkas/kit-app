@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="auth"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ signup ? 'Sign Up' : 'Login' }}</ion-title>
+    <ion-title>{{ signup ? 'Sign Up' : 'Log In' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -23,12 +23,12 @@
         [disabled]="signup ? signupForm.invalid : loginForm.invalid"
         size="large"
       >
-        {{ signup ? 'Sign Up' : 'Login' }}
+        {{ signup ? 'Sign Up' : 'Log In' }}
       </ion-button>
       <div class="flex">
         <p>{{ signup ? 'Already' : "Don't" }} have an account?</p>
         <ion-button class="login-button" (click)="toggleSignup()" fill="clear">
-          {{ signup ? 'Login' : 'Sign Up' }}
+          {{ signup ? 'Log In' : 'Sign Up' }}
         </ion-button>
       </div>
     </div>
