@@ -21,19 +21,16 @@
 </ion-header>
 <app-profile [user]="peer"></app-profile>
 
-<ion-content [fullscreen]="true" [scrollY]="false">
+<ion-content [fullscreen]="true">
   <div class="container">
     <cdk-virtual-scroll-viewport
-      [appendOnly]="true"
       #cdkScrollable
-      class="ion-content-scroll-host"
       itemSize="96"
-      [minBufferPx]="platform.height()"
-      [maxBufferPx]="platform.height() + 200"
+      [minBufferPx]="platform.height() * 1.5"
+      [maxBufferPx]="platform.height() * 2"
     >
       <app-message
         *cdkVirtualFor="let message of store.message.array"
-        [@fade-150ms-200ms]=""
         [message]="message"
       ></app-message>
     </cdk-virtual-scroll-viewport>
@@ -75,3 +72,5 @@
   </div>
   <div class="shade"></div>
 </ion-content>
+
+<div class="loading-shade" [@fadeOut-150ms-0ms]="" *ngIf="loading"></div>

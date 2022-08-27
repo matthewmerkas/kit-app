@@ -14,11 +14,7 @@ import { Platform } from '@ionic/angular'
   selector: 'app-peer',
   templateUrl: './peer.page.html',
   styleUrls: ['./peer.page.scss'],
-  animations: [
-    animations(),
-    animations('150ms', '1s'),
-    animations('150ms', '200ms'),
-  ],
+  animations: [animations(), animations('150ms', '1s')],
 })
 export class PeerPage implements OnInit {
   @ViewChild('cdkScrollable', { static: false }) cdkScrollable: CdkScrollable
@@ -27,6 +23,7 @@ export class PeerPage implements OnInit {
   public countdown: string
   public id: string
   public isRecording = false
+  public loading = true
   public status = 'ready'
   public peer: User
 
@@ -55,6 +52,7 @@ export class PeerPage implements OnInit {
     })
     this.store.message.getList(this.id).subscribe(() => {
       this.scrollToBottom(true)
+      this.loading = false
     })
   }
 
@@ -62,8 +60,10 @@ export class PeerPage implements OnInit {
     this.scrollToBottom(true)
   }
 
-  async ionViewWillLeave() {
-    await VoiceRecorder.stopRecording()
+  ionViewWillLeave() {
+    if (this.status === 'recording') {
+      this.stopRecording()
+    }
     this.store.ui.pauseAudio()
     this.store.ui.audioRefs = []
   }

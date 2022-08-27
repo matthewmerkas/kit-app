@@ -47,6 +47,14 @@ ion-item ion-icon {
   max-width: $max-width;
 }
 
+.loading-shade {
+  background: var(--ion-background-color, #ffffff);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+}
+
 .shade {
   background-color: var(--ion-color-dark-contrast);
   bottom: 0;
