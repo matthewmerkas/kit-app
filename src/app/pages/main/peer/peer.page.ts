@@ -62,7 +62,8 @@ export class PeerPage implements OnInit {
     this.scrollToBottom(true)
   }
 
-  ionViewWillLeave() {
+  async ionViewWillLeave() {
+    await VoiceRecorder.stopRecording()
     this.store.ui.pauseAudio()
     this.store.ui.audioRefs = []
   }
