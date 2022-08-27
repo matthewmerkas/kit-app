@@ -41,6 +41,7 @@ export interface User extends SoftDeletes {
   username?: string
   avatarFileName?: string
   displayName?: string
+  fcmToken?: string
 }
 
 export interface Tag {

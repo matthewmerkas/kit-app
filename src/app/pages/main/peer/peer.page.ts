@@ -17,7 +17,7 @@ import { Platform } from '@ionic/angular'
   animations: [
     animations(),
     animations('150ms', '1s'),
-    animations('150ms', '150ms'),
+    animations('150ms', '200ms'),
   ],
 })
 export class PeerPage implements OnInit {

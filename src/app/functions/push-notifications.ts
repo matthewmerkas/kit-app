@@ -1,27 +1,40 @@
 import { PushNotifications } from '@capacitor/push-notifications'
+import { Store } from '../stores/store'
+import { getItem, setItem } from './local-storage'
+import { Router } from '@angular/router'
 
-export const addListeners = async () => {
+export const addListeners = async (router: Router, store?: Store) => {
   await PushNotifications.addListener('registration', (token) => {
-    console.log('Registration token: ', token.value)
+    store?.user.updateMe({ fcmToken: token.value }).subscribe()
   })
 
   await PushNotifications.addListener('registrationError', (err) => {
     console.error('Registration error: ', err.error)
-    // TODO: Handle devices w/o Google Play Services (MISSING_INSTANCEID_SERVICE)
+    if (err.error.includes('MISSING_INSTANCEID_SERVICE')) {
+      if (!getItem('gms_error_shown')) {
+        store.ui.openAlert(
+          'No Google Play Services',
+          '',
+          'Notifications will not work',
+          ['OK']
+        )
+        setItem('gms_error_shown', true)
+      }
+    }
+  })
+
+  await PushNotifications.addListener('pushNotificationReceived', (res) => {
+    // TODO: Emit push notification if new message is not in view
+    console.log('Push notification received: ', res)
   })
 
   await PushNotifications.addListener(
-    'pushNotificationReceived',
-    (notification) => {
-      console.log('Push notification received: ', notification)
-    }
-  )
-
-  await PushNotifications.addListener(
     'pushNotificationActionPerformed',
-    (notification) => {
-      console.log('Push notification action performed: ', notification)
-      // TODO: Navigate to page corresponding to notification.data.peerId
+    (res) => {
+      const peerId = res.notification.data.peerId
+      if (peerId) {
+        router.navigate(['/home/peer/' + peerId])
+      }
     }
   )
 }

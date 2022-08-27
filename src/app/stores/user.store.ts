@@ -26,6 +26,7 @@ export class UserStore extends BaseStore {
     )
   }
 
+  // Patches user in the backend
   @action
   updateMe(data: User): Observable<any> {
     return this.http.put<any>(this.url + apiConfig.user.me, data).pipe(

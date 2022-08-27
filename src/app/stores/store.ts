@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http'
 import { UserStore } from './user.store'
 import { InfoStore } from './info.store'
 import UiStore from './ui.store'
-import { ToastController } from '@ionic/angular'
+import { AlertController, ToastController } from '@ionic/angular'
 import { MessageStore } from './message.store'
 import { BaseStore } from './base.store'
 import { environment } from '../../environments/environment'
@@ -20,6 +20,7 @@ export class Store {
   @observable user: UserStore
 
   constructor(
+    private alertController: AlertController,
     private http: HttpClient,
     private toastController: ToastController
   ) {
@@ -30,7 +31,7 @@ export class Store {
     this.info = new InfoStore(this.http)
     this.message = new MessageStore(this.http)
     this.rfid = new BaseStore(environment.apiConfig.rfid, this.http)
-    this.ui = new UiStore(this.toastController)
+    this.ui = new UiStore(this.alertController, this.toastController)
     this.user = new UserStore(this.http)
   }
 }

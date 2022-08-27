@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx-angular'
-import { ToastController } from '@ionic/angular'
+import { AlertController, ToastController } from '@ionic/angular'
 import { App } from '@capacitor/app'
-import { io } from 'socket.io-client'
+import { io, Socket } from 'socket.io-client'
 import { environment } from '../../environments/environment'
 import { Preferences } from '@capacitor/preferences'
 import { Capacitor } from '@capacitor/core'
@@ -11,9 +11,9 @@ const prefersDark = window.matchMedia('(prefers-color-scheme: dark)')
 
 export class UiStore {
   @observable audioRefs: HTMLAudioElement[] = []
-  @observable isDark
-  @observable socket
-  @observable theme
+  @observable isDark: boolean
+  @observable socket: Socket
+  @observable theme: string
 
   private audioRef: HTMLAudioElement
   private count = 0
@@ -22,7 +22,10 @@ export class UiStore {
   private loading = false
   private toast: HTMLIonToastElement
 
-  constructor(private toastController: ToastController) {
+  constructor(
+    private alertController: AlertController,
+    private toastController: ToastController
+  ) {
     Preferences.get({ key: 'appTheme' }).then((res) => {
       this.theme = res.value || 'auto'
     })
@@ -110,6 +113,23 @@ export class UiStore {
       }, 3000)
     } else {
       clearTimeout(this.exitTimeout)
+    }
+  }
+
+  async openAlert(
+    header?: string,
+    subHeader?: string,
+    message?: string,
+    buttons?: string[]
+  ) {
+    if (header) {
+      const alert = await this.alertController.create({
+        header,
+        subHeader,
+        message,
+        buttons,
+      })
+      await alert.present()
     }
   }
 

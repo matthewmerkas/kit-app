@@ -10,6 +10,7 @@ import {
   createChannels,
   registerNotifications,
 } from '../../../functions/push-notifications'
+import { Platform } from '@ionic/angular'
 
 @Component({
   selector: 'app-home',
@@ -18,16 +19,22 @@ import {
   animations: animations(),
 })
 export class HomePage implements OnInit {
-  constructor(private router: Router, public store: Store) {}
+  constructor(
+    private platform: Platform,
+    private router: Router,
+    public store: Store
+  ) {}
 
   async ngOnInit() {
     this.store.message.getLatest().subscribe()
     this.store.user.getMe().subscribe()
 
     // Notifications
-    await addListeners()
-    await createChannels()
-    await registerNotifications()
+    if (this.platform.is('capacitor')) {
+      await addListeners(this.router, this.store)
+      await createChannels()
+      await registerNotifications()
+    }
   }
 
   logout() {
