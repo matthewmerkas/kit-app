@@ -33,7 +33,7 @@ export class UserFormComponent implements OnInit {
   ngOnInit() {
     this.showPassword = false
     this.showConfirmPassword = false
-    this.fileName = this.fullForm.get('avatarFileName')?.value
+    this.fileName = this.fullForm?.get('avatarFileName')?.value
   }
 
   showMatchError = () => {
