@@ -23,8 +23,13 @@
         expand="block"
         size="large"
       >
-        <ion-icon name="save-outline"></ion-icon>
-        Save
+        <ng-container *ngIf="store.ui.isLoading(); else save">
+          <ion-progress-bar type="indeterminate"></ion-progress-bar>
+        </ng-container>
+        <ng-template #save>
+          <ion-icon name="save-outline"></ion-icon>
+          Save
+        </ng-template>
       </ion-button>
     </div>
 

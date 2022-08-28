@@ -8,6 +8,11 @@ ion-header {
   background: var(--ion-background-color, #ffffff);
 }
 
+ion-progress-bar {
+  --background: rgba(0, 0, 0, 0.3);
+  --progress-background: black;
+}
+
 ion-toolbar {
   --background: none;
 }
