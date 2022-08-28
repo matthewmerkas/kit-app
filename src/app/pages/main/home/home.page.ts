@@ -11,6 +11,7 @@ import {
   registerNotifications,
 } from '../../../functions/push-notifications'
 import { Platform } from '@ionic/angular'
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomePage implements OnInit {
   constructor(
     private platform: Platform,
     private router: Router,
-    public store: Store
+    public store: Store,
+    private toastr: ToastrService
   ) {}
 
   async ngOnInit() {
@@ -31,7 +33,7 @@ export class HomePage implements OnInit {
 
     // Notifications
     if (this.platform.is('capacitor')) {
-      await addListeners(this.router, this.store)
+      await addListeners(this.router, this.store, this.toastr)
       await createChannels()
       await registerNotifications()
     }

@@ -25,10 +25,16 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+/* ionicons-inline */
+@import '~ionicons-inline/dist/ionicons';
+
 /* Swiper.js */
 @import '~swiper/scss';
 @import '~swiper/scss/pagination';
 @import '~@ionic/angular/css/ionic-swiper';
+
+/* Toastr */
+@import '~ngx-toastr/toastr';
 
 @font-face {
   font-family: 'Courier Prime';
@@ -190,4 +196,47 @@ ion-toolbar.md {
 
 .toast {
   --border-radius: var(--custom-radius);
+}
+
+.ios .toast-container {
+  margin-top: 60px;
+  width: calc(100% - 32px);
+}
+
+.md .toast-container {
+  margin-top: 68px;
+  width: calc(100% - 20px);
+}
+
+.toast-container {
+  margin: auto;
+  left: 0;
+  right: 0;
+  max-width: 400px;
+}
+
+.toastr {
+  background-color: var(--ion-color-secondary);
+  background-image: ion-notifications-outline-image(black);
+  border-radius: var(--custom-radius);
+  color: var(--ion-color-secondary-contrast);
+  margin-bottom: 10px;
+  user-select: none;
+
+  // Default styles
+  background-position: 15px center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+  padding-left: 50px;
+  pointer-events: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.toast-container .toast-close-button {
+  text-shadow: none;
+  color: black;
+  font-size: 32px;
+  height: 20px;
+  right: 0;
 }

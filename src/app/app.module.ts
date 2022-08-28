@@ -13,12 +13,20 @@ import { ErrorInterceptor } from './interceptors/error-interceptor'
 import { LoadingInterceptor } from './interceptors/loading-interceptor'
 import { getToken } from './functions/local-storage'
 import { getHost } from './functions/api'
+import { ToastrModule } from 'ngx-toastr'
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      positionClass: 'toast-top-center',
+      progressBar: true,
+      timeOut: 10000,
+      toastClass: 'ion-padding toastr',
+    }),
     HttpClientModule,
     IonicModule.forRoot(),
     JwtModule.forRoot({

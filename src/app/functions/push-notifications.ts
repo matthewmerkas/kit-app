@@ -2,8 +2,14 @@ import { PushNotifications } from '@capacitor/push-notifications'
 import { Store } from '../stores/store'
 import { getItem, setItem } from './local-storage'
 import { Router } from '@angular/router'
+import { ToastrService } from 'ngx-toastr'
+import { take } from 'rxjs'
 
-export const addListeners = async (router: Router, store?: Store) => {
+export const addListeners = async (
+  router: Router,
+  store?: Store,
+  toastr?: ToastrService
+) => {
   await PushNotifications.addListener('registration', (token) => {
     store?.user.updateMe({ fcmToken: token.value }).subscribe()
   })
@@ -24,16 +30,26 @@ export const addListeners = async (router: Router, store?: Store) => {
   })
 
   await PushNotifications.addListener('pushNotificationReceived', (res) => {
-    // TODO: Emit push notification if new message is not in view
-    console.log('Push notification received: ', res)
+    const id = res.data.peerId
+    const displayName = res.data.peerDisplayName
+    if (id && displayName) {
+      // TODO: Don't show toastr if we scroll to new message (?)
+      toastr
+        .info('New message from ' + displayName)
+        .onTap.pipe(take(1))
+        .subscribe(() => {
+          console.log('tap registered')
+          router.navigate(['/home/peer/' + id])
+        })
+    }
   })
 
   await PushNotifications.addListener(
     'pushNotificationActionPerformed',
     (res) => {
-      const peerId = res.notification.data.peerId
-      if (peerId) {
-        router.navigate(['/home/peer/' + peerId])
+      const id = res.notification.data.peerId
+      if (id) {
+        router.navigate(['/home/peer/' + id])
       }
     }
   )
