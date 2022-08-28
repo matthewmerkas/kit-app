@@ -58,7 +58,11 @@ export class ErrorInterceptor implements HttpInterceptor {
             removeTokens()
             this.store.initialise() // Clear stores
             this.router.navigate(['/auth/login'])
-          } else if (err.error?.message !== 'Could not find User') {
+          } else if (
+            !['Could not find User', 'Could not update User'].includes(
+              err.error?.message
+            )
+          ) {
             this.openToast(err)
           }
         }
