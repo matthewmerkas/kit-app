@@ -10,7 +10,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs'
 import { Store } from '../../stores/store'
 import { FormControl } from '@angular/forms'
 import { Router } from '@angular/router'
-import { IonModal, Platform } from '@ionic/angular'
+import { Platform } from '@ionic/angular'
 import { User } from '../../functions/types'
 
 const LIMIT = 15
@@ -21,11 +21,11 @@ const LIMIT = 15
   styleUrls: ['./people-search.component.scss'],
 })
 export class PeopleSearchComponent implements OnInit {
-  @ViewChild('modal', { static: false }) modal: IonModal
+  @ViewChild('modal', { static: false }) modal: HTMLIonModalElement
   @Input() trigger = 'people-search'
+  @Output() modalRef = new EventEmitter<HTMLIonModalElement>()
   @Output() userSelect = new EventEmitter<User>()
 
-  listHeight: number
   searchForm = new FormControl('')
   users: User[] = []
 
@@ -46,6 +46,9 @@ export class PeopleSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.modalRef.emit(this.modal)
+    }, 1)
     this.searchForm.reset('')
     this.store.user.getList(undefined, '', LIMIT).subscribe((res) => {
       this.users = res

@@ -3,6 +3,7 @@
   *ngIf="message"
   [routerLink]="'/home/peer/' + message.peer._id"
   [class.unread]="message.currentTime === 0"
+  [button]="true"
   [detail]="false"
 >
   <app-avatar

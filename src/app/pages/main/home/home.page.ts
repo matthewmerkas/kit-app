@@ -20,8 +20,10 @@ import { ToastrService } from 'ngx-toastr'
   animations: animations(),
 })
 export class HomePage implements OnInit {
+  modalRef: HTMLIonModalElement
+
   constructor(
-    private platform: Platform,
+    public platform: Platform,
     private router: Router,
     public store: Store,
     private toastr: ToastrService

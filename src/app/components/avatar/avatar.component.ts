@@ -10,6 +10,7 @@ export class AvatarComponent implements OnInit {
   @Input() dataUrl: string
   @Input() fileName: string
   @Input() margin: string
+  @Input() name = 'person-circle'
   @Input() size: number
 
   iconMargin
