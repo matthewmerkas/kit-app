@@ -212,6 +212,7 @@ export class PeerPage implements OnInit {
   }
 
   deleteRecording() {
+    this.store.ui.pauseAudio()
     this.recordingData = null
     this.status = 'ready'
   }
