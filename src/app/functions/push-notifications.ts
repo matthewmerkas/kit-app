@@ -50,6 +50,7 @@ export const addListeners = async (
       const id = res.notification.data.peerId
       if (id) {
         router.navigate(['/home/peer/' + id])
+        store.message.getLatest()
       }
     }
   )
