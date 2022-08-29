@@ -39,6 +39,9 @@ export class HomePage implements OnInit {
       await createChannels()
       await registerNotifications()
     }
+    this.platform.resume.subscribe(() => {
+      this.store.message.getLatest()
+    })
   }
 
   logout() {

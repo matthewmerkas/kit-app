@@ -38,10 +38,10 @@ export class SettingsPage implements OnInit {
     }
     this.userForm.patchValue(this.store.user.me)
     this.userForm.get('password').reset('')
+    this.userCopy = this.userForm.getRawValue()
     this.userForm.valueChanges.subscribe(() => {
       this.hasChanged = !equal(this.userCopy, this.userForm.getRawValue())
     })
-    this.userCopy = this.userForm.getRawValue()
   }
 
   isDisabled() {
