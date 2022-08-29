@@ -134,6 +134,7 @@ export class PeerPage implements OnInit {
 
   async send() {
     this.status = 'sending'
+    this.store.ui.pauseAudio()
     if (!this.store.user.me) {
       await this.store.user.getMe().subscribe()
     }
