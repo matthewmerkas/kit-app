@@ -51,17 +51,20 @@ export class LoginPage implements OnInit {
   }
 
   submit = () => {
-    if (this.signup) {
+    if (this.signup && this.signupForm.valid) {
       const data = this.signupForm.getRawValue()
       data.avatar = this.avatar
+      data.username = data.username.trim()
       this.store.user.signup(data).subscribe((res) => {
         this.loginForm.patchValue({ username: res.username })
         this.store.ui.openToast('Account created!')
         this.toggleSignup()
         this.signupForm.reset()
       })
-    } else {
-      this.store.user.login(this.loginForm.getRawValue()).subscribe(() => {
+    } else if (this.loginForm.valid) {
+      const data = this.loginForm.getRawValue()
+      data.username = data.username.trim()
+      this.store.user.login(data).subscribe(() => {
         forkJoin([
           this.store.message.getLatest(),
           this.store.user.getMe(),

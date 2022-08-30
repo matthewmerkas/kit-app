@@ -52,20 +52,23 @@ export class SettingsPage implements OnInit {
     )
   }
 
-  submit() {
-    const data = this.userForm.getRawValue()
-    if (!data.password) {
-      delete data.password
+  submit = () => {
+    if (this.userForm.valid) {
+      const data = this.userForm.getRawValue()
+      if (!data.password) {
+        delete data.password
+      }
+      delete data.passwordConfirm
+      data.avatar = this.avatar
+      data.username = data.username.trim()
+
+      this.store.user.updateMe(data).subscribe((res) => {
+        this.userForm.patchValue(res)
+
+        this.avatar = undefined
+        this.hasChanged = false
+        this.userCopy = this.userForm.getRawValue()
+      })
     }
-    delete data.passwordConfirm
-    data.avatar = this.avatar
-
-    this.store.user.updateMe(data).subscribe((res) => {
-      this.userForm.patchValue(res)
-
-      this.avatar = undefined
-      this.hasChanged = false
-      this.userCopy = this.userForm.getRawValue()
-    })
   }
 }
