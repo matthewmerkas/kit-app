@@ -39,8 +39,9 @@
         </span>
         <h4>WiFi</h4>
         <p>
-          Enter the network name (SSID) and password (if there is one) so
-          {{ store.info.object.name }} can connect to your WiFi network.
+          If you're not connecting via ethernet, we need the network name (SSID)
+          and password (if there is one) so {{ store.info.object.name }} can
+          connect to your WiFi network.
         </p>
         <h4>Account</h4>
         <p>
@@ -58,9 +59,9 @@
           configuration to the {{ store.info.object.name }} device via NFC.
         </p>
         <p>
-          Tap '{{ sendTitle }}' and place your device on the photo bed. To read
-          any log messages from {{ store.info.object.name }}, keep your device
-          in place.
+          Tap '{{ sendTitle }}' and place your device on
+          {{ store.info.object.name }}. To read any log messages, keep your
+          device in place.
         </p>
         <h4>LED reference</h4>
         <swiper [pagination]="{ clickable: true }">

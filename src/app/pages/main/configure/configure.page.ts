@@ -28,17 +28,17 @@ export class ConfigurePage implements OnInit {
     password: ['', [Validators.required, Validators.minLength(8)]],
   })
   wifiForm = this.fb.group({
-    ssid: ['', Validators.required],
+    ssid: [''],
     password: [''],
   })
 
   slides = [
-    { alt: 'off', src: '00.png', title: 'Off', note: '(or starting up)' },
+    { alt: 'off', src: '00.png', title: 'Off or Idle', note: '' },
     {
       alt: 'startup',
       src: '01.png',
-      title: 'Startup complete',
-      note: 'Accompanied by startup chime. Automatically dismisses',
+      title: 'Booting up',
+      note: 'A chime will sound once boot is complete',
     },
     {
       alt: 'waiting',
