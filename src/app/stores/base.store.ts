@@ -79,6 +79,7 @@ export class BaseStore {
     for (const [i, item] of this.array.entries()) {
       if (item._id === data._id) {
         this.array[i] = data
+        break
       }
     }
     setItem(this.key, this.array)

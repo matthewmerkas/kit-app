@@ -14,7 +14,7 @@
     >
       <app-avatar [fileName]="peer.avatarFileName" [size]="34"></app-avatar>
       <ion-label class="ion-text-wrap">
-        <h2>{{ peer?.displayName }}</h2>
+        <h2>{{ peer?.nickname || peer?.displayName }}</h2>
       </ion-label>
     </ion-item>
   </ion-toolbar>

@@ -8,9 +8,9 @@ import { getItem, getMap, setItem, setMap } from '../functions/local-storage'
 import * as equal from 'fast-deep-equal/es6'
 import { EventEmitter } from '@angular/core'
 
-const key = 'message_map'
-const keyLatest = 'message_latest'
-const url = environment.apiUrl + environment.apiConfig.message.base
+export const key = 'message_map'
+export const keyLatest = 'message_latest'
+export const url = environment.apiUrl + environment.apiConfig.message.base
 
 export class MessageStore {
   @observable array: Message[] = []
@@ -121,7 +121,8 @@ export class MessageStore {
     return this.http.delete<any>(url + '/' + id)
   }
 
-  private updateLatest(message: Message) {
+  @action
+  updateLatest(message: Message) {
     for (const [i, m] of this.latest.entries()) {
       if (m._id === message._id) {
         this.latest[i] = message
@@ -130,7 +131,8 @@ export class MessageStore {
     }
   }
 
-  private updateMap(message: Message) {
+  @action
+  updateMap(message: Message) {
     const messages = this.map.get(message.peer._id) ?? []
     for (const [i, m] of messages.entries()) {
       if (m._id === message._id) {

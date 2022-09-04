@@ -32,6 +32,12 @@ export interface Message {
   isDeleted: boolean
 }
 
+export interface Nickname {
+  userId: string
+  peerId: string
+  value: string
+}
+
 export interface SoftDeletes {
   isDeleted?: boolean
 }
@@ -42,6 +48,7 @@ export interface User extends SoftDeletes {
   avatarFileName?: string
   displayName?: string
   fcmToken?: string
+  nickname?: string
 }
 
 export interface Tag {

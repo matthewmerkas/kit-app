@@ -1,13 +1,20 @@
 <ion-modal
   [breakpoints]="[0, breakpoint]"
   [initialBreakpoint]="breakpoint"
+  (ionModalWillDismiss)="onDismiss()"
   [showBackdrop]="false"
   [trigger]="trigger"
 >
   <ng-template>
     <ion-content class="ion-padding" [scrollY]="false">
       <div class="flex">
-        <h1>{{ user.displayName }}</h1>
+        <ion-item>
+          <ion-input
+            [formControl]="nicknameForm"
+            [placeholder]="user.displayName"
+          >
+          </ion-input>
+        </ion-item>
         <h5>{{ '@' + user.username }}</h5>
         <app-avatar [fileName]="user.avatarFileName" [size]="256"></app-avatar>
       </div>

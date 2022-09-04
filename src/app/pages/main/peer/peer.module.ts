@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { PeerPage } from './peer.page'
 
 import { IonicModule } from '@ionic/angular'
@@ -20,6 +20,7 @@ import { ProfileComponent } from '../../../components/profile/profile.component'
     MessageComponentModule,
     ScrollingModule,
     LoginPageModule,
+    ReactiveFormsModule,
   ],
   declarations: [PeerPage, ProfileComponent],
 })

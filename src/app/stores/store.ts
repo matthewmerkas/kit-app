@@ -9,6 +9,7 @@ import { MessageStore } from './message.store'
 import { BaseStore } from './base.store'
 import { environment } from '../../environments/environment'
 import { Router } from '@angular/router'
+import { NicknameStore } from './nickname.store'
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ import { Router } from '@angular/router'
 export class Store {
   @observable info: InfoStore
   @observable message: MessageStore
+  @observable nickname: NicknameStore
   @observable rfid: BaseStore
   @observable ui: UiStore
   @observable user: UserStore
@@ -32,6 +34,7 @@ export class Store {
   initialise() {
     this.info = new InfoStore(this.http)
     this.message = new MessageStore(this.http)
+    this.nickname = new NicknameStore(this.http, this)
     this.rfid = new BaseStore(environment.apiConfig.rfid, this.http)
     this.ui = new UiStore(this.alertController, this.toastController)
     this.user = new UserStore(this.http, this.router, this)

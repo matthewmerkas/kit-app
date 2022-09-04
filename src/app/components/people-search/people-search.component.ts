@@ -60,6 +60,7 @@ export class PeopleSearchComponent implements OnInit {
           ? {
               $or: JSON.stringify([
                 { displayName: { $regex: value, $options: 'i' } },
+                { nickname: { $regex: value, $options: 'i' } },
                 { username: { $regex: value, $options: 'i' } },
               ]),
             }
