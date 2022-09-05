@@ -60,3 +60,7 @@ If you're not updating native plugins, run `npx cap copy` instead of `npx cap sy
 #### Capacitor Navigation Bar
 
 Install node modules with `npm install --force` and replace `node_modules/@hugotomazi` folder with `modified_modules/@hugotomazi`
+
+#### Capacitor Splash Screen
+
+Comment line 98 in `node_modules/@capacitor/splash-screen/android/src/main/java/com/capacitorjs/plugins/splashscreen/SplashScreen.java`
