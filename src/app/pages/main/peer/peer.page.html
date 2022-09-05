@@ -9,10 +9,9 @@
       id="view-profile"
       [@fadeIn-150ms-0ms]=""
       lines="none"
-      *ngIf="peer"
       slot="end"
     >
-      <app-avatar [fileName]="peer.avatarFileName" [size]="34"></app-avatar>
+      <app-avatar [fileName]="peer?.avatarFileName" [size]="34"></app-avatar>
       <ion-label class="ion-text-wrap">
         <h2>{{ peer?.nickname || peer?.displayName }}</h2>
       </ion-label>
