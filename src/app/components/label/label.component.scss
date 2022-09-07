@@ -1,0 +1,58 @@
+// https://css-tricks.com/snippets/css/css-triangle/
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-bottom: 5px solid var(--ion-color-secondary);
+  z-index: 1;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+
+  border-top: 20px solid var(--ion-color-secondary);
+  z-index: 1;
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+
+  border-left: 60px solid var(--ion-color-secondary);
+  z-index: 1;
+}
+
+.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+
+  border-right: 10px solid var(--ion-color-secondary);
+  z-index: 1;
+}
+
+.container {
+  color: var(--ion-color-secondary-contrast);
+  flex-direction: column;
+  padding-left: 4px;
+  position: absolute;
+  z-index: 1000;
+}
+
+.message {
+  background-color: var(--ion-color-secondary);
+  border-radius: calc(var(--custom-radius) * 0.5);
+  box-shadow: var(--large-shadow);
+  min-height: 32px;
+  min-width: 32px;
+  padding: 8px;
+}

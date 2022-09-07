@@ -9,6 +9,7 @@ import { map } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { CdkScrollable } from '@angular/cdk/overlay'
 import { Platform } from '@ionic/angular'
+import { getItem, setItem } from '../../../functions/local-storage'
 
 @Component({
   selector: 'app-peer',
@@ -24,6 +25,7 @@ export class PeerPage implements OnInit {
   public id: string
   public isRecording = false
   public loading = true
+  public showLabel = false
   public status = 'ready'
   public peer: User
 
@@ -57,6 +59,9 @@ export class PeerPage implements OnInit {
       this.scrollToBottom(true)
       this.loading = false
     })
+    if (!getItem('profile_label_shown')) {
+      this.showLabel = true
+    }
   }
 
   ionViewWillEnter() {
@@ -122,6 +127,11 @@ export class PeerPage implements OnInit {
       case 'recorded':
         return this.send()
     }
+  }
+
+  onProfileClick = () => {
+    setItem('profile_label_shown', true)
+    this.showLabel = false
   }
 
   scrollToBottom(force = false) {

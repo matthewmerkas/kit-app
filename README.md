@@ -29,6 +29,7 @@ or run each command manually:
 `npx cap open android`
 
 ### Notification Icons
+
 [Create a notification icon](https://developer.android.com/studio/write/image-asset-studio#create-notification) with Image path `resources/android/icon-foreground.png`. Set Trim to Yes
 
 ### Android Hacks

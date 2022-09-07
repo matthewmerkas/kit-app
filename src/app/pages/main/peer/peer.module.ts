@@ -10,6 +10,7 @@ import { MessageComponentModule } from '../../../components/message/message.modu
 import { ScrollingModule } from '@angular/cdk/scrolling'
 import { LoginPageModule } from '../../auth/login/login.module'
 import { ProfileComponent } from '../../../components/profile/profile.component'
+import { LabelComponent } from '../../../components/label/label.component'
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import { ProfileComponent } from '../../../components/profile/profile.component'
     LoginPageModule,
     ReactiveFormsModule,
   ],
-  declarations: [PeerPage, ProfileComponent],
+  declarations: [PeerPage, ProfileComponent, LabelComponent],
 })
 export class PeerPageModule {}

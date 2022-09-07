@@ -3,11 +3,13 @@ import { User } from '../../functions/types'
 import { Platform } from '@ionic/angular'
 import { FormControl } from '@angular/forms'
 import { Store } from '../../stores/store'
+import { animations } from '../../functions/animations'
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
+  animations: animations('100ms'),
 })
 export class ProfileComponent implements OnInit, OnChanges {
   @Input() trigger = 'view-profile'
@@ -16,6 +18,7 @@ export class ProfileComponent implements OnInit, OnChanges {
   breakpoint: number
   nicknameForm = new FormControl('')
   oldNickname: string
+  showInfo = false
 
   constructor(private platform: Platform, private store: Store) {}
 

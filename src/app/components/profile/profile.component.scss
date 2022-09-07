@@ -2,15 +2,27 @@ app-avatar {
   padding: 24px 0;
 }
 
-ion-input {
-  font-size: 24px;
-  text-align: center;
+div.flex {
+  flex-direction: column;
 }
 
 h5 {
   color: var(--ion-color-medium);
 }
 
-.flex {
-  flex-direction: column;
+ion-input {
+  font-size: 24px;
+  text-align: center;
+}
+
+ion-content {
+  --background: var(--ion-card-background, #ffffff);
+}
+
+small {
+  * {
+    padding-right: 2px;
+  }
+  color: var(--ion-color-medium);
+  padding: 8px;
 }

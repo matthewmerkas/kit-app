@@ -5,6 +5,7 @@
     </ion-buttons>
     <ion-item
       [button]="true"
+      (click)="onProfileClick()"
       [detail]="false"
       id="view-profile"
       [@fadeIn-150ms-0ms]=""
@@ -18,6 +19,11 @@
     </ion-item>
   </ion-toolbar>
 </ion-header>
+<app-label
+  [@fade-150ms-0ms]=""
+  [message]="'View profile & set nickname'"
+  *ngIf="showLabel"
+></app-label>
 <app-profile [user]="peer"></app-profile>
 
 <ion-content [fullscreen]="true">

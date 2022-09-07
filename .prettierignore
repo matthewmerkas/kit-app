@@ -188,6 +188,13 @@ fabric.properties
 /plugins
 /www
 
+modified_modules
+
+#android
+android/app/build
+android/app/src
+android/capacitor-cordova-android-plugins
+
 # cordova-res
 resources/android/icon
 resources/android/splash

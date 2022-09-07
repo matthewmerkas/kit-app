@@ -12,9 +12,16 @@
           <ion-input
             [formControl]="nicknameForm"
             [placeholder]="user.displayName"
+            (ionBlur)="showInfo = false"
+            (ionFocus)="showInfo = true"
           >
           </ion-input>
         </ion-item>
+        <small [@fade-100ms-0ms]="" class="flex" *ngIf="showInfo">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>Nickname replaces display name.</span>
+          <span>Only visible to you</span>
+        </small>
         <h5>{{ '@' + user.username }}</h5>
         <app-avatar [fileName]="user.avatarFileName" [size]="256"></app-avatar>
       </div>
