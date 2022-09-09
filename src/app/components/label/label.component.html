@@ -1,4 +1,25 @@
-<div class="flex container">
-  <div class="arrow-up"></div>
-  <div class="message">{{ message }}</div>
+<div
+  class="flex container"
+  [style.top]="position?.top"
+  [style.bottom]="position?.bottom"
+>
+  <div
+    class="arrow-up"
+    *ngIf="arrowSide === 'top'"
+    [style.marginLeft]="arrowMargin?.left"
+    [style.marginRight]="arrowMargin?.right"
+  ></div>
+  <div
+    class="message"
+    [style.marginLeft]="messageMargin?.left"
+    [style.marginRight]="messageMargin?.right"
+  >
+    {{ message }}
+  </div>
+  <div
+    class="arrow-down"
+    *ngIf="arrowSide === 'bottom'"
+    [style.marginLeft]="arrowMargin?.left"
+    [style.marginRight]="arrowMargin?.right"
+  ></div>
 </div>

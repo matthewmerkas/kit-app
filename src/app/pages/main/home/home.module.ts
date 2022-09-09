@@ -9,6 +9,7 @@ import { MessageComponentModule } from '../../../components/message/message.modu
 import { PeerComponentModule } from '../../../components/peer/peer.module'
 import { PeopleSearchComponent } from '../../../components/people-search/people-search.component'
 import { LoginPageModule } from '../../auth/login/login.module'
+import { PeerPageModule } from '../peer/peer.module'
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { LoginPageModule } from '../../auth/login/login.module'
     ReactiveFormsModule,
     PeerComponentModule,
     LoginPageModule,
+    PeerPageModule,
   ],
   declarations: [HomePage, PeopleSearchComponent],
   exports: [PeopleSearchComponent],

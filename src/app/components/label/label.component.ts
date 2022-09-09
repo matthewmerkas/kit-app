@@ -6,8 +6,11 @@ import { Component, Input } from '@angular/core'
   styleUrls: ['./label.component.scss'],
 })
 export class LabelComponent {
+  @Input() arrowSide: 'top' | 'bottom' = 'top'
+  @Input() arrowMargin: { left?: string; right?: string }
   @Input() message: string
-  @Input() position
+  @Input() messageMargin: { left?: string; right?: string }
+  @Input() position: { top?: string; bottom?: string }
 
   constructor() {}
 }

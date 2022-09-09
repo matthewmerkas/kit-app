@@ -106,12 +106,19 @@
     *ngIf="store.message.latest.length < 1 && !store.ui.isLoading()"
   >
     <div class="shrug">🤷</div>
-    <h4>We couldn't find any messages</h4>
-    <p>Try sending one with the people menu</p>
+    <h4>No messages</h4>
   </div>
 
+  <app-label
+    *ngIf="showLabel"
+    [arrowSide]="'bottom'"
+    [arrowMargin]="{ left: 'auto', right: '30px' }"
+    [message]="'Send a message from the people menu'"
+    [messageMargin]="{ left: 'auto', right: '8px' }"
+    [position]="{ bottom: '70px' }"
+  ></app-label>
   <ion-fab horizontal="end" slot="fixed" vertical="bottom">
-    <ion-fab-button id="people-search">
+    <ion-fab-button (click)="onPeopleClick()" id="people-search">
       <ion-icon name="people-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>

@@ -3,7 +3,11 @@ import { Router } from '@angular/router'
 import { EMPTY, map } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { animations } from '../../../functions/animations'
-import { removeTokens } from '../../../functions/local-storage'
+import {
+  getItem,
+  removeTokens,
+  setItem,
+} from '../../../functions/local-storage'
 import { Store } from '../../../stores/store'
 import {
   addListeners,
@@ -21,6 +25,7 @@ import { ToastrService } from 'ngx-toastr'
 })
 export class HomePage implements OnInit {
   modalRef: HTMLIonModalElement
+  showLabel = false
 
   constructor(
     public platform: Platform,
@@ -42,11 +47,20 @@ export class HomePage implements OnInit {
     this.platform.resume.subscribe(() => {
       this.store.message.getLatest()
     })
+
+    if (!getItem('people_label_shown')) {
+      this.showLabel = true
+    }
   }
 
   logout() {
     removeTokens()
     return this.router.navigate(['/auth'])
+  }
+
+  onPeopleClick = () => {
+    setItem('people_label_shown', true)
+    this.showLabel = false
   }
 
   refresh(ev) {

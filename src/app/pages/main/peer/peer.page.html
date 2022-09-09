@@ -21,7 +21,9 @@
 </ion-header>
 <app-label
   [@fade-150ms-0ms]=""
+  [arrowMargin]="{ left: '64px', right: 'auto' }"
   [message]="'View profile & set nickname'"
+  [messageMargin]="{ left: '8px', right: 'auto' }"
   *ngIf="showLabel"
 ></app-label>
 <app-profile [user]="peer"></app-profile>

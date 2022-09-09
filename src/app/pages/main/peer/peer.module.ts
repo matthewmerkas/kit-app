@@ -24,5 +24,6 @@ import { LabelComponent } from '../../../components/label/label.component'
     ReactiveFormsModule,
   ],
   declarations: [PeerPage, ProfileComponent, LabelComponent],
+  exports: [LabelComponent],
 })
 export class PeerPageModule {}
