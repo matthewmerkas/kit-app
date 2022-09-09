@@ -12,14 +12,13 @@
   </ion-button>
   <swiper
     #swiper
-    [cssMode]="true"
-    [history]="true"
     [pagination]="{ clickable: true }"
     [preventInteractionOnTransition]="true"
     (slideChange)="onSlideChange()"
   >
     <ng-template swiperSlide>
       <div class="flex welcome">
+        <img class="icon" src="assets/icon-foreground.png" />
         <h1>Welcome to {{ store.info.object.name }}</h1>
         <p>Swipe left to start</p>
       </div>
