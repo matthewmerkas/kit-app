@@ -33,7 +33,7 @@ export class Store {
 
   initialise() {
     this.info = new InfoStore(this.http)
-    this.message = new MessageStore(this.http)
+    this.message = new MessageStore(this.http, this)
     this.nickname = new NicknameStore(this.http, this)
     this.rfid = new BaseStore(environment.apiConfig.rfid, this.http)
     this.ui = new UiStore(this.alertController, this.toastController)

@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'
 import { getItem, getMap, setItem, setMap } from '../functions/local-storage'
 import * as equal from 'fast-deep-equal/es6'
 import { EventEmitter } from '@angular/core'
+import { Store } from './store'
 
 export const key = 'message_map'
 export const keyLatest = 'message_latest'
@@ -19,7 +20,7 @@ export class MessageStore {
   @observable latest: Message[] = getItem(keyLatest) ?? []
   @observable map: Map<string, Message[]> = getMap(key) ?? new Map()
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient, private store: Store) {}
 
   @action
   create(data: any): Observable<any> {
@@ -94,6 +95,8 @@ export class MessageStore {
       }
     }
     this.latest.splice(0, 0, message)
+    // Update user
+    this.store.user.updateArray(message.peer)
   }
 
   @action
