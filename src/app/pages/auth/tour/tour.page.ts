@@ -15,7 +15,7 @@ import { Router } from '@angular/router'
 })
 export class TourPage implements OnInit {
   @ViewChild('swiper', { static: false }) swiper: SwiperComponent
-  showSkip = true
+  showNext = true
 
   constructor(
     private changeDetectionRef: ChangeDetectorRef,
@@ -39,12 +39,12 @@ export class TourPage implements OnInit {
   }
 
   onSlideChange = () => {
-    this.showSkip =
+    this.showNext =
       this.swiper.swiperRef.realIndex < this.swiper.swiperRef.slides.length - 1
     this.changeDetectionRef.detectChanges()
   }
 
-  skip = () => {
-    this.swiper.swiperRef.slideTo(this.swiper.swiperRef.slides.length)
+  next = () => {
+    this.swiper.swiperRef.slideNext()
   }
 }

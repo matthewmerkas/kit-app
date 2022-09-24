@@ -1,13 +1,13 @@
 <ion-content>
   <ion-button
     [@fade-150ms-0ms]=""
-    class="skip-button"
-    (click)="skip()"
+    class="next-button"
+    (click)="next()"
     color="dark"
     fill="clear"
-    *ngIf="showSkip"
+    *ngIf="showNext"
   >
-    Skip
+    Next
     <ion-icon name="chevron-forward"></ion-icon>
   </ion-button>
   <swiper
@@ -18,8 +18,8 @@
   >
     <ng-template swiperSlide>
       <div class="flex welcome">
-        <img class="icon" src="assets/icon-foreground.png" />
-        <h1>Welcome to {{ store.info.object.name }}</h1>
+        <img class="splash" src="assets/tour/splash.svg" />
+        <h1>Welcome to {{ store.info.object.name }}!</h1>
         <p>Swipe left to start</p>
       </div>
     </ng-template>
@@ -42,6 +42,11 @@
             >Log In</ion-button
           >
         </div>
+      </div>
+    </ng-template>
+    <ng-template swiperSlide>
+      <div class="flex">
+        <p>Tag Editor & Device Configurator</p>
       </div>
     </ng-template>
   </swiper>
