@@ -8,6 +8,7 @@ import { map } from 'rxjs'
 import { Ndef, NFC } from '@awesome-cordova-plugins/nfc/ngx'
 import { Platform } from '@ionic/angular'
 import SwiperCore, { Pagination } from 'swiper'
+import { catchError } from 'rxjs/operators'
 
 const helper = new JwtHelperService()
 
@@ -92,14 +93,21 @@ export class ConfigurePage implements OnInit {
     return getToken()
   }
 
-  login() {
+  login = () => {
+    this.store.ui.skipError = true
     this.store.user
       .login(this.userForm.getRawValue(), false)
-      .subscribe((res: Jwt) => {
-        this.refreshToken = res.refreshToken
-        this.user = helper.decodeToken(res.token)
-        this.userForm.reset()
-      })
+      .pipe(
+        map((res: Jwt) => {
+          this.refreshToken = res.refreshToken
+          this.user = helper.decodeToken(res.token)
+          this.userForm.reset()
+        }),
+        catchError((err) => {
+          return this.store.ui.openToast(err.error.message)
+        })
+      )
+      .subscribe()
   }
 
   onWillDismiss() {
@@ -110,7 +118,7 @@ export class ConfigurePage implements OnInit {
     if (clear) {
       this.user = null
       this.refreshToken = null
-    } else {
+    } else if (getToken()) {
       this.store.user.getMe().subscribe((res) => {
         this.user = res
       })

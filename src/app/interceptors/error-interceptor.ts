@@ -27,6 +27,11 @@ export class ErrorInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    if (this.store.ui.skipError) {
+      this.store.ui.skipError = false
+      return next.handle(req)
+    }
+
     return next.handle(req).pipe(
       catchError((err: JwtErrorResponse) => {
         if (err.error instanceof Error) {

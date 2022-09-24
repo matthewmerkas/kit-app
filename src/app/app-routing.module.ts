@@ -27,7 +27,6 @@ const routes: Routes = [
       ),
   },
   {
-    canActivate: [JwtGuard],
     path: 'home/nfc',
     loadChildren: () =>
       import('./pages/main/nfc/nfc.module').then((m) => m.NfcPageModule),

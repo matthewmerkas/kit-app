@@ -17,16 +17,18 @@
     (slideChange)="onSlideChange()"
   >
     <ng-template swiperSlide>
-      <div class="flex welcome">
+      <div class="flex grid">
         <img class="splash" src="assets/tour/splash.svg" />
-        <h1>Welcome to {{ store.info.object.name }}!</h1>
-        <p>Swipe left to start</p>
+        <div class="flex column">
+          <h1>Welcome to {{ store.info.object.name }}!</h1>
+          <p>Swipe left to start</p>
+        </div>
       </div>
     </ng-template>
     <ng-template swiperSlide>
-      <div class="buttons flex">
+      <div class="flex column">
         <ion-button
-          class="sign-up-button"
+          class="full-width"
           [queryParams]="{ signup: true }"
           [routerLink]="'/auth/login'"
           size="large"
@@ -45,8 +47,28 @@
       </div>
     </ng-template>
     <ng-template swiperSlide>
-      <div class="flex">
-        <p>Tag Editor & Device Configurator</p>
+      <div class="flex grid">
+        <div class="flex column">
+          <ion-button
+            class="config-button"
+            color="light"
+            [routerLink]="'/home/configure'"
+          >
+            <ion-icon name="hammer-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <p>Device Configurator</p>
+        </div>
+        <div class="spacer"></div>
+        <div class="flex column">
+          <ion-button
+            class="config-button"
+            color="light"
+            [routerLink]="'/home/nfc'"
+          >
+            <ion-icon name="images-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <p>Tag Editor</p>
+        </div>
       </div>
     </ng-template>
   </swiper>

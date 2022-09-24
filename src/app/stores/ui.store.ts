@@ -12,6 +12,7 @@ const prefersDark = window.matchMedia('(prefers-color-scheme: dark)')
 export class UiStore {
   @observable audioRefs: HTMLAudioElement[] = []
   @observable isDark: boolean
+  @observable skipError: boolean
   @observable socket: Socket
   @observable theme: string
 

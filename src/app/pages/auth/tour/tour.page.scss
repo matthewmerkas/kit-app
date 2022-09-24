@@ -1,9 +1,50 @@
-.buttons {
+@media (orientation: landscape) {
+  .grid {
+    flex-direction: row;
+  }
+  .splash {
+    max-height: min(75vh, 400px) !important;
+  }
+}
+
+@media (orientation: portrait) {
+  .grid {
+    flex-direction: column;
+  }
+  .splash {
+    max-height: min(50vh, 400px) !important;
+  }
+}
+
+.column {
   flex-direction: column;
+}
+
+.grid {
+  padding: 0 16px;
+}
+
+.config-button {
+  ion-icon {
+    height: 36px;
+    width: 36px;
+  }
+
+  height: 128px;
+  width: 192px;
+}
+
+.full-width {
+  width: 100%;
 }
 
 .hidden {
   opacity: 0;
+}
+
+.login-button {
+  font-size: 18px;
+  text-transform: none;
 }
 
 .next-button {
@@ -14,13 +55,14 @@
   z-index: 2;
 }
 
-.sign-up-button {
-  width: 100%;
+.spacer {
+  height: 24px;
+  width: 24px;
 }
 
-.login-button {
-  font-size: 18px;
-  text-transform: none;
+.splash {
+  height: 100vh !important;
+  padding: 32px;
 }
 
 .swiper {
@@ -37,15 +79,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.splash {
-  height: 100vh !important;
-  max-height: min(50vh, 400px) !important;
-  max-width: min(100vw, 400px) !important;
-  padding: 32px;
-}
-
-.welcome {
-  flex-direction: column;
 }
