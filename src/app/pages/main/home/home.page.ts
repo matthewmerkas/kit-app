@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators'
 import { animations } from '../../../functions/animations'
 import {
   getItem,
+  getToken,
   removeTokens,
   setItem,
 } from '../../../functions/local-storage'
@@ -45,7 +46,9 @@ export class HomePage implements OnInit {
       await registerNotifications()
     }
     this.platform.resume.subscribe(() => {
-      this.store.message.getLatest()
+      if (getToken()) {
+        this.store.message.getLatest()
+      }
     })
 
     if (!getItem('people_label_shown')) {

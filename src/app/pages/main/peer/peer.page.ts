@@ -9,7 +9,7 @@ import { map } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { CdkScrollable } from '@angular/cdk/overlay'
 import { Platform } from '@ionic/angular'
-import { getItem, setItem } from '../../../functions/local-storage'
+import { getItem, getToken, setItem } from '../../../functions/local-storage'
 
 @Component({
   selector: 'app-peer',
@@ -47,7 +47,9 @@ export class PeerPage implements OnInit {
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id')
     this.platform.resume.subscribe(() => {
-      this.store.message.getList(this.id).subscribe()
+      if (getToken()) {
+        this.store.message.getList(this.id).subscribe()
+      }
     })
     this.store.user.get(this.id).subscribe((res) => {
       this.peer = res
