@@ -110,7 +110,7 @@
   </div>
 
   <app-label
-    *ngIf="showLabel"
+    *ngIf="store.message.latest.length < 1 && !store.ui.isLoading()"
     [arrowSide]="'bottom'"
     [arrowMargin]="{ left: 'auto', right: '30px' }"
     [message]="'Send a message from the people menu'"
@@ -118,7 +118,7 @@
     [position]="{ bottom: '70px' }"
   ></app-label>
   <ion-fab horizontal="end" slot="fixed" vertical="bottom">
-    <ion-fab-button (click)="onPeopleClick()" id="people-search">
+    <ion-fab-button id="people-search">
       <ion-icon name="people-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>

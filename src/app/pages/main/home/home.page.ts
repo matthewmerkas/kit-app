@@ -26,7 +26,6 @@ import { ToastrService } from 'ngx-toastr'
 })
 export class HomePage implements OnInit {
   modalRef: HTMLIonModalElement
-  showLabel = false
 
   constructor(
     public platform: Platform,
@@ -50,20 +49,11 @@ export class HomePage implements OnInit {
         this.store.message.getLatest()
       }
     })
-
-    if (!getItem('people_label_shown')) {
-      this.showLabel = true
-    }
   }
 
   logout() {
     removeTokens()
     return this.router.navigate(['/auth'])
-  }
-
-  onPeopleClick = () => {
-    setItem('people_label_shown', true)
-    this.showLabel = false
   }
 
   refresh(ev) {
