@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core'
 import { formatDatetime } from 'src/app/functions/datetime'
-import { Message } from '../../functions/types'
+import { Message, User } from '../../functions/types'
 import { Store } from '../../stores/store'
 import { animations } from '../../functions/animations'
 import { environment } from '../../../environments/environment'
+import { scheduleNotification } from '../../functions/push-notifications'
 
 @Component({
   selector: 'app-message',
@@ -13,6 +14,7 @@ import { environment } from '../../../environments/environment'
 })
 export class MessageComponent implements OnInit {
   @Input() message: Message
+  @Input() peer: User
 
   public moving = false
   private audioRef: HTMLAudioElement
@@ -106,7 +108,7 @@ export class MessageComponent implements OnInit {
     )
     this.audioIndex = this.store.ui.addAudio(this.audioRef)
     this.audioRef.currentTime = startAt
-    this.audioRef.ontimeupdate = (e) => {
+    this.audioRef.ontimeupdate = async (e) => {
       if (
         (e.target as HTMLAudioElement).currentTime >= 1 &&
         this.message.direction === 'receive' &&
@@ -116,6 +118,7 @@ export class MessageComponent implements OnInit {
         this.store.message
           .patch(this.message._id, { currentTime: 1000 })
           .subscribe()
+        await scheduleNotification(this.peer)
         this.audioRef.ontimeupdate = () => {}
       }
     }

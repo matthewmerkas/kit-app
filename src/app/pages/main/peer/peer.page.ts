@@ -10,6 +10,7 @@ import { catchError } from 'rxjs/operators'
 import { CdkScrollable } from '@angular/cdk/overlay'
 import { Platform } from '@ionic/angular'
 import { getItem, getToken, setItem } from '../../../functions/local-storage'
+import { cancelNotification } from '../../../functions/push-notifications'
 
 @Component({
   selector: 'app-peer',
@@ -162,6 +163,7 @@ export class PeerPage implements OnInit {
           this.status = 'ready'
           this.store.message.push({ ...res, peer: this.peer })
           this.scrollToBottom(true)
+          cancelNotification(this.peer._id)
           return res
         }),
         catchError((err) => {

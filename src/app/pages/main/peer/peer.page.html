@@ -39,6 +39,7 @@
       <app-message
         *cdkVirtualFor="let message of store.message.array"
         [message]="message"
+        [peer]="peer"
       ></app-message>
     </cdk-virtual-scroll-viewport>
   </div>

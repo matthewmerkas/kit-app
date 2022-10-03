@@ -1,9 +1,15 @@
 import { PushNotifications } from '@capacitor/push-notifications'
 import { Store } from '../stores/store'
-import { getItem, setItem } from './local-storage'
+import { getItem, getMap, setItem, setMap } from './local-storage'
 import { Router } from '@angular/router'
+import { DateTime } from 'luxon'
 import { ToastrService } from 'ngx-toastr'
 import { take } from 'rxjs'
+import {
+  LocalNotificationDescriptor,
+  LocalNotifications,
+} from '@capacitor/local-notifications'
+import { User } from './types'
 
 export const addListeners = async (
   router: Router,
@@ -29,6 +35,16 @@ export const addListeners = async (
     }
   })
 
+  await LocalNotifications.addListener(
+    'localNotificationActionPerformed',
+    (res) => {
+      const id = res.notification.extra.peerId
+      if (id) {
+        router.navigate(['/home/peer/' + id])
+      }
+    }
+  )
+
   await PushNotifications.addListener('pushNotificationReceived', (res) => {
     const id = res.data.peerId
     const displayName = res.data.peerDisplayName
@@ -38,7 +54,6 @@ export const addListeners = async (
         .info('New message from ' + displayName)
         .onTap.pipe(take(1))
         .subscribe(() => {
-          console.log('tap registered')
           router.navigate(['/home/peer/' + id])
         })
     }
@@ -57,8 +72,26 @@ export const addListeners = async (
 
 export const createChannels = async () => {
   await PushNotifications.createChannel({
+    id: 'follow-up',
+    name: 'Follow-up',
+    importance: 4, // High priority
+    visibility: -1, // Secret
+    lights: true,
+    lightColor: '#FFC409',
+    vibration: true,
+  })
+  await PushNotifications.createChannel({
     id: 'messages',
     name: 'Messages',
+    importance: 4, // High priority
+    visibility: -1, // Secret
+    lights: true,
+    lightColor: '#FFC409',
+    vibration: true,
+  })
+  await PushNotifications.createChannel({
+    id: 'reminders',
+    name: 'Reminders',
     importance: 4, // High priority
     visibility: -1, // Secret
     lights: true,
@@ -75,5 +108,48 @@ export const registerNotifications = async () => {
     await PushNotifications.register()
   } else {
     // Show some error
+  }
+}
+
+export const scheduleNotification = async (peer: User) => {
+  const notifications = [
+    {
+      id: Math.floor(Math.random() * 100000000),
+      channelId: 'follow-up',
+      schedule: {
+        at: DateTime.now().plus({ hours: 1 }).toJSDate(),
+      },
+      extra: {
+        peerDisplayName: peer.nickname || peer.displayName,
+        peerId: peer._id,
+      },
+      title: peer.nickname || peer.displayName + ' is waiting for a reply',
+      body: 'Tap here to send a message',
+      group: 'peer-' + peer._id,
+    },
+  ]
+  const res = await LocalNotifications.schedule({ notifications })
+  if (res.notifications.length > 0) {
+    const map = getMap('scheduled_notifications') as Map<
+      string,
+      LocalNotificationDescriptor
+    >
+    if (map.has(peer._id)) {
+      await LocalNotifications.cancel({ notifications: [map.get(peer._id)] })
+    }
+    map.set(peer._id, res.notifications[0])
+    setMap('scheduled_notifications', map)
+  }
+}
+
+export const cancelNotification = async (peerId: string) => {
+  const map = getMap('scheduled_notifications') as Map<
+    string,
+    LocalNotificationDescriptor
+  >
+  if (map.has(peerId)) {
+    await LocalNotifications.cancel({ notifications: [map.get(peerId)] })
+    map.delete(peerId)
+    setMap('scheduled_notifications', map)
   }
 }

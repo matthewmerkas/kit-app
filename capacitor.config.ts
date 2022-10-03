@@ -6,6 +6,9 @@ const config: CapacitorConfig = {
   webDir: 'www',
   bundledWebRuntime: false,
   plugins: {
+    LocalNotifications: {
+      smallIcon: 'ic_stat_name',
+    },
     PushNotifications: {
       presentationOptions: ['sound'],
     },
