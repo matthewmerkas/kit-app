@@ -10,7 +10,11 @@ ion-item {
 }
 
 small {
+  &.flex {
+    flex-wrap: nowrap;
+  }
   ion-icon {
+    min-width: 16px;
     padding-right: 2px;
   }
   color: var(--ion-color-medium);
