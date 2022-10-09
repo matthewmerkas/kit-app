@@ -123,7 +123,7 @@ export const scheduleNotification = async (peer: User) => {
         peerDisplayName: peer.nickname || peer.displayName,
         peerId: peer._id,
       },
-      title: peer.nickname || peer.displayName + ' is waiting for a reply',
+      title: (peer.nickname || peer.displayName) + ' is waiting for a reply',
       body: 'Tap here to send a message',
       group: 'peer-' + peer._id,
     },
