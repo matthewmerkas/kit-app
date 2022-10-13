@@ -17,6 +17,7 @@ export const addListeners = async (
   toastr?: ToastrService
 ) => {
   await PushNotifications.addListener('registration', (token) => {
+    setItem('fcm_token', token.value)
     store?.user.updateMe({ fcmToken: token.value }).subscribe()
   })
 

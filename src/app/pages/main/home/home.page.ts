@@ -7,7 +7,6 @@ import {
   getItem,
   getToken,
   removeTokens,
-  setItem,
 } from '../../../functions/local-storage'
 import { Store } from '../../../stores/store'
 import {
@@ -52,8 +51,13 @@ export class HomePage implements OnInit {
   }
 
   logout() {
-    removeTokens()
-    return this.router.navigate(['/auth'])
+    const data = {
+      fcmToken: getItem('fcm_token'),
+    }
+    this.store.user.logout(data).subscribe(() => {
+      removeTokens()
+      return this.router.navigate(['/auth'])
+    })
   }
 
   refresh(ev) {

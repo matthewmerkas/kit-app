@@ -80,6 +80,11 @@ export class UserStore extends BaseStore {
   }
 
   @action
+  logout(data: any): Observable<any> {
+    return this.http.post<any>(this.url + apiConfig.user.logout, data)
+  }
+
+  @action
   refresh(data: any): Observable<any> {
     return this.http.post<any>(this.url + apiConfig.user.refresh, data).pipe(
       map((res: Jwt) => {
