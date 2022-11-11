@@ -2,6 +2,8 @@
 
 Matthew Merkas 2022 Thesis Project
 
+Try a demo of the app [here](https://mattopia.servegame.com/kitapp/)
+
 ![Screenshots](https://user-images.githubusercontent.com/13912918/194057346-9470dfd6-c366-478b-a260-1976359226c2.png)
 
 ## Development server
